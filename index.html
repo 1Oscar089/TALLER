@@ -24,10 +24,9 @@
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,select,textarea{font-family:inherit}
   ::selection{background:var(--lima);color:var(--lima-ink)}
-  :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
+  :focus-visible{outline:2px solid var(--morado);offset:2px;border-radius:4px}
   svg{display:block}
 
-  /* ripple */
   .ripple{position:relative;overflow:hidden}
   .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards}
   @keyframes rp{to{transform:scale(2.6);opacity:0}}
@@ -57,7 +56,7 @@
 
   .wrap{max-width:1200px;margin:0 auto;padding:28px 24px 90px}
 
-  /* ============ HERO COLORIDO ============ */
+  /* ============ HERO ============ */
   .hero{position:relative;overflow:hidden;border-radius:26px;padding:46px 46px 40px;color:#fff;
     background:
       radial-gradient(640px 320px at 88% -30%, rgba(239,68,68,.6), transparent 62%),
@@ -76,7 +75,8 @@
   h1.hero-t{font-family:var(--fd);font-weight:700;font-size:clamp(34px,4.8vw,58px);line-height:1.06;letter-spacing:-.015em}
   h1.hero-t em{font-style:normal;color:var(--lima);position:relative;white-space:nowrap}
   h1.hero-t em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(212,245,66,.28);border-radius:3px}
-  .hero-sub{margin-top:14px;max-width:560px;font-size:15.5px;color:rgba(255,255,255,.82)}
+  .hero-sub{margin-top:14px;max-width:580px;font-size:15.5px;color:rgba(255,255,255,.82)}
+  .hero-sub code{font-family:var(--fm);font-size:13px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:1px 7px;border-radius:6px;color:var(--lima)}
   .hero-cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.18s;border:none}
   .btn-lima{background:var(--lima);color:var(--lima-ink);box-shadow:0 6px 18px rgba(212,245,66,.35)}
@@ -163,22 +163,23 @@
   .state-panel{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:46px 40px;text-align:center}
   .state-panel .glyph{width:66px;height:66px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center}
   .state-panel h3{font-family:var(--fd);font-size:26px;font-weight:700;margin-bottom:8px}
-  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:540px;margin:0 auto}
+  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:560px;margin:0 auto}
   .state-panel .acts{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   .btn-morado{background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;box-shadow:0 6px 16px rgba(124,58,237,.35)}
   .btn-morado:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(124,58,237,.45)}
   .btn-s{background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
   .btn-s:hover{border-color:var(--ink-soft)}
-  .steps{text-align:left;max-width:600px;margin:28px auto 0;display:flex;flex-direction:column}
+  .steps{text-align:left;max-width:620px;margin:28px auto 0;display:flex;flex-direction:column}
   .step{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:14px 0;position:relative}
   .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:46px;bottom:-2px;width:1px;background:var(--line)}
   .step .sn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;display:grid;place-items:center;font-family:var(--fm);font-size:13px}
   .step h5{font-size:14.5px;font-weight:700;margin-bottom:3px}
   .step p{font-size:13px;color:var(--ink-soft);margin:0;max-width:none}
   .step code{font-family:var(--fm);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--morado-deep)}
-  .setup-form{display:flex;gap:10px;max-width:600px;margin:26px auto 0}
+  .setup-form{display:flex;gap:10px;max-width:620px;margin:26px auto 0}
   .setup-form input{flex:1;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-family:var(--fm);background:var(--bg);color:var(--ink);outline:none;transition:.2s}
   .setup-form input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+  .setup-form-label{max-width:620px;margin:26px auto 0;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:left}
 
   /* ============ FOOTER ============ */
   footer{border-top:1px solid var(--line);padding:22px 0 44px}
@@ -186,7 +187,7 @@
   .foot-dots{display:inline-flex;gap:5px;margin-right:10px;vertical-align:-1px}
   .foot-dots i{width:8px;height:8px;border-radius:50%}
 
-  /* ============ OVERLAYS / MODALES ============ */
+  /* ============ MODALES ============ */
   .overlay{position:fixed;inset:0;background:rgba(30,27,46,.5);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
   .overlay.open{display:flex;animation:fadeIn .2s ease}
   @keyframes fadeIn{from{opacity:0}}
@@ -199,21 +200,25 @@
   .field{margin-bottom:16px}
   .field label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
   .field label b{color:var(--rojo)}
+  .field label span{color:#A9A6BB;text-transform:none;letter-spacing:0}
   .field input{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
   .field input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+  .field input.mono{font-family:var(--fm);font-size:13px}
+  .url-preview{margin:-8px 0 16px;font-family:var(--fm);font-size:11.5px;color:var(--morado-deep);background:linear-gradient(120deg,#F5F1FE,#EEF3FE);border:1px dashed var(--lila);border-radius:9px;padding:8px 12px;word-break:break-all}
   .swatches{display:flex;gap:9px;flex-wrap:wrap}
-  .sw-opt{width:34px;height:34px;border-radius:50%;background:var(--c);border:3px solid transparent;transition:.15s;position:relative}
+  .sw-opt{width:34px;height:34px;border-radius:50%;background:var(--c);border:3px solid transparent;transition:.15s}
   .sw-opt:hover{transform:scale(1.12)}
   .sw-opt.active{border-color:var(--ink);box-shadow:0 0 0 3px #fff inset,0 3px 8px rgba(30,27,46,.25)}
   .modal-acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
   .modal-acts .btn-morado{flex:1;justify-content:center}
   .modal-hint{margin-top:16px;padding:13px 15px;background:linear-gradient(120deg,#F5F1FE,#EEF3FE);border-radius:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.65;border:1px solid #EAE4F9}
+  .modal-hint code{font-family:var(--fm);font-size:11.5px;background:#fff;border:1px solid var(--line);padding:0 5px;border-radius:5px;color:var(--morado-deep)}
   .test-line{margin-top:14px;font-size:13px;min-height:20px;display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
   .test-line.ok{color:#65A30D;font-weight:600}.test-line.bad{color:var(--rojo);font-weight:600}
   .danger-link{margin-top:14px;font-size:12.5px;color:var(--rojo);text-decoration:underline;text-underline-offset:3px;padding:4px 0}
   .danger-link:hover{opacity:.75}
 
-  /* ============ DRAWER (hoja de la herramienta) ============ */
+  /* ============ DRAWER ============ */
   .drawer-ov{position:fixed;inset:0;background:rgba(30,27,46,.4);z-index:110;opacity:0;pointer-events:none;transition:.3s}
   .drawer-ov.open{opacity:1;pointer-events:auto}
   .drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,94vw);background:var(--surface);z-index:120;transform:translateX(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-14px 0 44px rgba(30,27,46,.2)}
@@ -289,8 +294,8 @@
 
 <div class="demo-note" id="demoNote">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-  Estás viendo <b>datos de ejemplo</b>. Conecta tu Google Sheet para gestionar módulos reales.
-  <button id="demoToSettings">Conectar</button>
+  Estás viendo <b>datos de ejemplo</b>. Pega tu URL /exec en <b>APPS_SCRIPT_URL</b> (dentro del HTML) para conectar.
+  <button id="demoToSettings">Ajustes</button>
 </div>
 
 <div class="wrap">
@@ -302,7 +307,7 @@
       <span class="glass-pill" id="heroClock">—</span>
     </div>
     <h1 class="hero-t">Todas tus herramientas,<br><em>un solo taller.</em></h1>
-    <p class="hero-sub">Cada módulo vive en el índice, tiene su propia hoja de datos en Google Sheets y se abre con un clic. Agrega, organiza y despliega sin tocar código.</p>
+    <p class="hero-sub">El índice vive aquí, los módulos en <code>pages/</code> y sus datos en Google Sheets: una hoja <code>INDEX</code> y una hoja propia por módulo. Cero configuración en cada dispositivo.</p>
     <div class="hero-cta">
       <button class="btn btn-lima ripple" id="btnAdd">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -346,8 +351,8 @@
 
 <footer>
   <div class="foot-in">
-    <span><span class="foot-dots"><i style="background:var(--morado)"></i><i style="background:var(--azul)"></i><i style="background:var(--rojo)"></i><i style="background:var(--lima)"></i></span>TALLER · hoja INDEX + una hoja por módulo</span>
-    <span>frontend: GitHub Pages · datos: Google Sheets</span>
+    <span><span class="foot-dots"><i style="background:var(--morado)"></i><i style="background:var(--azul)"></i><i style="background:var(--rojo)"></i><i style="background:var(--lima)"></i></span>TALLER · INDEX + hoja por módulo · rutas → /pages/</span>
+    <span>URL /exec fijada en el código · GitHub Pages</span>
   </div>
 </footer>
 
@@ -362,21 +367,20 @@
     </div>
     <div class="modal-body">
       <div class="field">
-        <label for="urlInput">URL /exec de tu Apps Script</label>
-        <input type="url" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+        <label for="urlInput">URL /exec de Apps Script</label>
+        <input type="url" id="urlInput" class="mono" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
       </div>
       <div class="modal-acts">
         <button class="btn btn-morado ripple" id="btnTest">Probar y guardar</button>
-        <button class="btn btn-s ripple" id="btnDemo">Datos de ejemplo</button>
+        <button class="btn btn-s ripple" id="btnRestore" hidden>Restaurar la del código</button>
       </div>
       <div class="test-line" id="testLine"></div>
       <div class="modal-hint">
-        Pega el archivo <b>Code.gs</b> en Extensiones → Apps Script de tu hoja, ejecuta una vez la función
-        <b>instalar</b> (crea la hoja <b>INDEX</b>) y despliega como app web con acceso «Cualquier persona».
-        Columnas de INDEX: <b>id · titulo · descripcion · url · categoria · color · hoja · creado</b>.
-        Cada módulo nuevo recibe <b>su propia hoja</b> automáticamente.
+        La URL <b>canónica</b> vive en la constante <code>APPS_SCRIPT_URL</code> al inicio del script de este
+        <code>index.html</code>: edítala <b>una sola vez</b> y funcionará igual en todos tus dispositivos,
+        sin configurar nada más. Lo que guardes aquí es solo un <b>override local</b> de este navegador,
+        por si quieres probar otra implementación sin tocar el código.
       </div>
-      <button class="danger-link" id="btnForget">Quitar URL guardada de este navegador</button>
     </div>
   </div>
 </div>
@@ -400,9 +404,10 @@
         <input type="text" id="fDesc" placeholder="Qué hace, en una línea" maxlength="140">
       </div>
       <div class="field">
-        <label for="fUrl">URL de la herramienta</label>
-        <input type="url" id="fUrl" placeholder="https://tu-usuario.github.io/repo/ (opcional)">
+        <label for="fFile">Archivo en pages/ <span>· o pega una URL http para algo externo</span></label>
+        <input type="text" id="fFile" class="mono" placeholder="acortador.html" spellcheck="false">
       </div>
+      <div class="url-preview" id="filePreview">—</div>
       <div class="field">
         <label for="fCat">Categoría</label>
         <input type="text" id="fCat" list="catList" placeholder="Ej: Desarrollo" maxlength="40">
@@ -418,7 +423,10 @@
           Crear módulo y su hoja
         </button>
       </div>
-      <div class="modal-hint">Se escribirá una fila en la hoja <b>INDEX</b> y se creará una hoja propia con este nombre para los datos del módulo (clave · valor · fecha).</div>
+      <div class="modal-hint">
+        Se escribirá una fila en la hoja <b>INDEX</b> y se creará una hoja propia para los datos del módulo.
+        El archivo se resolverá dentro de <b>pages/</b> automáticamente: escribe solo el nombre, ej. <code>acortador.html</code>.
+      </div>
     </div>
   </div>
 </div>
@@ -463,35 +471,39 @@
 <div class="toasts" id="toasts"></div>
 
 <script>
-/* ════════════════════════════════════════════════════════════
-   CONFIGURACIÓN — pega aquí tu URL /exec de Apps Script
-   (o déjala vacía y pégala desde el engranaje: queda guardada
-   en localStorage de tu navegador)
-   ════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = ""; // ej: "https://script.google.com/macros/s/AKfycb…/exec"
+/* ═══════════════════════════════════════════════════════════════
+   ⚙️  CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
+   ═══════════════════════════════════════════════════════════════
+   1) APPS_SCRIPT_URL → pega tu URL /exec UNA SOLA VEZ aquí.
+      Al estar en el código, sirve para todos los dispositivos
+      (no hay que configurar nada en cada navegador).
+   2) PAGES_DIR → carpeta donde viven tus módulos en el repo.
+      Las rutas de las herramientas se resuelven hacia ahí.
+   ═══════════════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = ""; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const PAGES_DIR       = "pages/"; // ← carpeta de módulos en tu repo
 
-const LS_URL  = "taller.sheetsUrl";
+const LS_URL  = "taller.sheetsUrlOverride"; // override local opcional
 const LS_VIEW = "taller.view";
 const $ = id => document.getElementById(id);
 
 /* ---------- paleta de módulos ---------- */
 const POOL = ['#7C3AED','#2563EB','#EF4444','#F97316','#EC4899','#65A30D','#0EA5E9','#14B8A6'];
-const CAT_MAP = {desarrollo:'#2563EB', diseno:'#EC4899', diseño:'#EC4899', utilidades:'#F97316', productividad:'#7C3AED', finanzas:'#65A30D', datos:'#0EA5E9', medios:'#14B8A6'};
+const CAT_MAP = {desarrollo:'#2563EB', diseno:'#EC4899', utilidades:'#F97316', productividad:'#7C3AED', finanzas:'#65A30D', datos:'#0EA5E9', medios:'#14B8A6'};
 
-/* ---------- demo (solo si no hay hoja conectada) ---------- */
+/* ---------- demo (solo para previsualizar sin hoja) ---------- */
 const DEMO = [
-  {titulo:'Acortador de enlaces', descripcion:'Acorta y nombra URLs largas con un clic.', url:'https://acorta.local/', categoria:'Utilidades', color:'#F97316'},
-  {titulo:'Generador de paletas', descripcion:'Paletas armónicas desde un tono base.', url:'https://paletas.local/', categoria:'Diseño', color:'#EC4899'},
-  {titulo:'Editor de JSON', descripcion:'Valida y formatea JSON con árbol navegable.', url:'https://json.local/', categoria:'Desarrollo', color:'#2563EB'},
-  {titulo:'Pomodoro de enfoque', descripcion:'Sesiones 25/5 con registro diario.', url:'https://pomodoro.local/', categoria:'Productividad', color:'#7C3AED'},
-  {titulo:'Calculadora de préstamos', descripcion:'Cuotas, intereses y amortización.', url:'https://prestamos.local/', categoria:'Finanzas', color:'#65A30D'},
-  {titulo:'Probador de APIs', descripcion:'Peticiones GET/POST y respuesta cruda.', url:'', categoria:'Desarrollo', color:'#0EA5E9'}
+  {titulo:'Acortador de enlaces', descripcion:'Acorta y nombra URLs largas con un clic.', url:'acortador.html', categoria:'Utilidades', color:'#F97316', hoja:'Acortador de enlaces'},
+  {titulo:'Generador de paletas', descripcion:'Paletas armónicas desde un tono base.', url:'paletas.html', categoria:'Diseño', color:'#EC4899', hoja:'Generador de paletas'},
+  {titulo:'Editor de JSON', descripcion:'Valida y formatea JSON con árbol navegable.', url:'editor-json.html', categoria:'Desarrollo', color:'#2563EB', hoja:'Editor de JSON'},
+  {titulo:'Pomodoro de enfoque', descripcion:'Sesiones 25/5 con registro diario.', url:'pomodoro.html', categoria:'Productividad', color:'#7C3AED', hoja:'Pomodoro de enfoque'},
+  {titulo:'Probador de APIs', descripcion:'Peticiones GET/POST y respuesta cruda.', url:'', categoria:'Desarrollo', color:'#0EA5E9', hoja:'Probador de APIs'}
 ];
 
 /* ---------- estado ---------- */
 let tools = [], source = '—', lastSync = null;
 let activeCat = 'todas', query = '', view = localStorage.getItem(LS_VIEW) || 'list';
-let addColor = POOL[0], drawerTool = null, delArmed = false;
+let addColor = POOL[0], drawerTool = null, delArmed = false, fileDirty = false;
 
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -499,6 +511,22 @@ const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u030
 const hashIdx = (str,n) => { let h=0; for(const c of str) h=(h*31+c.charCodeAt(0))>>>0; return h%n; };
 const debounce = (fn,ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
 const hostOf = u => { try{ return new URL(u).hostname.replace(/^www\./,''); }catch{ return ''; } };
+const slug = s => norm(s).replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').replace(/-+/g,'-');
+const isExternal = u => /^https?:\/\//i.test(u);
+
+/* Resuelve la ruta de un módulo: nombre de archivo → pages/, http → tal cual */
+function resolveUrl(u){
+  u = String(u||'').trim();
+  if(!u) return '';
+  if(isExternal(u)) return u;
+  if(u.startsWith('/')) return u.substring(1); // relativa a la raíz del repo
+  return PAGES_DIR + u.replace(/^\/+/,'');
+}
+function destLabel(t){
+  const u = resolveUrl(t.url);
+  if(!u) return '';
+  return isExternal(u) ? (hostOf(u) || 'enlace externo') : u;
+}
 function pick(row, keys){ for(const k of Object.keys(row)){ if(keys.includes(norm(k))){ const v=row[k]; if(v!==''&&v!=null) return v; } } return ''; }
 function hexToRgb(hex){ const m=hex.replace('#',''); return {r:parseInt(m.slice(0,2),16), g:parseInt(m.slice(2,4),16), b:parseInt(m.slice(4,6),16)}; }
 function rgba(hex,a){ const {r,g,b}=hexToRgb(hex); return `rgba(${r},${g},${b},${a})`; }
@@ -543,10 +571,8 @@ setInterval(tickClock, 1000); tickClock();
 setInterval(()=>{
   if(!lastSync) return;
   const s = Math.floor((Date.now()-lastSync)/1000);
-  const txt = s<60 ? `hace ${s}s` : `hace ${Math.floor(s/60)}m`;
-  $('stSyncTmp'); // (no-op)
   if($('syncDot').classList.contains('on')){
-    $('syncText').textContent = `sincronizado · ${txt}`;
+    $('syncText').textContent = `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`;
   }
 },1000);
 
@@ -556,7 +582,7 @@ function normalize(rows){
     id:     String(pick(r,['id'])||''),
     titulo: String(pick(r,['titulo','título','nombre','title'])||'').trim(),
     desc:   String(pick(r,['descripcion','descripción','desc'])||'').trim(),
-    url:    String(pick(r,['url','link','enlace'])||'').trim(),
+    url:    String(pick(r,['url','link','enlace','archivo','file'])||'').trim(),
     cat:    String(pick(r,['categoria','categoría','cat','area','área'])||'General').trim()||'General',
     color:  String(pick(r,['color'])||'').trim(),
     hoja:   String(pick(r,['hoja','sheet'])||'').trim(),
@@ -565,7 +591,7 @@ function normalize(rows){
 }
 
 /* ---------- API ---------- */
-function getUrl(){ return APPS_SCRIPT_URL || localStorage.getItem(LS_URL) || ''; }
+function getUrl(){ return (localStorage.getItem(LS_URL) || APPS_SCRIPT_URL || '').trim(); }
 async function apiGetIndex(){
   const res = await fetch(getUrl(), {method:'GET', redirect:'follow'});
   if(!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -648,18 +674,25 @@ function renderChips(){
   const cats = {}; tools.forEach(t=>cats[t.cat]=(cats[t.cat]||0)+1);
   const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,'es'));
   const chip = (name,label,n)=>{
-    const c = name==='todas' ? null : colorDe({cat:name,color:''});
     if(name==='todas')
-      return `<button class="chip ripple ${activeCat==='todas'?'active':''}" data-cat="todas" style="--c:var(--ink)">Todas <span class="n">${n}</span></button>`;
-    return `<button class="chip ripple ${activeCat===name?'active':''}" data-cat="${esc(name)}"
-      style="--c:${c};${activeCat===name?`background:${c};color:${onColor(c)};border-color:${c}`:`color:${darken(c,.8)};border-color:${rgba(c,.45)}`};background:${activeCat===name?'':rgba(c,.08)}">
-      ${esc(label)} <span class="n">${n}</span></button>`;
+      return `<button class="chip ripple ${activeCat==='todas'?'active':''}" data-cat="todas">Todas <span class="n">${n}</span></button>`;
+    const c = colorDe({cat:name,color:''});
+    const style = activeCat===name
+      ? `background:${c};color:${onColor(c)};border-color:${c}`
+      : `color:${darken(c,.8)};border-color:${rgba(c,.45)};background:${rgba(c,.08)}`;
+    return `<button class="chip ripple ${activeCat===name?'active':''}" data-cat="${esc(name)}" style="${style}">${esc(label)} <span class="n">${n}</span></button>`;
   };
   $('chips').innerHTML = chip('todas','Todas',tools.length) + names.map(c=>chip(c,c,cats[c])).join('');
   $('chips').querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{ activeCat=ch.dataset.cat; renderAll(); }));
 }
 function itemHTML(t,i,q){
   const c = colorDe(t);
+  const dest = resolveUrl(t.url);
+  const ext = isExternal(dest);
+  const open = dest
+    ? `href="${esc(dest)}"${ext?' target="_blank" rel="noopener"':''}`
+    : `data-pend="${i}" role="button" tabindex="0"`;
+  const tag = `<span class="tag-${t.url?'a':'b'}"></span>`;
   const badge = `<span class="badge" style="background:${c};color:${onColor(c)}">${esc(t.cat)}</span>`;
   const hojaTag = t.hoja ? `<span class="host">▦ ${esc(t.hoja)}</span>` : `<span class="host">— sin hoja —</span>`;
   const monogram = `<span class="mono-badge" style="background:linear-gradient(135deg,${c},${darken(c,.72)})">${esc(t.titulo.charAt(0).toUpperCase())}</span>`;
@@ -671,26 +704,20 @@ function itemHTML(t,i,q){
       <button class="mini hoja" data-hoja="${i}" title="Ver su hoja de datos">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       </button>
-      ${t.url
-        ? `<span class="go-arrow"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>`
-        : `<span class="go-arrow" style="color:${c}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>`}
+      <span class="go-arrow"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
     </span>`;
   if(view==='list'){
-    const open = t.url
-      ? `href="${esc(t.url)}" target="_blank" rel="noopener"`
-      : `data-pend="${i}" role="button" tabindex="0"`;
-    return `<${t.url?'a':'div'} class="row go" ${open} style="--c:${c};--cs:${rgba(c,.08)};animation-delay:${Math.min(i*35,350)}ms">
+    return `<${dest?'a':'div'} class="row go" ${open} style="--c:${c};--cs:${rgba(c,.08)};animation-delay:${Math.min(i*35,350)}ms">
       <span class="idx">${String(i+1).padStart(2,'0')}</span>${monogram}${body}
-      <span class="row-meta">${badge}${hojaTag}</span>${acts}</${t.url?'a':'div'}>`;
+      <span class="row-meta">${badge}${hojaTag}</span>${acts}</${dest?'a':'div'}>`;
   }
-  return `<${t.url?'a':'div'} class="card go" ${t.url?`href="${esc(t.url)}" target="_blank" rel="noopener"`:`data-pend="${i}" role="button" tabindex="0"`}
-      style="animation-delay:${Math.min(i*40,400)}ms" data-card="${i}">
+  return `<${dest?'a':'div'} class="card go" ${open} style="animation-delay:${Math.min(i*40,400)}ms" data-card="${i}">
       <span class="card-band"></span>
       <div style="display:flex;justify-content:space-between;align-items:flex-start">${monogram}${badge}</div>
       <h3>${highlight(t.titulo,q)}</h3>
       <p>${highlight(t.desc||'Sin descripción aún.',q)}</p>
       <div class="card-foot">
-        <span class="host">${t.url?esc(hostOf(t.url))||'—':'pendiente de URL'}</span>
+        <span class="host">${t.url?esc(destLabel(t)):'sin destino · solo hoja'}</span>
         <span class="card-acts">
           <button class="mini hoja" data-hoja="${i}" title="Ver su hoja">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
@@ -698,7 +725,7 @@ function itemHTML(t,i,q){
           <span class="go-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         </span>
       </div>
-    </${t.url?'a':'div'}>`;
+    </${dest?'a':'div'}>`;
 }
 function renderList(){
   const list = filtered(), q = norm(query);
@@ -758,7 +785,7 @@ function renderEmptyIndex(){
   $('emptyAdd').addEventListener('click',openAdd);
   $('emptySettings').addEventListener('click',openSettings);
   $('statTools').textContent='0'; $('statCats').textContent='0'; $('statSheets').textContent='0';
-  $('chips').innerHTML=''; renderChips();
+  $('chips').innerHTML='';
 }
 function renderSetup(){
   ['statTools','statCats','statSheets'].forEach(id=>$(id).textContent='—');
@@ -766,16 +793,17 @@ function renderSetup(){
   $('content').innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-    <h3>Conecta tu Google Sheet</h3>
-    <p>Un spreadsheet, muchas hojas: <b>INDEX</b> guarda la lista y cada módulo tiene la suya.</p>
+    <h3>Falta un paso: tu URL /exec</h3>
+    <p>La forma correcta es fijarla en el código, <b>una sola vez</b> para todos los dispositivos.</p>
     <div class="steps">
       <div class="step"><span class="sn">1</span><div><h5>Pega el Code.gs</h5>
-        <p>Dentro de tu hoja: <code>Extensiones → Apps Script</code>, borra todo y pega el archivo <code>Code.gs</code> que acompaña a esta página.</p></div></div>
-      <div class="step"><span class="sn">2</span><div><h5>Ejecuta <code>instalar</code> una vez</h5>
-        <p>Autoriza los permisos: se crea la hoja <code>INDEX</code> con sus encabezados listos.</p></div></div>
-      <div class="step"><span class="sn">3</span><div><h5>Despliega y pega la URL</h5>
-        <p><code>Implementar → App web</code> · ejecutar como <b>yo</b> · acceso <b>cualquier persona</b>. Copia la URL <code>/exec</code> aquí abajo.</p></div></div>
+        <p>Dentro de tu hoja: <code>Extensiones → Apps Script</code>, pega el archivo <code>Code.gs</code> y ejecuta una vez <code>instalar</code> (crea la hoja INDEX).</p></div></div>
+      <div class="step"><span class="sn">2</span><div><h5>Despliega la app web</h5>
+        <p><code>Implementar → App web</code> · ejecutar como <b>yo</b> · acceso <b>cualquier persona</b>. Copia la URL que termina en <code>/exec</code>.</p></div></div>
+      <div class="step"><span class="sn">3</span><div><h5>Pégala en el HTML (una vez)</h5>
+        <p>Abre <code>index.html</code> y escribe la URL en la constante <code>APPS_SCRIPT_URL</code>, al inicio del script. Listo: sirve en todos tus dispositivos y visitantes.</p></div></div>
     </div>
+    <div class="setup-form-label">…o solo para este navegador (override temporal)</div>
     <div class="setup-form">
       <input type="url" id="setupUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
       <button class="btn btn-morado ripple" id="setupConnect">Conectar</button>
@@ -786,7 +814,7 @@ function renderSetup(){
   $('setupConnect').addEventListener('click',()=>{
     const u = $('setupUrl').value.trim();
     if(!validUrl(u)) return;
-    localStorage.setItem(LS_URL,u); toast('URL guardada. Conectando…','ok'); load();
+    localStorage.setItem(LS_URL,u); toast('URL guardada localmente. Conectando…','ok'); load();
   });
   $('setupDemo').addEventListener('click',useDemo);
 }
@@ -810,15 +838,16 @@ function openDrawer(t){
   drawerTool = t; delArmed = false;
   const delBtn = $('drDelete');
   delBtn.textContent = 'Eliminar módulo del índice';
-  delBtn.style.background=''; $('drDelSheet').checked=false;
+  delBtn.style.background=''; delBtn.style.color=''; delBtn.style.borderColor='';
+  $('drDelSheet').checked=false;
   const c = colorDe(t);
   const head = $('drawerHead');
   head.style.background = `linear-gradient(120deg,${c},${darken(c,.7)})`;
   head.style.setProperty('--dc',c); head.style.setProperty('--dd',darken(c,.7));
   $('drTitle').textContent = t.titulo;
   $('drMeta').innerHTML = `
-    <span class="dr-tag" style="background:${rgba('#ffffff',.22)}">${esc(t.cat)}</span>
-    ${t.url?`<span class="dr-tag">${esc(hostOf(t.url))||'link'}</span>`:`<span class="dr-tag">sin URL · pendiente</span>`}
+    <span class="dr-tag">${esc(t.cat)}</span>
+    ${t.url?`<span class="dr-tag">${esc(destLabel(t))}</span>`:`<span class="dr-tag">sin destino · solo hoja</span>`}
     ${t.creado?`<span class="dr-tag">creado ${esc(t.creado)}</span>`:''}`;
   $('drSub').textContent = t.hoja ? `Hoja de datos: "${t.hoja}" en tu spreadsheet` : 'Este módulo aún no tiene hoja asignada';
   $('drOpen').hidden = !t.url;
@@ -829,6 +858,7 @@ function openDrawer(t){
 async function loadDrawerSheet(){
   const t = drawerTool; if(!t) return;
   const box = $('drTable');
+  if(source==='demo'){ box.innerHTML = `<div class="dr-empty">Modo ejemplo: conecta tu hoja para ver los datos reales.</div>`; return; }
   if(!t.hoja){ box.innerHTML = `<div class="dr-empty">Sin hoja asignada. Usa «Crear hoja si falta».</div>`; return; }
   box.innerHTML = `<div class="dr-empty">Cargando…</div>`;
   try{
@@ -858,9 +888,12 @@ function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').clas
     toast('Hoja lista','ok'); loadDrawerSheet();
   }catch(err){ toast(err.message,'bad'); }
 });
- $('drOpen').addEventListener('click',()=>{ if(drawerTool?.url) window.open(drawerTool.url,'_blank','noopener'); });
+ $('drOpen').addEventListener('click',()=>{
+  if(drawerTool?.url) window.open(resolveUrl(drawerTool.url), isExternal(resolveUrl(drawerTool.url))?'_blank':'_self');
+});
  $('drDelete').addEventListener('click',async ()=>{
   if(!drawerTool) return;
+  if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
   const btn = $('drDelete');
   if(!delArmed){
     delArmed = true;
@@ -878,9 +911,13 @@ function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').clas
 
 /* ---------- nuevo módulo ---------- */
 function openAdd(){
-  if(source==='demo' || !getUrl()){ toast('Conecta tu Google Sheet para crear módulos','info'); openSettings(); return; }
-  $('fTitulo').value=''; $('fDesc').value=''; $('fUrl').value='';
-  $('fCat').value=''; addColor = POOL[0]; renderSwatches();
+  if(source==='demo' || !getUrl()){
+    toast('Pega tu URL /exec en APPS_SCRIPT_URL (en el HTML) o en Ajustes','info');
+    openSettings(); return;
+  }
+  $('fTitulo').value=''; $('fDesc').value=''; $('fFile').value='';
+  $('fCat').value=''; addColor = POOL[0]; fileDirty = false;
+  renderSwatches(); updateFilePreview();
   $('ovAdd').classList.add('open'); setTimeout(()=>$('fTitulo').focus(),80);
 }
 function renderSwatches(){
@@ -890,6 +927,17 @@ function renderSwatches(){
     addColor = b.dataset.c; renderSwatches();
   }));
 }
+function updateFilePreview(){
+  const v = $('fFile').value.trim();
+  const el = $('filePreview');
+  if(!v){ el.textContent = 'Vacío → módulo sin destino: vivirá solo como hoja de datos.'; return; }
+  el.textContent = '→ ' + new URL(resolveUrl(v), location.href).href;
+}
+ $('fTitulo').addEventListener('input',()=>{
+  if(!fileDirty) $('fFile').value = slug($('fTitulo').value) + '.html';
+  updateFilePreview();
+});
+ $('fFile').addEventListener('input',()=>{ fileDirty=true; updateFilePreview(); });
  $('btnAdd').addEventListener('click',openAdd);
  $('addClose').addEventListener('click',()=>$('ovAdd').classList.remove('open'));
  $('ovAdd').addEventListener('click',e=>{ if(e.target===$('ovAdd')) $('ovAdd').classList.remove('open'); });
@@ -902,7 +950,7 @@ function renderSwatches(){
       action:'addTool',
       titulo,
       descripcion: $('fDesc').value.trim(),
-      url: $('fUrl').value.trim(),
+      url: $('fFile').value.trim(),          // se guarda tal cual; resolveUrl() lo manda a pages/
       categoria: $('fCat').value.trim() || 'General',
       color: addColor
     });
@@ -915,7 +963,9 @@ function renderSwatches(){
 
 /* ---------- ajustes ---------- */
 function openSettings(){
-  $('urlInput').value = localStorage.getItem(LS_URL) || APPS_SCRIPT_URL || '';
+  const override = localStorage.getItem(LS_URL) || '';
+  $('urlInput').value = override || APPS_SCRIPT_URL;
+  $('btnRestore').hidden = !override;
   $('testLine').className='test-line'; $('testLine').textContent='';
   $('ovSettings').classList.add('open'); setTimeout(()=>$('urlInput').focus(),80);
 }
@@ -930,29 +980,28 @@ function closeSettings(){ $('ovSettings').classList.remove('open'); }
   const line = $('testLine');
   line.className='test-line'; line.textContent='Probando conexión…';
   try{
-    const rows = await apiGetIndexFrom(u);
+    const res = await fetch(u,{redirect:'follow'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const j = JSON.parse(await res.text());
+    const rows = Array.isArray(j)?j:(j.data||[]);
+    if(!Array.isArray(rows)) throw new Error('Formato no reconocido');
     const n = normalize(rows).length;
     line.className='test-line ok';
     line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s) en INDEX.`;
-    localStorage.setItem(LS_URL,u); toast('Conexión guardada','ok');
+    localStorage.setItem(LS_URL,u); $('btnRestore').hidden = (u === APPS_SCRIPT_URL);
+    toast(u===APPS_SCRIPT_URL ? 'Conexión verificada' : 'Override local guardado','ok');
     setTimeout(()=>{ closeSettings(); load(); },700);
   }catch(err){
     line.className='test-line bad';
     line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> ${esc(err.message)}`;
   }
 });
-async function apiGetIndexFrom(u){
-  const res = await fetch(u,{redirect:'follow'});
-  if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  const j = JSON.parse(await res.text());
-  const rows = Array.isArray(j)?j:(j.data||[]);
-  if(!Array.isArray(rows)) throw new Error('Formato no reconocido');
-  return rows;
-}
- $('btnDemo').addEventListener('click',()=>{ closeSettings(); useDemo(); });
- $('btnForget').addEventListener('click',()=>{
-  localStorage.removeItem(LS_URL); toast('URL guardada eliminada','info');
-  closeSettings(); renderSetup();
+ $('btnRestore').addEventListener('click',()=>{
+  localStorage.removeItem(LS_URL);
+  $('urlInput').value = APPS_SCRIPT_URL;
+  $('btnRestore').hidden = true;
+  toast('Restaurada la URL del código','info');
+  load();
 });
 
 /* ---------- búsqueda / vista / atajos / sync ---------- */
@@ -992,7 +1041,7 @@ document.addEventListener('keydown',e=>{
 });
 function doSync(){
   const b=$('btnRefresh'); b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin');
-  if(source==='demo' || !getUrl()) { source==='demo' ? useDemo() : load(); }
+  if(!getUrl()){ source==='demo' ? useDemo() : load(); }
   else load(true);
 }
  $('btnRefresh').addEventListener('click',doSync);
