@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabla Periódica · TALLER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --morado:#7C3AED; --morado-deep:#5B21B6; --lila:#A78BFA;
+    --azul:#2563EB; --rojo:#EF4444; --naranja:#F97316;
+    --lima:#D4F542; --lima-ink:#3F5206;
+    --bg:#F5F5FA; --surface:#FFFFFF; --ink:#1E1B2E; --ink-soft:#67647A;
+    --line:#E8E6F2;
+    --sh:0 1px 2px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.07);
+    --sh-lg:0 14px 40px rgba(30,27,46,.16);
+    --fd:'Space Grotesk',sans-serif; --fu:'Archivo',sans-serif; --fm:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input{font-family:inherit}
+  ::selection{background:var(--lima);color:var(--lima-ink)}
+  :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
+  svg{display:block}
+  .ripple{position:relative;overflow:hidden}
+  .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards}
+  @keyframes rp{to{transform:scale(2.6);opacity:0}}
+
+  .band{height:4px;background:linear-gradient(90deg,var(--morado),var(--azul) 35%,var(--rojo) 70%,var(--lima))}
+  header.top{position:sticky;top:0;z-index:60;background:rgba(245,245,250,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .top-in{max-width:1280px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:14px}
+  .back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13.5px;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;text-decoration:none;box-shadow:0 4px 10px rgba(124,58,237,.3);transition:.18s}
+  .back:hover{transform:translateX(-2px);box-shadow:0 6px 16px rgba(124,58,237,.4)}
+  .brand-t{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:.02em}
+  .brand-t small{font-family:var(--fm);font-size:10px;color:var(--ink-soft);letter-spacing:.14em;font-weight:400;margin-left:8px}
+  .top-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+  .sync{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11.5px;color:var(--ink-soft)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.on{background:#65A30D;box-shadow:0 0 0 3px #EAF5D3}
+  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px #FDE8E8}
+  .dot.wait{background:#C6C3D4;box-shadow:0 0 0 3px #ECEAF4}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:22px 20px 80px}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 34px;color:#fff;
+    background:
+      radial-gradient(560px 260px at 90% -40%, rgba(239,68,68,.55), transparent 60%),
+      radial-gradient(460px 240px at -6% 120%, rgba(212,245,66,.38), transparent 60%),
+      linear-gradient(115deg,#5B21B6,#7C3AED 45%,#2563EB 100%);
+    box-shadow:var(--sh-lg)}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
+  .hero>*{position:relative}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .kicker::before{content:"";width:22px;height:3px;background:var(--lima);border-radius:2px}
+  .hero h1{font-family:var(--fd);font-weight:700;font-size:clamp(26px,3.6vw,40px);line-height:1.1;margin-top:10px}
+  .hero h1 em{font-style:normal;color:var(--lima)}
+  .hero-sub{margin-top:8px;font-size:14px;color:rgba(255,255,255,.82);max-width:640px}
+  .hero-sub code{font-family:var(--fm);font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:0 6px;border-radius:6px;color:var(--lima)}
+  .hero-stats{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .hstat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(6px);border-radius:13px;padding:10px 18px;min-width:104px}
+  .hstat .num{font-family:var(--fd);font-weight:700;font-size:24px;line-height:1;font-variant-numeric:tabular-nums}
+  .hstat .lbl{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:4px}
+
+  /* TOOLBAR */
+  .toolbar{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
+  .search{flex:1;min-width:230px;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 15px;box-shadow:var(--sh);transition:.2s}
+  .search:focus-within{border-color:var(--lila);box-shadow:0 0 0 3px rgba(124,58,237,.14),var(--sh)}
+  .search svg{color:var(--ink-soft);flex:none}
+  .search input{flex:1;border:none;background:none;font-size:14.5px;color:var(--ink);outline:none}
+  .search input::placeholder{color:#A9A6BB}
+  .search .clear{display:none;color:var(--ink-soft)}
+  .search.has .clear{display:block}
+  .chip-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;transition:.15s;box-shadow:var(--sh)}
+  .chip-btn:hover{border-color:var(--morado);color:var(--morado)}
+  .match-note{font-family:var(--fm);font-size:12px;color:var(--ink-soft)}
+
+  /* LEYENDA */
+  .legend{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+  .lg{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;border:1.5px solid var(--lc);background:var(--lb);font-size:12px;font-weight:600;color:var(--lt);transition:.15s}
+  .lg:hover{transform:translateY(-1px)}
+  .lg.active{background:var(--lc);color:#fff;box-shadow:0 4px 10px var(--lcsh)}
+  .lg i{width:9px;height:9px;border-radius:3px;background:var(--lc);flex:none}
+  .lg.active i{background:#fff}
+
+  /* TABLA */
+  .pt-wrap{margin-top:18px;overflow-x:auto;padding-bottom:8px}
+  .ptable{display:grid;grid-template-columns:repeat(18,minmax(54px,1fr));gap:5px;min-width:1080px}
+  .spacer{grid-column:1/-1;height:14px}
+  .el{position:relative;aspect-ratio:1/1.08;border-radius:10px;border:1.5px solid var(--ec);background:var(--eb);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:.16s;animation:tileIn .35s ease backwards;cursor:pointer;padding:0}
+  @keyframes tileIn{from{opacity:0;transform:scale(.85)}}
+  .el:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 8px 18px var(--ecsh);z-index:5;border-width:2px}
+  .el .tz{position:absolute;top:3px;left:5px;font-family:var(--fm);font-size:8.5px;color:var(--et);opacity:.75}
+  .el .ts{font-family:var(--fd);font-weight:700;font-size:17px;color:var(--et);line-height:1}
+  .el .tn{font-size:7.5px;color:var(--et);opacity:.8;max-width:94%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .el.dim{opacity:.15;filter:grayscale(1)}
+  .el.hit{outline:2.5px solid var(--morado);outline-offset:1px}
+  .ph{aspect-ratio:1/1.08;border-radius:10px;border:1.5px dashed var(--ec);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+  .ph:hover{background:var(--eb)}
+  .ph b{font-family:var(--fm);font-size:11px;color:var(--et)}
+  .ph span{font-size:8px;color:var(--et);opacity:.75}
+
+  /* MODAL FICHA */
+  .overlay{position:fixed;inset:0;background:rgba(30,27,46,.55);backdrop-filter:blur(5px);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+  .overlay.open{display:flex;animation:fadeIn .18s ease}
+  @keyframes fadeIn{from{opacity:0}}
+  .ficha{background:var(--surface);border-radius:22px;width:100%;max-width:760px;max-height:92vh;overflow:auto;box-shadow:var(--sh-lg);animation:pop .28s cubic-bezier(.2,.9,.3,1.12)}
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}}
+  .ficha-head{display:flex;align-items:center;gap:14px;padding:20px 24px 14px;position:sticky;top:0;background:var(--surface);z-index:2;border-bottom:1px solid var(--line)}
+  .ficha-head h3{font-family:var(--fd);font-size:20px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .icon-btn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--ink-soft);transition:.18s;flex:none}
+  .icon-btn:hover{background:var(--morado);color:#fff}
+  .ficha-body{display:grid;grid-template-columns:264px 1fr;gap:20px;padding:20px 24px 26px}
+  .id-card{display:flex;flex-direction:column;gap:14px}
+  .big-tile{border-radius:18px;border:2px solid var(--ec);background:linear-gradient(145deg,var(--eb),#fff);padding:22px 16px 16px;display:flex;flex-direction:column;align-items:center;position:relative}
+  .big-tile .bz{position:absolute;top:10px;left:12px;font-family:var(--fm);font-size:12px;color:var(--et)}
+  .big-tile .bs{font-family:var(--fd);font-weight:700;font-size:56px;color:var(--et);line-height:1}
+  .big-tile .bn{font-family:var(--fd);font-weight:600;font-size:16px;color:var(--et);margin-top:6px;text-align:center}
+  .big-tile .bm{font-family:var(--fm);font-size:11px;color:var(--et);opacity:.7;margin-top:2px}
+  .cat-badge{align-self:center;font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 13px;border-radius:999px;background:var(--ec);color:#fff;margin-top:-7px;position:relative;box-shadow:0 3px 8px var(--ecsh)}
+  .mini-tags{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}
+  .mtag{font-family:var(--fm);font-size:10.5px;padding:3px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-soft)}
+
+  .lewis-box{border:1.5px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--bg)}
+  .lewis-box h6{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .lewis{position:relative;width:96px;height:96px}
+  .lewis .sym{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:30px;color:var(--ink)}
+  .lewis i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ec)}
+  .lewis-na{font-family:var(--fm);font-size:11px;color:var(--ink-soft);padding:18px 0}
+  .lewis-cap{font-size:11px;color:var(--ink-soft);text-align:center}
+
+  .data-list{display:flex;flex-direction:column;gap:13px;min-width:0}
+  .drow{display:flex;flex-direction:column;gap:5px}
+  .drow>label{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .dval{font-size:14.5px;font-weight:600}
+  .particles{display:flex;gap:9px;flex-wrap:wrap}
+  .part{flex:1;min-width:72px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 12px;text-align:center}
+  .part b{display:block;font-family:var(--fd);font-size:22px;font-weight:700;line-height:1.1}
+  .part span{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .part small{display:block;font-family:var(--fm);font-size:9px;color:#A9A6BB;margin-top:1px}
+  .ox-chips{display:flex;gap:6px;flex-wrap:wrap}
+  .ox{font-family:var(--fm);font-size:12.5px;font-weight:500;padding:4px 11px;border-radius:999px;border:1.5px solid}
+  .conf{font-family:var(--fm);font-size:12.5px;line-height:1.9;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;word-break:break-word;position:relative}
+  .conf sup{font-size:9px}
+  .conf .core{background:var(--lima);color:var(--lima-ink);padding:1px 6px;border-radius:6px;font-weight:500}
+  .copy{position:absolute;top:8px;right:8px;font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:7px;background:var(--surface);border:1px solid var(--line);color:var(--ink-soft)}
+  .copy:hover{color:var(--morado);border-color:var(--morado)}
+  .val-wrap{display:flex;align-items:center;gap:12px}
+  .val-num{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--morado),var(--azul));color:var(--lima);display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:24px;flex:none;box-shadow:0 5px 12px rgba(124,58,237,.3)}
+  .val-src{font-family:var(--fm);font-size:12.5px;color:var(--ink-soft)}
+  .val-src sup{font-size:9px}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 40px}
+  .foot-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--fm);font-size:11px;color:var(--ink-soft)}
+  .foot-in a{color:var(--morado);font-weight:600;text-decoration:none}
+  .foot-in a:hover{text-decoration:underline}
+
+  /* TOASTS */
+  .toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:9px;padding:11px 17px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:var(--sh-lg);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
+  .toast.ok{background:var(--lima);color:var(--lima-ink)}
+  .toast.bad{background:var(--rojo);color:#fff}
+  .toast.info{background:var(--ink);color:#fff}
+  .toast.out{animation:toastOut .3s ease forwards}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+
+  @media(max-width:680px){
+    .ficha-body{grid-template-columns:1fr}
+    .sync span{display:none}
+    .brand-t small{display:none}
+    .hero{padding:24px 22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="band"></div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="back ripple" href="../index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      TALLER
+    </a>
+    <span class="brand-t">Tabla Periódica<small>· MÓDULO</small></span>
+    <div class="top-right">
+      <div class="sync"><span class="dot wait" id="syncDot"></span><span id="syncText">conectando…</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="kicker">Química · 118 elementos</span>
+    <h1>La <em>Tabla Periódica</em>, a un toque.</h1>
+    <p class="hero-sub">Toca cualquier elemento para ver su ficha completa: configuración electrónica, Lewis, estados de oxidación y más. Cada consulta queda registrada en la hoja <code>Tabla Periodica</code> de tu Google Sheet.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">118</div><div class="lbl">elementos</div></div>
+      <div class="hstat"><div class="num" id="statCats">10</div><div class="lbl">familias</div></div>
+      <div class="hstat"><div class="num" id="statLogs">—</div><div class="lbl">consultas en hoja</div></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="search" id="searchBox">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar por nombre, símbolo o número… (pulsa /)" autocomplete="off">
+      <button class="clear" id="searchClear" aria-label="Limpiar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <span class="match-note" id="matchNote"></span>
+    <button class="chip-btn ripple" id="btnSheet" title="Crear la hoja Tabla Periodica si no existe">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+      Crear hoja si falta
+    </button>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="pt-wrap"><div class="ptable" id="ptable"></div></div>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <span>TALLER · módulo de química · hoja "Tabla Periodica"</span>
+    <a href="../index.html">← volver al índice</a>
+  </div>
+</footer>
+
+<!-- FICHA DEL ELEMENTO -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Ficha del elemento">
+  <div class="ficha">
+    <div class="ficha-head">
+      <h3 id="fTitle">—</h3>
+      <button class="icon-btn ripple" id="fClose" aria-label="Cerrar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="ficha-body">
+      <div class="id-card">
+        <div class="big-tile" id="fTile">
+          <span class="bz" id="fZ"></span>
+          <span class="bs" id="fSym"></span>
+          <span class="bn" id="fName"></span>
+          <span class="bm" id="fMass"></span>
+        </div>
+        <span class="cat-badge" id="fCat"></span>
+        <div class="mini-tags" id="fTags"></div>
+        <div class="lewis-box">
+          <h6>Estructura de Lewis</h6>
+          <div id="fLewis"></div>
+          <span class="lewis-cap" id="fLewisCap"></span>
+        </div>
+      </div>
+      <div class="data-list">
+        <div class="particles">
+          <div class="part"><b id="fProt">—</b><span>protones</span><small>Z</small></div>
+          <div class="part"><b id="fElec">—</b><span>electrones</span><small>= Z</small></div>
+          <div class="part"><b id="fNeut">—</b><span>neutrones</span><small id="fNeutHint"></small></div>
+        </div>
+        <div class="drow"><label>Número atómico · Peso atómico</label>
+          <div class="dval" id="fZP">—</div></div>
+        <div class="drow"><label>Electrones de valencia</label>
+          <div class="val-wrap"><span class="val-num" id="fVal">—</span><span class="val-src" id="fValSrc"></span></div></div>
+        <div class="drow"><label>Estados de oxidación</label>
+          <div class="ox-chips" id="fOx"></div></div>
+        <div class="drow"><label>Configuración electrónica completa</label>
+          <div class="conf" id="fConfFull"></div></div>
+        <div class="drow"><label>Configuración abreviada (gas noble)</label>
+          <div class="conf" id="fConfAbbr"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ⚙️ CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
+   ═══════════════════════════════════════════════════════════════
+   APPS_SCRIPT_URL → la MISMA URL /exec que pusiste en index.html.
+   También funciona con ?api=<url> en la barra de direcciones.
+   Sin URL el módulo funciona igual (modo local), solo que no
+   registra consultas en la hoja.
+   ═══════════════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const SHEET_NAME      = "Tabla Periodica"; // ← nombre EXACTO de la hoja en tu spreadsheet
+
+const $ = id => document.getElementById(id);
+
+/* ═══════ DATOS: 118 ELEMENTOS ═══════
+   [Z, símbolo, nombre, masa, familia, "estados oxidación", grupo, periodo]
+   (grupo/periodo 0,0 = bloque f: posición calculada por Z)      */
+const E=[
+[1,"H","Hidrógeno",1.008,5,"-1,+1",1,1],[2,"He","Helio",4.0026,7,"0",18,1],
+[3,"Li","Litio",6.94,0,"+1",1,2],[4,"Be","Berilio",9.0122,1,"+2",2,2],
+[5,"B","Boro",10.81,4,"+3",13,2],[6,"C","Carbono",12.011,5,"-4,+2,+4",14,2],
+[7,"N","Nitrógeno",14.007,5,"-3,+3,+5",15,2],[8,"O","Oxígeno",15.999,5,"-2,-1",16,2],
+[9,"F","Flúor",18.998,6,"-1",17,2],[10,"Ne","Neón",20.180,7,"0",18,2],
+[11,"Na","Sodio",22.990,0,"+1",1,3],[12,"Mg","Magnesio",24.305,1,"+2",2,3],
+[13,"Al","Aluminio",26.982,3,"+3",13,3],[14,"Si","Silicio",28.085,4,"-4,+2,+4",14,3],
+[15,"P","Fósforo",30.974,5,"-3,+3,+5",15,3],[16,"S","Azufre",32.06,5,"-2,+2,+4,+6",16,3],
+[17,"Cl","Cloro",35.45,6,"-1,+1,+3,+5,+7",17,3],[18,"Ar","Argón",39.948,7,"0",18,3],
+[19,"K","Potasio",39.098,0,"+1",1,4],[20,"Ca","Calcio",40.078,1,"+2",2,4],
+[21,"Sc","Escandio",44.956,2,"+3",3,4],[22,"Ti","Titanio",47.867,2,"+2,+3,+4",4,4],
+[23,"V","Vanadio",50.942,2,"+2,+3,+4,+5",5,4],[24,"Cr","Cromo",51.996,2,"+2,+3,+6",6,4],
+[25,"Mn","Manganeso",54.938,2,"+2,+3,+4,+6,+7",7,4],[26,"Fe","Hierro",55.845,2,"+2,+3,+6",8,4],
+[27,"Co","Cobalto",58.933,2,"+2,+3",9,4],[28,"Ni","Níquel",58.693,2,"+2,+3",10,4],
+[29,"Cu","Cobre",63.546,2,"+1,+2",11,4],[30,"Zn","Zinc",65.38,2,"+2",12,4],
+[31,"Ga","Galio",69.723,3,"+3",13,4],[32,"Ge","Germanio",72.630,4,"+2,+4",14,4],
+[33,"As","Arsénico",74.922,4,"-3,+3,+5",15,4],[34,"Se","Selenio",78.971,5,"-2,+4,+6",16,4],
+[35,"Br","Bromo",79.904,6,"-1,+1,+5",17,4],[36,"Kr","Kriptón",83.798,7,"0,+2",18,4],
+[37,"Rb","Rubidio",85.468,0,"+1",1,5],[38,"Sr","Estroncio",87.62,1,"+2",2,5],
+[39,"Y","Itrio",88.906,2,"+3",3,5],[40,"Zr","Circonio",91.224,2,"+4",4,5],
+[41,"Nb","Niobio",92.906,2,"+3,+5",5,5],[42,"Mo","Molibdeno",95.95,2,"+2,+3,+4,+5,+6",6,5],
+[43,"Tc","Tecnecio",98,2,"+4,+7",7,5],[44,"Ru","Rutenio",101.07,2,"+3,+4,+8",8,5],
+[45,"Rh","Rodio",102.906,2,"+1,+3",9,5],[46,"Pd","Paladio",106.42,2,"+2,+4",10,5],
+[47,"Ag","Plata",107.868,2,"+1",11,5],[48,"Cd","Cadmio",112.414,2,"+2",12,5],
+[49,"In","Indio",114.818,3,"+1,+3",13,5],[50,"Sn","Estaño",118.710,3,"+2,+4",14,5],
+[51,"Sb","Antimonio",121.760,4,"-3,+3,+5",15,5],[52,"Te","Telurio",127.60,4,"-2,+4,+6",16,5],
+[53,"I","Yodo",126.904,6,"-1,+1,+5,+7",17,5],[54,"Xe","Xenón",131.293,7,"0,+2,+4,+6",18,5],
+[55,"Cs","Cesio",132.905,0,"+1",1,6],[56,"Ba","Bario",137.327,1,"+2",2,6],
+[57,"La","Lantano",138.905,8,"+3",0,0],[58,"Ce","Cerio",140.116,8,"+3,+4",0,0],
+[59,"Pr","Praseodimio",140.908,8,"+3",0,0],[60,"Nd","Neodimio",144.242,8,"+3",0,0],
+[61,"Pm","Prometio",145,8,"+3",0,0],[62,"Sm","Samario",150.36,8,"+2,+3",0,0],
+[63,"Eu","Europio",151.964,8,"+2,+3",0,0],[64,"Gd","Gadolinio",157.25,8,"+3",0,0],
+[65,"Tb","Terbio",158.925,8,"+3",0,0],[66,"Dy","Disprosio",162.500,8,"+3",0,0],
+[67,"Ho","Holmio",164.930,8,"+3",0,0],[68,"Er","Erbio",167.259,8,"+3",0,0],
+[69,"Tm","Tulio",168.934,8,"+3",0,0],[70,"Yb","Iterbio",173.054,8,"+2,+3",0,0],
+[71,"Lu","Lutecio",174.967,8,"+3",0,0],[72,"Hf","Hafnio",178.49,2,"+4",4,6],
+[73,"Ta","Tantalio",180.948,2,"+5",5,6],[74,"W","Wolframio",183.84,2,"+4,+6",6,6],
+[75,"Re","Renio",186.207,2,"+4,+7",7,6],[76,"Os","Osmio",190.23,2,"+3,+4,+8",8,6],
+[77,"Ir","Iridio",192.217,2,"+3,+4",9,6],[78,"Pt","Platino",195.084,2,"+2,+4",10,6],
+[79,"Au","Oro",196.967,2,"+1,+3",11,6],[80,"Hg","Mercurio",200.592,2,"+1,+2",12,6],
+[81,"Tl","Talio",204.38,3,"+1,+3",13,6],[82,"Pb","Plomo",207.2,3,"+2,+4",14,6],
+[83,"Bi","Bismuto",208.980,3,"+3,+5",15,6],[84,"Po","Polonio",209,4,"+2,+4",16,6],
+[85,"At","Astato",210,6,"-1,+1",17,6],[86,"Rn","Radón",222,7,"0,+2",18,6],
+[87,"Fr","Francio",223,0,"+1",1,7],[88,"Ra","Radio",226,1,"+2",2,7],
+[89,"Ac","Actinio",227,9,"+3",0,0],[90,"Th","Torio",232.038,9,"+4",0,0],
+[91,"Pa","Protactinio",231.036,9,"+5",0,0],[92,"U","Uranio",238.029,9,"+6",0,0],
+[93,"Np","Neptunio",237,9,"+5",0,0],[94,"Pu","Plutonio",244,9,"+4,+6",0,0],
+[95,"Am","Americio",243,9,"+3",0,0],[96,"Cm","Curio",247,9,"+3",0,0],
+[97,"Bk","Berkelio",247,9,"+3",0,0],[98,"Cf","Californio",251,9,"+3",0,0],
+[99,"Es","Einstenio",252,9,"+3",0,0],[100,"Fm","Fermio",257,9,"+3",0,0],
+[101,"Md","Mendelevio",258,9,"+3",0,0],[102,"No","Nobelio",259,9,"+2,+3",0,0],
+[103,"Lr","Lawrencio",262,9,"+3",0,0],[104,"Rf","Rutherfordio",267,2,"+4",4,7],
+[105,"Db","Dubnio",268,2,"+5",5,7],[106,"Sg","Seaborgio",269,2,"+6",6,7],
+[107,"Bh","Bohrio",270,2,"+7",7,7],[108,"Hs","Hasio",269,2,"+8",8,7],
+[109,"Mt","Meitnerio",278,2,"—",9,7],[110,"Ds","Darmstadtio",281,2,"—",10,7],
+[111,"Rg","Roentgenio",282,2,"—",11,7],[112,"Cn","Copernicio",285,2,"+2",12,7],
+[113,"Nh","Nihonio",286,3,"—",13,7],[114,"Fl","Flerovio",289,3,"—",14,7],
+[115,"Mc","Moscovio",290,3,"—",15,7],[116,"Lv","Livermorio",293,3,"—",16,7],
+[117,"Ts","Teneso",294,6,"—",17,7],[118,"Og","Oganesón",294,7,"0,+2",18,7]
+];
+
+/* Familias: nombre + colores (paleta TALLER) */
+const CATS=[
+ {n:"Metal alcalino",       c:"#DC2626", b:"#FDE8EC"},
+ {n:"Alcalinotérreo",       c:"#EA580C", b:"#FEF0E6"},
+ {n:"Metal de transición",  c:"#2563EB", b:"#E8EFFE"},
+ {n:"Post-transición",      c:"#0D9488", b:"#E3F4F2"},
+ {n:"Metaloide",            c:"#84CC16", b:"#F3F8E3"},
+ {n:"No metal",             c:"#059669", b:"#E2F6EF"},
+ {n:"Halógeno",             c:"#DB2777", b:"#FBE7F1"},
+ {n:"Gas noble",            c:"#7C3AED", b:"#F0EAFD"},
+ {n:"Lantánido",            c:"#A855F7", b:"#F4EBFE"},
+ {n:"Actínido",             c:"#4F46E5", b:"#EAEBFD"}
+];
+
+/* ═══════ CONFIGURACIONES ELECTRÓNICAS (generadas) ═══════ */
+const SEQ=[[1,2],[2,2],[2,6],[3,2],[3,6],[4,2],[3,10],[4,6],[5,2],[4,10],[5,6],[6,2],[4,14],[5,10],[6,6],[7,2],[5,14],[6,10],[7,6]];
+const LTR={2:'s',6:'p',10:'d',14:'f'};
+const NOB=[[2,"He",0],[10,"Ne",2],[18,"Ar",4],[36,"Kr",7],[54,"Xe",10],[86,"Rn",14]];
+/* Excepciones a Aufbau (config tras el gas noble central) */
+const EXC={24:'3d5 4s1',29:'3d10 4s1',41:'4d4 5s1',42:'4d5 5s1',44:'4d7 5s1',45:'4d8 5s1',
+46:'4d10',47:'4d10 5s1',57:'5d1 6s2',58:'4f1 5d1 6s2',64:'4f7 5d1 6s2',
+78:'4f14 5d9 6s1',79:'4f14 5d10 6s1',89:'6d1 7s2',90:'6d2 7s2',91:'5f2 6d1 7s2',
+92:'5f3 6d1 7s2',93:'5f4 6d1 7s2',96:'5f7 6d1 7s2',103:'5f14 7s2 7p1'};
+
+function fillSeq(z){ const out=[]; let r=z;
+  for(const [n,cap] of SEQ){ if(r<=0)break; const e=Math.min(cap,r); out.push([n,LTR[cap],e]); r-=e; }
+  return out; }
+function coreOf(z){ let best=null; for(const nb of NOB) if(nb[0]<z) best=nb; return best; }
+function parseTail(t){ return t.split(' ').map(x=>[+x[0],x[1],+x.slice(2)]); }
+function valenceInfo(list,cat){
+  const mx=Math.max(...list.map(s=>s[0]));
+  const at=(n,l)=>{ const s=list.find(x=>x[0]===n&&x[1]===l); return s?s[2]:0; };
+  const s=at(mx,'s'), p=at(mx,'p');
+  if(cat===8||cat===9) return {v:s, src:[[mx,'s',s]]};
+  if(cat===2){
+    const d=at(mx-1,'d');
+    if(d>0&&d<10) return {v:s+d, src:[[mx-1,'d',d],[mx,'s',s]]};
+    if(s>0)       return {v:s,   src:[[mx,'s',s]]};
+    return {v:d, src:[[mx-1,'d',d]]};
+  }
+  return {v:s+p, src: p? [[mx,'s',s],[mx,'p',p]] : [[mx,'s',s]]};
+}
+function configs(z,cat){
+  let full;
+  if(EXC[z]){
+    const nb=coreOf(z);
+    full=fillSeq(nb[0]).concat(parseTail(EXC[z]));
+    var abbrSym=nb[1], abbrTail=EXC[z];
+  }else{
+    full=fillSeq(z);
+    const nb=coreOf(z);
+    if(nb){
+      let r=z-nb[0]; const tail=[];
+      for(let i=nb[2]+1;i<SEQ.length&&r>0;i++){
+        const [n,cap]=SEQ[i]; const e=Math.min(cap,r); tail.push([n,LTR[cap],e]); r-=e;
+      }
+      abbrSym=nb[1];
+      abbrTail=tail.map(t=>t[0]+t[1]+t[2]).join(' ');
+    }else{ abbrSym=null; abbrTail=full.map(t=>t[0]+t[1]+t[2]).join(' '); }
+  }
+  return {full, abbrSym, abbrTail, val:valenceInfo(full,cat)};
+}
+const supHTML=list=>list.map(s=>`${s[0]}${s[1]}<sup>${s[2]}</sup>`).join(' ');
+const plain=list=>list.map(s=>`${s[0]}${s[1]}${s[2]}`).join(' ');
+
+/* ═══════ ESTADO ═══════ */
+let filterCat=-1, query='';
+const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+/* ═══════ CONEXIÓN A LA HOJA ═══════ */
+function getApi(){
+  const q=new URLSearchParams(location.search);
+  return (q.get('api')||APPS_SCRIPT_URL||localStorage.getItem('taller.sheetsUrlOverride')||'').trim();
+}
+async function apiPost(payload){
+  const res=await fetch(getApi(),{method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(payload),redirect:'follow'});
+  const j=JSON.parse(await res.text());
+  if(!j.ok) throw new Error(j.error||'Error del servidor');
+  return j.data;
+}
+async function sheetStatus(){
+  if(!getApi()){ setDot('wait','modo local · sin hoja'); $('statLogs').textContent='—'; return; }
+  setDot('wait','verificando hoja…');
+  try{
+    const res=await fetch(`${getApi()}?action=sheet&name=${encodeURIComponent(SHEET_NAME)}`,{redirect:'follow'});
+    const j=JSON.parse(await res.text());
+    if(!j.ok) throw new Error(j.error||'error');
+    $('statLogs').textContent = j.existe ? j.data.length : '0';
+    setDot('on',`hoja "${SHEET_NAME}" · ${j.existe?j.data.length:0} filas`);
+  }catch(err){ setDot('off','hoja no accesible'); }
+}
+async function logConsulta(e){
+  if(!getApi()) return;
+  try{
+    await apiPost({action:'saveRow', hoja:SHEET_NAME,
+      values:[new Date().toISOString(), e.z, e.name, e.sym]});
+    const n=$('statLogs').textContent;
+    if(/^\d+$/.test(n)) $('statLogs').textContent=+n+1;
+  }catch(_){/* silencioso: no molesta la exploración */}
+}
+function setDot(st,txt){ $('syncDot').className='dot '+st; if(txt)$('syncText').textContent=txt; }
+ $('btnSheet').addEventListener('click',async ()=>{
+  if(!getApi()){ toast('Pega tu URL /exec en APPS_SCRIPT_URL (inicio del script)','bad'); return; }
+  try{ await apiPost({action:'ensureSheet',name:SHEET_NAME}); toast(`Hoja "${SHEET_NAME}" lista`,'ok'); sheetStatus(); }
+  catch(err){ toast(err.message,'bad'); }
+});
+
+/* ═══════ POSICIÓN EN LA TABLA ═══════ */
+function tilePos(e){
+  if(e.g) return {r:e.p, c:e.g};
+  if(e.z<=71) return {r:9, c:3+(e.z-57)};
+  return {r:10, c:3+(e.z-89)};
+}
+
+/* ═══════ RENDER TABLA ═══════ */
+function buildTable(){
+  const g=$('ptable');
+  let html=`<div class="spacer" style="grid-row:8"></div>`;
+  E.forEach((d,i)=>{
+    const e={z:d[0],sym:d[1],name:d[2],mass:d[3],cat:d[4],ox:d[5],g:d[6],p:d[7]};
+    const {r,c}=tilePos(e), C=CATS[e.cat];
+    html+=`<button class="el" data-i="${i}" title="${e.name} · ${e.mass} u"
+      style="grid-row:${r};grid-column:${c};--ec:${C.c};--eb:${C.b};--et:${C.c};--ecsh:${C.c}44;animation-delay:${Math.min(i*6,300)}ms">
+      <span class="tz">${e.z}</span><span class="ts">${e.sym}</span><span class="tn">${e.name}</span></button>`;
+  });
+  /* marcadores de bloque f */
+  html+=`<button class="ph" data-ph="8" style="grid-row:6;grid-column:3;--ec:#A855F7;--eb:#F4EBFE;--et:#A855F7"><b>57–71</b><span>La–Lu</span></button>
+         <button class="ph" data-ph="9" style="grid-row:7;grid-column:3;--ec:#4F46E5;--eb:#EAEBFD;--et:#4F46E5"><b>89–103</b><span>Ac–Lr</span></button>`;
+  g.innerHTML=html;
+  g.querySelectorAll('.el').forEach(b=>b.addEventListener('click',()=>openFicha(E[+b.dataset.i])));
+  g.querySelectorAll('.ph').forEach(b=>b.addEventListener('click',()=>{ setFilter(+b.dataset.ph); }));
+}
+
+/* ═══════ LEYENDA ═══════ */
+function buildLegend(){
+  $('legend').innerHTML = CATS.map((c,i)=>{
+    const act=filterCat===i?'active':'';
+    return `<button class="lg ${act}" data-c="${i}" style="--lc:${c.c};--lb:${c.b};--lt:${filterCat===i?'#fff':c.c};--lcsh:${c.c}55">
+      <i></i>${c.n}</button>`;
+  }).join('');
+  $('legend').querySelectorAll('.lg').forEach(b=>b.addEventListener('click',()=>{
+    setFilter(filterCat===+b.dataset.c ? -1 : +b.dataset.c);
+  }));
+}
+function setFilter(i){ filterCat=i; buildLegend(); applyFilter(); }
+
+/* ═══════ FILTRO + BÚSQUEDA ═══════ */
+function applyFilter(){
+  const q=norm(query); let hits=0;
+  document.querySelectorAll('.el').forEach(b=>{
+    const d=E[+b.dataset.i];
+    const okC = filterCat===-1 || d[4]===filterCat;
+    const okQ = !q || norm(d[2]).includes(q) || norm(d[1])===q || String(d[0])===q || norm(CATS[d[4]].n).includes(q);
+    const ok = okC && okQ;
+    b.classList.toggle('dim',!ok);
+    b.classList.toggle('hit',!!q && ok);
+    if(ok) hits++;
+  });
+  $('matchNote').textContent = (q||filterCat>-1) ? `${hits} coincidencia(s)` : '';
+}
+ $('searchInput').addEventListener('input',e=>{
+  query=e.target.value.trim();
+  $('searchBox').classList.toggle('has',!!query);
+  applyFilter();
+});
+ $('searchClear').addEventListener('click',()=>{
+  $('searchInput').value=''; query=''; $('searchBox').classList.remove('has'); applyFilter();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();$('searchInput').focus();}
+  if(e.key==='Escape'){
+    if($('overlay').classList.contains('open')) closeFicha();
+    else if(query||filterCat>-1){ $('searchInput').value='';query='';$('searchBox').classList.remove('has');setFilter(-1); }
+  }
+});
+
+/* ═══════ FICHA DEL ELEMENTO ═══════ */
+function lewisHTML(z,v,C){
+  let pos=[0,0,0,0]; // top, right, bottom, left
+  if(z===2){ pos=[2,0,0,0]; }
+  else for(let i=0;i<v;i++){ if(i<4)pos[i]=1; else pos[i-4]=2; }
+  const S=[[44,2],[86,44],[44,86],[2,44]];      // singles (x,y) en caja 96px
+  const P=[[[37,2],[51,2]],[[86,37],[86,51]],[[37,86],[51,86]],[[2,37],[2,51]]]; // pares
+  let dots='';
+  pos.forEach((n,i)=>{
+    if(n===1) dots+=`<i style="left:${S[i][0]}px;top:${S[i][1]}px"></i>`;
+    if(n===2) dots+=`<i style="left:${P[i][0][0]}px;top:${P[i][0][1]}px"></i><i style="left:${P[i][1][0]}px;top:${P[i][1][1]}px"></i>`;
+  });
+  return `<div class="lewis"><span class="sym">${z===2?'He':''}</span>${dots}</div>`;
+}
+function openFicha(d){
+  const e={z:d[0],sym:d[1],name:d[2],mass:d[3],cat:d[4],ox:d[5],g:d[6],p:d[7]};
+  const C=CATS[e.cat], cfg=configs(e.z,e.cat);
+  const neut=Math.round(e.mass)-e.z;
+
+  $('fTitle').textContent=`${e.name} (${e.sym})`;
+  $('fZ').textContent=e.z;
+  $('fSym').textContent=e.sym;
+  $('fName').textContent=e.name;
+  $('fMass').textContent=e.mass+' u';
+  const tile=$('fTile');
+  tile.style.setProperty('--ec',C.c); tile.style.setProperty('--eb',C.b); tile.style.setProperty('--et',C.c);
+  const badge=$('fCat'); badge.textContent=C.n; badge.style.background=C.c; badge.style.boxShadow=`0 3px 8px ${C.c}55`;
+  $('fTags').innerHTML = e.g
+    ? `<span class="mtag">Periodo ${e.p}</span><span class="mtag">Grupo ${e.g}</span>`
+    : `<span class="mtag">Periodo ${e.z<=71?6:7}</span><span class="mtag">Serie f · ${e.z<=71?'lantánidos':'actínidos'}</span>`;
+
+  $('fProt').textContent=e.z; $('fElec').textContent=e.z; $('fNeut').textContent=neut;
+  $('fNeutHint').textContent=`≈ ${Math.round(e.mass)} − ${e.z}`;
+  $('fZP').innerHTML=`Z = <b>${e.z}</b> &nbsp;·&nbsp; ${e.mass} u`;
+  $('fVal').textContent=cfg.val.v;
+  $('fValSrc').innerHTML='provienen de: '+cfg.val.src.map(s=>`${s[0]}${s[1]}<sup>${s[2]}</sup>`).join(' + ');
+
+  const oxBox=$('fOx');
+  if(e.ox==='—'){ oxBox.innerHTML=`<span class="ox" style="color:#67647A;border-color:var(--line)">— desconocidos —</span>`; }
+  else oxBox.innerHTML=e.ox.split(',').map(o=>{
+    const neg=o.startsWith('-'), zero=o==='0'||o==='0?';
+    const col=zero?'#67647A':(neg?'#EF4444':'#2563EB');
+    return `<span class="ox" style="color:${col};border-color:${col}44;background:${col}14">${o}</span>`;
+  }).join('');
+
+  const rep=[0,1,3,4,5,6,7].includes(e.cat);
+  $('fLewis').innerHTML = rep
+    ? lewisHTML(e.z,cfg.val.v,C)
+    : `<div class="lewis-na">— no representativo —</div>`;
+  $('fLewisCap').textContent = rep
+    ? `${cfg.val.v} electrón${cfg.val.v===1?'':'es'} de valencia`
+    : 'La estructura de Lewis se dibuja para elementos representativos';
+
+  const cf=$('fConfFull');
+  cf.innerHTML=supHTML(cfg.full)+`<button class="copy ripple" data-copy="${plain(cfg.full)}">copiar</button>`;
+  const ca=$('fConfAbbr');
+  ca.innerHTML=(cfg.abbrSym?`<span class="core">[${cfg.abbrSym}]</span> `:'')+cfg.abbrTail.replace(/(\d[a-z])(\d+)/g,'$1<sup>$2</sup>')
+    +`<button class="copy ripple" data-copy="${(cfg.abbrSym?'['+cfg.abbrSym+'] ':'')+cfg.abbrTail}">copiar</button>`;
+
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',ev=>{
+    ev.stopPropagation();
+    navigator.clipboard.writeText(b.dataset.copy).then(()=>toast('Configuración copiada','ok'));
+  }));
+
+  $('overlay').classList.add('open');
+  logConsulta(e);
+}
+function closeFicha(){ $('overlay').classList.remove('open'); }
+ $('fClose').addEventListener('click',closeFicha);
+ $('overlay').addEventListener('click',e=>{ if(e.target===$('overlay')) closeFicha(); });
+
+/* ═══════ TOASTS / RIPPLE ═══════ */
+function toast(msg,type='ok'){
+  const t=document.createElement('div');
+  t.className=`toast ${type}`; t.textContent=msg;
+  $('toasts').appendChild(t);
+  setTimeout(()=>{t.classList.add('out');t.addEventListener('animationend',()=>t.remove());},3200);
+}
+document.addEventListener('pointerdown',e=>{
+  const el=e.target.closest('.ripple'); if(!el)return;
+  const r=el.getBoundingClientRect(),d=Math.max(r.width,r.height);
+  const s=document.createElement('span'); s.className='rp';
+  s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+  el.appendChild(s); s.addEventListener('animationend',()=>s.remove());
+});
+
+/* ═══════ ARRANQUE ═══════ */
+buildTable();
+buildLegend();
+applyFilter();
+sheetStatus();
+</script>
+</body>
+</html>
