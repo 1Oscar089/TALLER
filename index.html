@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TALLER · Índice personal de herramientas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============ VARIABLES ============ */
+  :root{
+    --bg:#F6F5F2; --surface:#FFFFFF; --ink:#23212B; --ink-soft:#6E6B78;
+    --line:#E6E4DE;
+    --lila:#5F4BA8; --lila-soft:#EFECF8; --lila-border:#DCD5F0;
+    --lima:#D7F04C; --lima-deep:#6B7C15; --lima-soft:#F4F8DA;
+    --rojo:#C2433A; --rojo-soft:#FBEAE8;
+    --azul:#3D5FA9; --azul-soft:#E8EDF8;
+    --oliva:#667C1D; --oliva-soft:#F2F5DF;
+    --sh-1:0 1px 2px rgba(35,33,43,.06),0 2px 8px rgba(35,33,43,.05);
+    --sh-2:0 4px 14px rgba(35,33,43,.10),0 1px 3px rgba(35,33,43,.07);
+    --r:14px;
+    --font-ui:'Archivo',sans-serif; --font-display:'Fraunces',serif; --font-mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input{font-family:inherit}
+  ::selection{background:var(--lima);color:var(--ink)}
+  :focus-visible{outline:2px solid var(--lila);outline-offset:2px;border-radius:4px}
+  svg{display:block}
+
+  /* ============ EFECTO RIPPLE (Material) ============ */
+  .ripple{position:relative;overflow:hidden}
+  .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.18;transform:scale(0);animation:rp .55s ease-out forwards}
+  @keyframes rp{to{transform:scale(2.6);opacity:0}}
+
+  /* ============ HEADER ============ */
+  header.top{
+    position:sticky;top:0;z-index:50;background:rgba(246,245,242,.85);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-in{max-width:1160px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:.04em}
+  .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--lila);color:var(--lima);display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:500}
+  .brand small{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);letter-spacing:.12em;font-weight:400}
+  .top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .sync{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--oliva);flex:none;transition:background .3s}
+  .dot.on{background:var(--oliva);box-shadow:0 0 0 3px var(--oliva-soft)}
+  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px var(--rojo-soft)}
+  .dot.wait{background:#C9C6BE;box-shadow:0 0 0 3px #EFEDE8}
+  .icon-btn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--ink-soft);transition:.2s}
+  .icon-btn:hover{background:var(--lila-soft);color:var(--lila)}
+  .icon-btn.spin svg{animation:spin .7s ease}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ============ AVISO DEMO ============ */
+  .demo-note{display:none;align-items:center;gap:10px;max-width:1160px;margin:14px auto 0;padding:10px 16px;background:var(--lima-soft);border:1px solid #E3E9BC;border-radius:12px;font-size:13.5px;color:var(--lima-deep)}
+  .demo-note.show{display:flex}
+  .demo-note button{margin-left:auto;font-weight:600;font-size:13px;color:var(--lima-deep);text-decoration:underline;text-underline-offset:3px;padding:4px 8px;border-radius:6px}
+  .demo-note button:hover{background:rgba(107,124,21,.12)}
+
+  /* ============ LAYOUT ============ */
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:232px 1fr;gap:48px}
+  aside.side{padding-top:40px}
+  .side-block{position:sticky;top:84px;display:flex;flex-direction:column;gap:28px}
+  .side h4{font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:.18em;color:var(--ink-soft);margin-bottom:10px}
+  .cat-nav{display:flex;flex-direction:column;gap:2px}
+  .cat-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:9px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;transition:.18s;text-align:left;width:100%}
+  .cat-item:hover{background:#EFEEE9;color:var(--ink)}
+  .cat-item.active{background:var(--lila-soft);color:var(--lila);font-weight:600}
+  .cat-item .sw{width:9px;height:9px;border-radius:3px;flex:none}
+  .cat-item .n{margin-left:auto;font-family:var(--font-mono);font-size:11px}
+  .status-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--sh-1);font-size:12.5px}
+  .status-row{display:flex;justify-content:space-between;padding:5px 0;color:var(--ink-soft)}
+  .status-row b{color:var(--ink);font-weight:600}
+  .kb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
+  .kbd{font-family:var(--font-mono);font-size:11px;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:2px 7px;box-shadow:var(--sh-1)}
+
+  /* ============ HERO ============ */
+  main{padding:44px 0 80px;min-width:0}
+  .hero-kicker{display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .hero-kicker::before{content:"";width:26px;height:1px;background:var(--ink-soft)}
+  h1.hero{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,4.6vw,54px);line-height:1.08;letter-spacing:-.01em}
+  h1.hero .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+  h1.hero .w>span{display:inline-block;transform:translateY(110%);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{transform:translateY(0)}}
+  h1.hero em{font-style:italic;font-weight:500;position:relative;white-space:nowrap}
+  h1.hero em::after{content:"";position:absolute;left:-2px;right:-2px;bottom:4px;height:12px;background:var(--lima);z-index:-1;border-radius:2px}
+  .hero-stats{display:flex;align-items:baseline;gap:34px;margin-top:26px;flex-wrap:wrap}
+  .stat .num{font-family:var(--font-display);font-size:44px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+  .stat .lbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+  .stat-sep{width:1px;height:38px;background:var(--line);align-self:center}
+
+  /* ============ CONTROLES ============ */
+  .controls{margin-top:36px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .search{flex:1;min-width:250px;display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--sh-1);transition:.2s}
+  .search:focus-within{border-color:var(--lila-border);box-shadow:0 0 0 3px var(--lila-soft),var(--sh-1)}
+  .search svg{color:var(--ink-soft);flex:none}
+  .search input{flex:1;border:none;background:none;font-size:15px;color:var(--ink);outline:none}
+  .search input::placeholder{color:#A6A3AC}
+  .search .clear{display:none;color:var(--ink-soft);padding:2px;border-radius:6px}
+  .search .clear:hover{color:var(--rojo)}
+  .search.has .clear{display:block}
+  .view-note{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);white-space:nowrap}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .chip{padding:7px 15px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:500;color:var(--ink-soft);transition:.18s;display:inline-flex;gap:7px;align-items:center}
+  .chip .n{font-family:var(--font-mono);font-size:11px;opacity:.75}
+  .chip:hover{border-color:var(--lila-border);color:var(--lila)}
+  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+  /* ============ LISTA ÍNDICE ============ */
+  .index{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-1);overflow:hidden}
+  .row{position:relative;display:grid;grid-template-columns:58px 52px 1fr auto 34px;align-items:center;gap:14px;padding:19px 22px 19px 0;border-bottom:1px solid var(--line);transition:background .18s;animation:rowIn .4s ease backwards}
+  @keyframes rowIn{from{opacity:0;transform:translateY(8px)}}
+  .row:last-child{border-bottom:none}
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--lila);transition:width .22s cubic-bezier(.2,.7,.2,1)}
+  .row:hover{background:#FBFAF8}
+  .row:hover::before{width:4px}
+  .row .idx{font-family:var(--font-mono);font-size:13px;color:#B9B6C1;text-align:center;transition:.2s}
+  .row:hover .idx{color:var(--lima-deep)}
+  .mono-badge{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:20px;transition:transform .2s}
+  .row:hover .mono-badge{transform:rotate(-5deg) scale(1.06)}
+  .row-body{min-width:0}
+  .row-title{font-family:var(--font-display);font-weight:600;font-size:18.5px;letter-spacing:-.005em;line-height:1.25}
+  .row-title mark{background:var(--lima);color:inherit;padding:0 3px;border-radius:3px}
+  .row-desc{font-size:13.5px;color:var(--ink-soft);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row-desc mark{background:var(--lima);color:inherit;padding:0 2px;border-radius:3px}
+  .row-meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+  .badge{font-size:11px;font-weight:600;letter-spacing:.05em;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .host{font-family:var(--font-mono);font-size:11px;color:#A6A3AC}
+  .row-go{width:34px;height:34px;display:grid;place-items:center;color:#B9B6C1;border-radius:9px;transition:.2s}
+  .row:hover .row-go{color:var(--lila);background:var(--lila-soft);transform:translate(2px,-2px)}
+  .empty-search{padding:56px 20px;text-align:center;color:var(--ink-soft)}
+  .empty-search .big{font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--ink);margin-bottom:6px}
+  .empty-search button{margin-top:16px;font-weight:600;color:var(--lila);font-size:14px;padding:8px 18px;border:1px solid var(--lila-border);border-radius:999px;background:var(--lila-soft)}
+  .empty-search button:hover{background:var(--lila);color:#fff}
+
+  /* skeleton */
+  .sk{display:grid;grid-template-columns:58px 52px 1fr 100px;gap:14px;align-items:center;padding:22px 22px 22px 0;border-bottom:1px solid var(--line)}
+  .sk:last-child{border-bottom:none}
+  .sk i{display:block;border-radius:8px;background:linear-gradient(90deg,#EFEDE9 25%,#F7F6F3 50%,#EFEDE9 75%);background-size:200% 100%;animation:sh 1.3s infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+  .sk .a{height:14px;width:30px;margin:0 auto;border-radius:6px}
+  .sk .b{height:46px;width:46px;border-radius:12px}
+  .sk .c1{height:17px;width:46%;margin-bottom:9px}
+  .sk .c2{height:12px;width:68%}
+  .sk .d{height:20px;width:80px;margin-left:auto;border-radius:999px}
+
+  /* ============ ESTADOS GRANDES ============ */
+  .state-panel{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-1);padding:44px 40px;text-align:center}
+  .state-panel .glyph{width:64px;height:64px;border-radius:18px;margin:0 auto 18px;display:grid;place-items:center}
+  .state-panel h3{font-family:var(--font-display);font-size:26px;font-weight:600;margin-bottom:8px}
+  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:520px;margin:0 auto}
+  .state-panel .acts{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:11px;font-weight:600;font-size:14px;transition:.18s}
+  .btn-p{background:var(--lila);color:#fff;box-shadow:var(--sh-1)}
+  .btn-p:hover{background:#4E3D8B;box-shadow:var(--sh-2);transform:translateY(-1px)}
+  .btn-s{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+  .btn-s:hover{border-color:var(--ink-soft)}
+  .btn-l{background:var(--lima);color:var(--ink)}
+  .btn-l:hover{background:#C9E63F;transform:translateY(-1px)}
+
+  /* setup pasos */
+  .steps{text-align:left;max-width:600px;margin:30px auto 0;display:flex;flex-direction:column;gap:0}
+  .step{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:14px 0;position:relative}
+  .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:46px;bottom:-2px;width:1px;background:var(--line)}
+  .step .sn{width:36px;height:36px;border-radius:50%;background:var(--lila-soft);color:var(--lila);display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:500;border:1px solid var(--lila-border)}
+  .step h5{font-size:14.5px;font-weight:600;margin-bottom:3px}
+  .step p{font-size:13px;color:var(--ink-soft);margin:0;max-width:none}
+  .step code{font-family:var(--font-mono);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+  .setup-form{display:flex;gap:10px;max-width:600px;margin:26px auto 0}
+  .setup-form input{flex:1;padding:13px 16px;border:1px solid var(--line);border-radius:11px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;transition:.2s}
+  .setup-form input:focus{border-color:var(--lila);background:#fff;box-shadow:0 0 0 3px var(--lila-soft)}
+  details.code{max-width:600px;margin:20px auto 0;text-align:left}
+  details.code summary{font-size:13px;color:var(--lila);cursor:pointer;font-weight:600;padding:6px 0}
+  details.code pre{background:#23212B;color:#E8E6F2;border-radius:12px;padding:18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;overflow-x:auto;margin-top:8px}
+  details.code .cm{color:#8B87A3}
+
+  /* ============ FOOTER ============ */
+  footer{border-top:1px solid var(--line);padding:22px 0 40px}
+  .foot-in{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft)}
+
+  /* ============ MODAL ============ */
+  .overlay{position:fixed;inset:0;background:rgba(35,33,43,.42);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  .overlay.open{display:flex;animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0}}
+  .modal{background:var(--surface);border-radius:20px;width:100%;max-width:520px;box-shadow:0 24px 60px rgba(35,33,43,.28);animation:pop .28s cubic-bezier(.2,.9,.3,1.15)}
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}}
+  .modal-head{display:flex;align-items:center;padding:22px 26px 0}
+  .modal-head h3{font-family:var(--font-display);font-size:22px;font-weight:600}
+  .modal-head .icon-btn{margin-left:auto}
+  .modal-body{padding:18px 26px 26px}
+  .modal-body label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .modal-body input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:11px;font-family:var(--font-mono);font-size:13px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
+  .modal-body input:focus{border-color:var(--lila);background:#fff;box-shadow:0 0 0 3px var(--lila-soft)}
+  .modal-acts{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .modal-acts .btn-p{flex:1;justify-content:center}
+  .test-line{margin-top:14px;font-size:13px;min-height:20px;display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
+  .test-line.ok{color:var(--oliva)} .test-line.bad{color:var(--rojo)}
+  .modal-hint{margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:10px;font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+  .danger-link{margin-top:14px;font-size:12.5px;color:var(--rojo);text-decoration:underline;text-underline-offset:3px;padding:4px 0}
+  .danger-link:hover{opacity:.75}
+
+  /* ============ TOASTS ============ */
+  .toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-size:13.5px;box-shadow:var(--sh-2);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
+  .toast svg{flex:none}
+  .toast.ok svg{color:var(--lima)} .toast.bad svg{color:#F0938B}
+  .toast.out{animation:toastOut .3s ease forwards}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+
+  mark{background:var(--lima);color:inherit}
+
+  @media(max-width:900px){
+    .wrap{grid-template-columns:1fr;gap:0}
+    aside.side{display:none}
+    .row{grid-template-columns:40px 44px 1fr 30px;padding:16px 14px 16px 0;gap:11px}
+    .row-meta{display:none}
+    .row .idx{font-size:12px}
+    .state-panel{padding:32px 22px}
+    .sync span{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <span class="brand-mark">T</span>
+      <span>TALLER</span>
+      <small>· ÍNDICE DE HERRAMIENTAS</small>
+    </div>
+    <div class="top-right">
+      <div class="sync">
+        <span class="dot wait" id="syncDot"></span>
+        <span id="syncText">conectando…</span>
+      </div>
+      <button class="icon-btn ripple" id="btnRefresh" title="Actualizar desde la hoja" aria-label="Actualizar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      </button>
+      <button class="icon-btn ripple" id="btnSettings" title="Ajustes de conexión" aria-label="Ajustes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- aviso de datos de ejemplo -->
+<div class="demo-note" id="demoNote">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  Mostrando <b>datos de ejemplo</b>. Conecta tu Google Sheet desde Ajustes para cargar tus herramientas reales.
+  <button id="demoToSettings">Conectar ahora</button>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="side">
+    <div class="side-block">
+      <div>
+        <h4>CATEGORÍAS</h4>
+        <nav class="cat-nav" id="catNav"></nav>
+      </div>
+      <div>
+        <h4>ESTADO</h4>
+        <div class="status-card">
+          <div class="status-row"><span>Fuente</span><b id="stSource">—</b></div>
+          <div class="status-row"><span>Última sync</span><b id="stSync">—</b></div>
+          <div class="status-row"><span>Registros</span><b id="stCount">—</b></div>
+        </div>
+      </div>
+      <div>
+        <h4>ATAJOS</h4>
+        <div class="kb"><span class="kbd">/</span> enfocar búsqueda</div>
+        <div class="kb" style="margin-top:8px"><span class="kbd">Esc</span> limpiar filtros</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= CONTENIDO ================= -->
+  <main>
+    <div class="hero-kicker" id="todayLine">—</div>
+    <h1 class="hero" id="heroTitle" aria-label="Cada herramienta, a un clic."></h1>
+    <div class="hero-stats">
+      <div class="stat"><div class="num" id="numTools">0</div><div class="lbl">herramientas</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="num" id="numCats">0</div><div class="lbl">categorías</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="num" style="font-size:30px;padding-top:8px;color:var(--ink-soft)" id="clock">—:—</div><div class="lbl">hora local</div></div>
+    </div>
+
+    <div class="controls">
+      <div class="search" id="searchBox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar herramienta… (pulsa /)" autocomplete="off">
+        <button class="clear" id="searchClear" aria-label="Limpiar búsqueda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <span class="view-note" id="viewNote"></span>
+    </div>
+    <div class="chips" id="chips"></div>
+
+    <div id="content"></div>
+  </main>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <span>TALLER — datos servidos desde Google Sheets vía Apps Script</span>
+    <span id="footHost">hosting: GitHub Pages · estático</span>
+  </div>
+</footer>
+
+<!-- ================= MODAL AJUSTES ================= -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Ajustes de conexión">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Conexión a Google Sheets</h3>
+      <button class="icon-btn ripple" id="modalClose" aria-label="Cerrar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <label for="urlInput">URL /exec de tu Apps Script</label>
+      <input type="url" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+      <div class="modal-acts">
+        <button class="btn btn-p ripple" id="btnTest">Probar y guardar</button>
+        <button class="btn btn-s ripple" id="btnDemo">Ver datos de ejemplo</button>
+      </div>
+      <div class="test-line" id="testLine"></div>
+      <div class="modal-hint">
+        La hoja debe tener encabezados en la primera fila. Columnas reconocidas (flexibles):
+        <b>titulo / nombre</b>, <b>descripcion</b>, <b>url</b>, <b>categoria</b> (opcional).
+        La URL se guarda localmente en tu navegador (localStorage).
+      </div>
+      <button class="danger-link" id="btnForget">Quitar URL guardada de este navegador</button>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   CONFIGURACIÓN — PEGA AQUÍ TU URL /exec DE APPS SCRIPT
+   (también puedes pegarla desde el botón de ajustes sin tocar
+   el código: se guarda en localStorage de tu navegador)
+   ════════════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = ""; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+
+const LS_KEY = "taller.sheetsUrl";
+const $ = id => document.getElementById(id);
+
+/* ---------- DATOS DE EJEMPLO (solo si no hay hoja conectada) ---------- */
+const DEMO = [
+  {titulo:"Acortador de enlaces", descripcion:"Acorta y nombra URLs largas con un clic.", url:"https://acorta.local/", categoria:"Utilidades"},
+  {titulo:"Generador de paletas", descripcion:"Crea paletas de color armónicas desde un tono base.", url:"https://paletas.local/", categoria:"Diseño"},
+  {titulo:"Conversor de unidades", descripcion:"Longitud, masa, temperatura y datos al instante.", url:"https://unidades.local/", categoria:"Utilidades"},
+  {titulo:"Editor de JSON", descripcion:"Pega, valida y formatea JSON con árbol navegable.", url:"https://json.local/", categoria:"Desarrollo"},
+  {titulo:"Pomodoro de enfoque", descripcion:"Cronómetro de sesiones 25/5 con registro diario.", url:"https://pomodoro.local/", categoria:"Productividad"},
+  {titulo:"Calculadora de préstamos", descripcion:"Cuotas, intereses totales y tabla de amortización.", url:"https://prestamos.local/", categoria:"Finanzas"},
+  {titulo:"Extractor de colores", descripcion:"Sube una imagen y copia sus colores dominantes.", url:"https://colores.local/", categoria:"Diseño"},
+  {titulo:"Probador de APIs", descripcion:"Lanza peticiones GET/POST y lee la respuesta cruda.", url:"https://apis.local/", categoria:"Desarrollo"}
+];
+
+/* ---------- ESTADO ---------- */
+let tools = [];            // lista normalizada
+let source = "—";          // "sheets" | "demo"
+let lastSync = null;       // Date
+let activeCat = "todas";
+let query = "";
+
+/* ---------- UTILIDADES ---------- */
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function norm(s){ return String(s ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim(); }
+function pick(row, keys){
+  for(const k of Object.keys(row)){
+    if(keys.includes(norm(k))){
+      const v = row[k];
+      if(v !== "" && v != null) return v;
+    }
+  }
+  return "";
+}
+function hostOf(u){ try{ return new URL(u).hostname.replace(/^www\./,""); }catch{ return ""; } }
+function hashIdx(str, n){ let h=0; for(const c of str) h=(h*31+c.charCodeAt(0))>>>0; return h%n; }
+function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+
+/* Colores por categoría: lila, rojo ladrillo, azul, oliva */
+const CAT_COLORS = [
+  {fg:"var(--lila)",  bg:"var(--lila-soft)"},
+  {fg:"var(--rojo)",  bg:"var(--rojo-soft)"},
+  {fg:"var(--azul)",  bg:"var(--azul-soft)"},
+  {fg:"var(--oliva)", bg:"var(--oliva-soft)"}
+];
+function catColor(name){ return CAT_COLORS[hashIdx(norm(name)||"x", CAT_COLORS.length)]; }
+
+/* ---------- RIPPLE ---------- */
+document.addEventListener("pointerdown", e=>{
+  const el = e.target.closest(".ripple");
+  if(!el) return;
+  const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height);
+  const s = document.createElement("span");
+  s.className = "rp";
+  s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+  el.appendChild(s);
+  s.addEventListener("animationend", ()=>s.remove());
+});
+
+/* ---------- TOASTS ---------- */
+function toast(msg, type="ok"){
+  const t = document.createElement("div");
+  t.className = `toast ${type}`;
+  t.innerHTML = (type==="ok"
+    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>')
+    + esc(msg);
+  $("toasts").appendChild(t);
+  setTimeout(()=>{ t.classList.add("out"); t.addEventListener("animationend",()=>t.remove()); }, 3400);
+}
+
+/* ---------- HERO: titular animado palabra a palabra ---------- */
+(function(){
+  const words = ["Cada","herramienta,",["a","un"],"<em>clic.</em>"];
+  let i = 0;
+  const parts = ["Cada","herramienta,","a un","<em>clic.</em>"];
+  $("heroTitle").innerHTML = parts.map(p=>{
+    const inner = `<span style="animation-delay:${i*90}ms">${p}</span>`;
+    i++;
+    return `<span class="w">${inner}</span>`;
+  }).join(" ");
+})();
+
+/* fecha en español */
+(function(){
+  const d = new Date();
+  const f = d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  $("todayLine").textContent = f;
+})();
+/* reloj en vivo */
+setInterval(()=>{
+  const d = new Date();
+  $("clock").textContent = d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+},1000);
+ $("clock").textContent = new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+
+/* "hace Xs" desde la última sync */
+setInterval(()=>{
+  if(!lastSync) return;
+  const s = Math.floor((Date.now()-lastSync)/1000);
+  $("stSync").textContent = s<60 ? `hace ${s}s` : `hace ${Math.floor(s/60)}m`;
+  $("syncText").textContent = `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`;
+},1000);
+
+/* ---------- NORMALIZACIÓN DE FILAS DE LA HOJA ---------- */
+function normalize(rows){
+  return rows.map(r=>({
+    titulo:  String(pick(r, ["titulo","título","nombre","title","name","herramienta"]) || "").trim(),
+    desc:    String(pick(r, ["descripcion","descripción","desc","detalle","description"]) || "").trim(),
+    url:     String(pick(r, ["url","link","enlace","website","direccion","dirección"]) || "").trim(),
+    cat:     String(pick(r, ["categoria","categoría","cat","tag","area","área","tipo"]) || "Sin categoría").trim() || "Sin categoría"
+  })).filter(t => t.titulo && t.url);
+}
+
+/* ---------- FETCH A APPS SCRIPT ---------- */
+async function fetchSheet(url){
+  const res = await fetch(url, { method:"GET", redirect:"follow" });
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+  let json;
+  try{ json = JSON.parse(text); }
+  catch{ throw new Error("La respuesta no es JSON válido. Revisa tu doGet()."); }
+  const rows = Array.isArray(json) ? json : (json.data || json.tools || json.items || json.rows || []);
+  if(!Array.isArray(rows)) throw new Error("Formato no reconocido: se esperaba un array de filas.");
+  return rows;
+}
+
+/* ---------- CARGA ---------- */
+async function load(force=false){
+  const url = APPS_SCRIPT_URL || localStorage.getItem(LS_KEY) || "";
+  if(!url){ renderSetup(); return; }
+  renderSkeleton();
+  setSync("wait","conectando…");
+  $("stSource").textContent = "Google Sheets";
+  try{
+    const rows = await fetchSheet(url);
+    tools = normalize(rows);
+    lastSync = new Date();
+    source = "sheets";
+    if(!tools.length){ renderEmptySheet(); setSync("off","hoja vacía"); return; }
+    setSync("on");
+    renderAll();
+    if(force) toast("Lista actualizada desde la hoja");
+  }catch(err){
+    renderError(err.message);
+    setSync("off","sin conexión");
+  }
+}
+function setSync(state, text){
+  const dot = $("syncDot");
+  dot.className = "dot " + (state==="wait" ? "wait" : state==="on" ? "on" : "off");
+  if(text) $("syncText").textContent = text;
+  if(state==="on" && lastSync){
+    const s = Math.floor((Date.now()-lastSync)/1000);
+    $("syncText").textContent = `sincronizado · hace ${s}s`;
+  }
+}
+
+/* ---------- RENDER ---------- */
+function filtered(){
+  const q = norm(query);
+  return tools.filter(t=>{
+    const okCat = activeCat==="todas" || norm(t.cat)===norm(activeCat);
+    const okQ = !q || norm(t.titulo+" "+t.desc+" "+t.cat).includes(q);
+    return okCat && okQ;
+  });
+}
+function highlight(text, q){
+  const safe = esc(text);
+  if(!q) return safe;
+  try{
+    const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")})`,"ig");
+    return safe.replace(re, "<mark>$1</mark>");
+  }catch{ return safe; }
+}
+function renderAll(){
+  renderChips();
+  renderCatNav();
+  renderIndex();
+  $("numTools").textContent = tools.length;
+  $("numCats").textContent = new Set(tools.map(t=>norm(t.cat))).size;
+  $("stCount").textContent = tools.length;
+  $("stSync").textContent = "hace 0s";
+  $("demoNote").classList.toggle("show", source==="demo");
+}
+function renderChips(){
+  const cats = {};
+  tools.forEach(t=>{ cats[t.cat] = (cats[t.cat]||0)+1; });
+  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,"es"));
+  const all = `<button class="chip ripple ${activeCat==="todas"?"active":""}" data-cat="todas">Todas <span class="n">${tools.length}</span></button>`;
+  $("chips").innerHTML = all + names.map(c=>
+    `<button class="chip ripple ${activeCat===c?"active":""}" data-cat="${esc(c)}">${esc(c)} <span class="n">${cats[c]}</span></button>`
+  ).join("");
+  $("chips").querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
+    activeCat = ch.dataset.cat;
+    renderAll();
+  }));
+}
+function renderCatNav(){
+  const cats = {};
+  tools.forEach(t=>{ cats[t.cat] = (cats[t.cat]||0)+1; });
+  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,"es"));
+  const item = (name,label,n)=>{
+    const col = catColor(name);
+    return `<button class="cat-item ${activeCat===name?"active":""}" data-cat="${esc(name)}">
+      <span class="sw" style="background:${col.fg}"></span>${esc(label)}<span class="n">${n}</span></button>`;
+  };
+  $("catNav").innerHTML =
+    item("todas","Todas",tools.length) +
+    names.map(c=>item(c,c,cats[c])).join("");
+  $("catNav").querySelectorAll(".cat-item").forEach(el=>el.addEventListener("click",()=>{
+    activeCat = el.dataset.cat;
+    renderAll();
+  }));
+}
+function renderIndex(){
+  const list = filtered();
+  const q = norm(query);
+  $("viewNote").textContent = list.length === tools.length
+    ? `${tools.length} registros`
+    : `${list.length} de ${tools.length}`;
+  if(!list.length){
+    $("content").innerHTML = `
+      <div class="index"><div class="empty-search">
+        <div class="big">Nada por aquí con «${esc(query)}».</div>
+        Prueba con otras palabras o limpia los filtros.
+        <br><button class="ripple" id="resetBtn">Limpiar búsqueda y filtros</button>
+      </div></div>`;
+    $("resetBtn").addEventListener("click", resetFilters);
+    return;
+  }
+  $("content").innerHTML = `<div class="index">` + list.map((t,i)=>{
+    const col = catColor(t.cat);
+    return `<a class="row" href="${esc(t.url)}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i*35,350)}ms">
+      <span class="idx">${String(i+1).padStart(2,"0")}</span>
+      <span class="mono-badge" style="background:${col.bg};color:${col.fg}">${esc(t.titulo.charAt(0).toUpperCase())}</span>
+      <span class="row-body">
+        <div class="row-title">${highlight(t.titulo, q)}</div>
+        ${t.desc ? `<div class="row-desc">${highlight(t.desc, q)}</div>` : ""}
+      </span>
+      <span class="row-meta">
+        <span class="badge" style="color:${col.fg};background:${col.bg}">${esc(t.cat)}</span>
+        ${hostOf(t.url) ? `<span class="host">${esc(hostOf(t.url))} ↗</span>` : ""}
+      </span>
+      <span class="row-go">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </span>
+    </a>`;
+  }).join("") + `</div>`;
+}
+function renderSkeleton(){
+  $("content").innerHTML = `<div class="index">` + Array(5).fill(0).map(()=>`
+    <div class="sk"><i class="a"></i><i class="b"></i><div><i class="c1"></i><i class="c2"></i></div><i class="d"></i></div>
+  `).join("") + `</div>`;
+  $("viewNote").textContent = "";
+}
+function renderError(msg){
+  $("content").innerHTML = `
+    <div class="state-panel">
+      <div class="glyph" style="background:var(--rojo-soft);color:var(--rojo)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      </div>
+      <h3>No pude leer la hoja</h3>
+      <p>${esc(msg)}</p>
+      <div class="acts">
+        <button class="btn btn-p ripple" id="errRetry">Reintentar</button>
+        <button class="btn btn-s ripple" id="errSettings">Revisar conexión</button>
+        <button class="btn btn-s ripple" id="errDemo">Datos de ejemplo</button>
+      </div>
+    </div>`;
+  $("errRetry").addEventListener("click", ()=>load());
+  $("errSettings").addEventListener("click", openModal);
+  $("errDemo").addEventListener("click", useDemo);
+}
+function renderEmptySheet(){
+  $("content").innerHTML = `
+    <div class="state-panel">
+      <div class="glyph" style="background:var(--lila-soft);color:var(--lila)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3>La hoja está conectada, pero vacía</h3>
+      <p>Añade filas bajo los encabezados <b>titulo</b>, <b>descripcion</b>, <b>url</b> y <b>categoria</b>, y pulsa actualizar.</p>
+      <div class="acts"><button class="btn btn-p ripple" id="emptyRefresh">Actualizar ahora</button></div>
+    </div>`;
+  $("emptyRefresh").addEventListener("click", ()=>load());
+  renderChips(); renderCatNav();
+  $("numTools").textContent = 0; $("numCats").textContent = 0; $("stCount").textContent = 0;
+}
+function renderSetup(){
+  $("numTools").textContent = "—"; $("numCats").textContent = "—";
+  $("stSource").textContent = "sin conectar"; $("stSync").textContent = "—"; $("stCount").textContent = "—";
+  $("viewNote").textContent = "";
+  $("chips").innerHTML = ""; $("catNav").innerHTML = "";
+  $("content").innerHTML = `
+    <div class="state-panel" style="text-align:center">
+      <div class="glyph" style="background:var(--lila-soft);color:var(--lila)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3>Conecta tu Google Sheet</h3>
+      <p>Tres pasos y tu índice de herramientas estará vivo, alimentado por tu hoja de cálculo.</p>
+
+      <div class="steps">
+        <div class="step"><span class="sn">1</span><div>
+          <h5>Prepara la hoja</h5>
+          <p>Primera fila con encabezados: <code>titulo</code>, <code>descripcion</code>, <code>url</code>, <code>categoria</code>. Cada fila debajo es una herramienta.</p>
+        </div></div>
+        <div class="step"><span class="sn">2</span><div>
+          <h5>Publica el Apps Script</h5>
+          <p>Extensión → Apps Script, pega el <code>doGet()</code> de abajo, despliega como app web con acceso <b>«Cualquier persona»</b> y copia la URL que termina en <code>/exec</code>.</p>
+        </div></div>
+        <div class="step"><span class="sn">3</span><div>
+          <h5>Pega la URL aquí</h5>
+          <p>Se guarda solo en tu navegador. También puedes dejarla escrita en la constante <code>APPS_SCRIPT_URL</code> del código.</p>
+        </div></div>
+      </div>
+
+      <div class="setup-form">
+        <input type="url" id="setupUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+        <button class="btn btn-p ripple" id="setupConnect">Conectar</button>
+      </div>
+      <div class="acts" style="margin-top:18px">
+        <button class="btn btn-l ripple" id="setupDemo">Explorar con datos de ejemplo</button>
+      </div>
+
+      <details class="code">
+        <summary>Ver el código doGet() para tu Apps Script</summary>
+<pre><span class="cm">// Pega esto en Extensiones → Apps Script de tu hoja</span>
+function doGet() {
+  const hoja = SpreadsheetApp
+    .getActiveSpreadsheet().getSheetByName('Herramientas');
+  const filas = hoja.getDataRange().getValues();
+  const cabeceras = filas.shift();
+  const data = filas.map(f =&gt;
+    Object.fromEntries(cabeceras.map((h, i) =&gt; [h, f[i]]))
+  );
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true, data }))
+    .setMimeType(ContentService.MimeType.JSON);
+}</pre>
+      </details>
+    </div>`;
+  $("setupConnect").addEventListener("click", ()=>{
+    const u = $("setupUrl").value.trim();
+    if(!validUrl(u)) return;
+    localStorage.setItem(LS_KEY, u);
+    toast("URL guardada. Conectando…");
+    load();
+  });
+  $("setupDemo").addEventListener("click", useDemo);
+}
+function validUrl(u){
+  if(!u){ toast("Pega primero la URL /exec","bad"); return false; }
+  if(!/^https:\/\/script\.google\.com\/macros\//.test(u) || !u.includes("/exec")){
+    toast("La URL debe ser de Apps Script y terminar en /exec","bad");
+    return false;
+  }
+  return true;
+}
+function useDemo(){
+  tools = normalize(DEMO);
+  source = "demo"; lastSync = new Date();
+  activeCat = "todas"; query = ""; $("searchInput").value = ""; $("searchBox").classList.remove("has");
+  setSync("on"); $("stSource").textContent = "ejemplo local";
+  renderAll();
+  toast("Datos de ejemplo cargados");
+}
+
+/* ---------- BÚSQUEDA Y ATAJOS ---------- */
+ $("searchInput").addEventListener("input", debounce(e=>{
+  query = e.target.value.trim();
+  $("searchBox").classList.toggle("has", !!query);
+  renderIndex();
+},160));
+ $("searchClear").addEventListener("click", ()=>{
+  $("searchInput").value=""; query=""; $("searchBox").classList.remove("has");
+  renderIndex(); $("searchInput").focus();
+});
+function resetFilters(){
+  query=""; activeCat="todas";
+  $("searchInput").value=""; $("searchBox").classList.remove("has");
+  renderAll();
+}
+document.addEventListener("keydown", e=>{
+  if(e.key==="/" && document.activeElement !== $("searchInput") && document.activeElement.tagName !== "INPUT"){
+    e.preventDefault(); $("searchInput").focus();
+  }
+  if(e.key==="Escape"){
+    if($("overlay").classList.contains("open")) closeModal();
+    else resetFilters();
+  }
+});
+
+/* ---------- REFRESH + MODAL ---------- */
+ $("btnRefresh").addEventListener("click", ()=>{
+  const b = $("btnRefresh");
+  b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin");
+  if(source==="demo" || (!APPS_SCRIPT_URL && !localStorage.getItem(LS_KEY))) useDemo();
+  else load(true);
+});
+function openModal(){
+  $("urlInput").value = localStorage.getItem(LS_KEY) || APPS_SCRIPT_URL || "";
+  $("testLine").className = "test-line"; $("testLine").textContent = "";
+  $("overlay").classList.add("open");
+  setTimeout(()=>$("urlInput").focus(),80);
+}
+function closeModal(){ $("overlay").classList.remove("open"); }
+ $("btnSettings").addEventListener("click", openModal);
+ $("demoToSettings").addEventListener("click", openModal);
+ $("modalClose").addEventListener("click", closeModal);
+ $("overlay").addEventListener("click", e=>{ if(e.target===$("overlay")) closeModal(); });
+ $("btnTest").addEventListener("click", async ()=>{
+  const u = $("urlInput").value.trim();
+  if(!validUrl(u)) return;
+  const line = $("testLine");
+  line.className="test-line"; line.innerHTML="Probando conexión…";
+  try{
+    const rows = await fetchSheet(u);
+    const n = normalize(rows).length;
+    line.className="test-line ok";
+    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} herramienta(s) detectadas.`;
+    localStorage.setItem(LS_KEY, u);
+    toast("Conexión guardada");
+    setTimeout(()=>{ closeModal(); load(); }, 700);
+  }catch(err){
+    line.className="test-line bad";
+    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> ${esc(err.message)}`;
+  }
+});
+ $("btnDemo").addEventListener("click", ()=>{ closeModal(); useDemo(); });
+ $("btnForget").addEventListener("click", ()=>{
+  localStorage.removeItem(LS_KEY);
+  toast("URL guardada eliminada");
+  closeModal(); renderSetup();
+});
+
+/* ---------- ARRANQUE ---------- */
+load();
+</script>
+</body>
+</html>
