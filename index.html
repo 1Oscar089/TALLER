@@ -3,247 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TALLER · Índice personal de herramientas</title>
+<title>TALLER · Índice de módulos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ============ VARIABLES ============ */
   :root{
-    --bg:#F6F5F2; --surface:#FFFFFF; --ink:#23212B; --ink-soft:#6E6B78;
-    --line:#E6E4DE;
-    --lila:#5F4BA8; --lila-soft:#EFECF8; --lila-border:#DCD5F0;
-    --lima:#D7F04C; --lima-deep:#6B7C15; --lima-soft:#F4F8DA;
-    --rojo:#C2433A; --rojo-soft:#FBEAE8;
-    --azul:#3D5FA9; --azul-soft:#E8EDF8;
-    --oliva:#667C1D; --oliva-soft:#F2F5DF;
-    --sh-1:0 1px 2px rgba(35,33,43,.06),0 2px 8px rgba(35,33,43,.05);
-    --sh-2:0 4px 14px rgba(35,33,43,.10),0 1px 3px rgba(35,33,43,.07);
-    --r:14px;
-    --font-ui:'Archivo',sans-serif; --font-display:'Fraunces',serif; --font-mono:'IBM Plex Mono',monospace;
+    --morado:#7C3AED; --morado-deep:#5B21B6; --lila:#A78BFA;
+    --azul:#2563EB; --rojo:#EF4444; --naranja:#F97316;
+    --lima:#D4F542; --lima-ink:#3F5206;
+    --bg:#F5F5FA; --surface:#FFFFFF; --ink:#1E1B2E; --ink-soft:#67647A;
+    --line:#E8E6F2;
+    --sh:0 1px 2px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.07);
+    --sh-lg:0 14px 40px rgba(30,27,46,.16);
+    --fd:'Space Grotesk',sans-serif; --fu:'Archivo',sans-serif; --fm:'IBM Plex Mono',monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  input{font-family:inherit}
-  ::selection{background:var(--lima);color:var(--ink)}
-  :focus-visible{outline:2px solid var(--lila);outline-offset:2px;border-radius:4px}
+  input,select,textarea{font-family:inherit}
+  ::selection{background:var(--lima);color:var(--lima-ink)}
+  :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
   svg{display:block}
 
-  /* ============ EFECTO RIPPLE (Material) ============ */
+  /* ripple */
   .ripple{position:relative;overflow:hidden}
-  .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.18;transform:scale(0);animation:rp .55s ease-out forwards}
+  .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards}
   @keyframes rp{to{transform:scale(2.6);opacity:0}}
 
   /* ============ HEADER ============ */
-  header.top{
-    position:sticky;top:0;z-index:50;background:rgba(246,245,242,.85);
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
-  }
-  .top-in{max-width:1160px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:16px}
-  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:.04em}
-  .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--lila);color:var(--lima);display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:500}
-  .brand small{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);letter-spacing:.12em;font-weight:400}
-  .top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-  .sync{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--oliva);flex:none;transition:background .3s}
-  .dot.on{background:var(--oliva);box-shadow:0 0 0 3px var(--oliva-soft)}
-  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px var(--rojo-soft)}
-  .dot.wait{background:#C9C6BE;box-shadow:0 0 0 3px #EFEDE8}
+  .band{height:4px;background:linear-gradient(90deg,var(--morado),var(--azul) 35%,var(--rojo) 70%,var(--lima))}
+  header.top{position:sticky;top:0;z-index:60;background:rgba(245,245,250,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .top-in{max-width:1200px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:700;font-size:19px;letter-spacing:.03em}
+  .brand-mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--morado),var(--azul));color:var(--lima);display:grid;place-items:center;font-family:var(--fm);font-size:13px;font-weight:500;box-shadow:0 4px 10px rgba(124,58,237,.35)}
+  .brand small{font-family:var(--fm);font-size:10.5px;color:var(--ink-soft);letter-spacing:.14em;font-weight:400}
+  .top-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .sync{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:12px;color:var(--ink-soft)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.on{background:#65A30D;box-shadow:0 0 0 3px #EAF5D3}
+  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px #FDE8E8}
+  .dot.wait{background:#C6C3D4;box-shadow:0 0 0 3px #ECEAF4}
   .icon-btn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--ink-soft);transition:.2s}
-  .icon-btn:hover{background:var(--lila-soft);color:var(--lila)}
+  .icon-btn:hover{background:var(--morado);color:#fff}
   .icon-btn.spin svg{animation:spin .7s ease}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ============ AVISO DEMO ============ */
-  .demo-note{display:none;align-items:center;gap:10px;max-width:1160px;margin:14px auto 0;padding:10px 16px;background:var(--lima-soft);border:1px solid #E3E9BC;border-radius:12px;font-size:13.5px;color:var(--lima-deep)}
+  .demo-note{display:none;align-items:center;gap:10px;max-width:1200px;margin:16px auto 0;padding:11px 16px;background:var(--lima);border-radius:12px;font-size:13.5px;color:var(--lima-ink);font-weight:500;box-shadow:var(--sh)}
   .demo-note.show{display:flex}
-  .demo-note button{margin-left:auto;font-weight:600;font-size:13px;color:var(--lima-deep);text-decoration:underline;text-underline-offset:3px;padding:4px 8px;border-radius:6px}
-  .demo-note button:hover{background:rgba(107,124,21,.12)}
+  .demo-note button{margin-left:auto;font-weight:700;padding:5px 12px;border-radius:8px;background:var(--ink);color:var(--lima)}
+  .demo-note button:hover{opacity:.85}
 
-  /* ============ LAYOUT ============ */
-  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:232px 1fr;gap:48px}
-  aside.side{padding-top:40px}
-  .side-block{position:sticky;top:84px;display:flex;flex-direction:column;gap:28px}
-  .side h4{font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:.18em;color:var(--ink-soft);margin-bottom:10px}
-  .cat-nav{display:flex;flex-direction:column;gap:2px}
-  .cat-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:9px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;transition:.18s;text-align:left;width:100%}
-  .cat-item:hover{background:#EFEEE9;color:var(--ink)}
-  .cat-item.active{background:var(--lila-soft);color:var(--lila);font-weight:600}
-  .cat-item .sw{width:9px;height:9px;border-radius:3px;flex:none}
-  .cat-item .n{margin-left:auto;font-family:var(--font-mono);font-size:11px}
-  .status-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--sh-1);font-size:12.5px}
-  .status-row{display:flex;justify-content:space-between;padding:5px 0;color:var(--ink-soft)}
-  .status-row b{color:var(--ink);font-weight:600}
-  .kb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
-  .kbd{font-family:var(--font-mono);font-size:11px;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:2px 7px;box-shadow:var(--sh-1)}
+  .wrap{max-width:1200px;margin:0 auto;padding:28px 24px 90px}
 
-  /* ============ HERO ============ */
-  main{padding:44px 0 80px;min-width:0}
-  .hero-kicker{display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
-  .hero-kicker::before{content:"";width:26px;height:1px;background:var(--ink-soft)}
-  h1.hero{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,4.6vw,54px);line-height:1.08;letter-spacing:-.01em}
-  h1.hero .w{display:inline-block;overflow:hidden;vertical-align:bottom}
-  h1.hero .w>span{display:inline-block;transform:translateY(110%);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
-  @keyframes rise{to{transform:translateY(0)}}
-  h1.hero em{font-style:italic;font-weight:500;position:relative;white-space:nowrap}
-  h1.hero em::after{content:"";position:absolute;left:-2px;right:-2px;bottom:4px;height:12px;background:var(--lima);z-index:-1;border-radius:2px}
-  .hero-stats{display:flex;align-items:baseline;gap:34px;margin-top:26px;flex-wrap:wrap}
-  .stat .num{font-family:var(--font-display);font-size:44px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
-  .stat .lbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
-  .stat-sep{width:1px;height:38px;background:var(--line);align-self:center}
+  /* ============ HERO COLORIDO ============ */
+  .hero{position:relative;overflow:hidden;border-radius:26px;padding:46px 46px 40px;color:#fff;
+    background:
+      radial-gradient(640px 320px at 88% -30%, rgba(239,68,68,.6), transparent 62%),
+      radial-gradient(520px 300px at -8% 115%, rgba(212,245,66,.4), transparent 60%),
+      linear-gradient(115deg,#5B21B6,#7C3AED 42%,#2563EB 100%);
+    box-shadow:var(--sh-lg)}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+    background-size:36px 36px;
+    -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
+  .hero>*{position:relative}
+  .hero-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .kicker::before{content:"";width:24px;height:3px;background:var(--lima);border-radius:2px}
+  .glass-pill{margin-left:auto;display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);font-family:var(--fm);font-size:12px}
+  h1.hero-t{font-family:var(--fd);font-weight:700;font-size:clamp(34px,4.8vw,58px);line-height:1.06;letter-spacing:-.015em}
+  h1.hero-t em{font-style:normal;color:var(--lima);position:relative;white-space:nowrap}
+  h1.hero-t em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(212,245,66,.28);border-radius:3px}
+  .hero-sub{margin-top:14px;max-width:560px;font-size:15.5px;color:rgba(255,255,255,.82)}
+  .hero-cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.18s;border:none}
+  .btn-lima{background:var(--lima);color:var(--lima-ink);box-shadow:0 6px 18px rgba(212,245,66,.35)}
+  .btn-lima:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,245,66,.45)}
+  .btn-ghost{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.24)}
+  .hero-stats{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .hstat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(6px);border-radius:16px;padding:14px 22px;min-width:128px}
+  .hstat .num{font-family:var(--fd);font-weight:700;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
+  .hstat .lbl{font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:5px}
 
-  /* ============ CONTROLES ============ */
-  .controls{margin-top:36px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-  .search{flex:1;min-width:250px;display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--sh-1);transition:.2s}
-  .search:focus-within{border-color:var(--lila-border);box-shadow:0 0 0 3px var(--lila-soft),var(--sh-1)}
+  /* ============ TOOLBAR ============ */
+  .toolbar{display:flex;gap:12px;align-items:center;margin-top:30px;flex-wrap:wrap}
+  .search{flex:1;min-width:240px;display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px 16px;box-shadow:var(--sh);transition:.2s}
+  .search:focus-within{border-color:var(--lila);box-shadow:0 0 0 3px rgba(124,58,237,.14),var(--sh)}
   .search svg{color:var(--ink-soft);flex:none}
   .search input{flex:1;border:none;background:none;font-size:15px;color:var(--ink);outline:none}
-  .search input::placeholder{color:#A6A3AC}
+  .search input::placeholder{color:#A9A6BB}
   .search .clear{display:none;color:var(--ink-soft);padding:2px;border-radius:6px}
   .search .clear:hover{color:var(--rojo)}
   .search.has .clear{display:block}
-  .view-note{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);white-space:nowrap}
-  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-  .chip{padding:7px 15px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:500;color:var(--ink-soft);transition:.18s;display:inline-flex;gap:7px;align-items:center}
-  .chip .n{font-family:var(--font-mono);font-size:11px;opacity:.75}
-  .chip:hover{border-color:var(--lila-border);color:var(--lila)}
-  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .view-note{font-family:var(--fm);font-size:12px;color:var(--ink-soft);white-space:nowrap}
+  .seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;box-shadow:var(--sh)}
+  .seg button{width:38px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--ink-soft);transition:.18s}
+  .seg button:hover{color:var(--morado)}
+  .seg button.active{background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;box-shadow:0 3px 8px rgba(124,58,237,.35)}
 
-  /* ============ LISTA ÍNDICE ============ */
-  .index{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-1);overflow:hidden}
-  .row{position:relative;display:grid;grid-template-columns:58px 52px 1fr auto 34px;align-items:center;gap:14px;padding:19px 22px 19px 0;border-bottom:1px solid var(--line);transition:background .18s;animation:rowIn .4s ease backwards}
+  .chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+  .chip{padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;transition:.18s;display:inline-flex;gap:8px;align-items:center}
+  .chip .n{font-family:var(--fm);font-size:11px;opacity:.8}
+  .chip:hover{transform:translateY(-1px)}
+  .chip.active{box-shadow:0 4px 12px rgba(30,27,46,.14)}
+
+  /* ============ VISTA ÍNDICE ============ */
+  .index{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);overflow:hidden}
+  .row{position:relative;display:grid;grid-template-columns:56px 50px 1fr auto 84px;align-items:center;gap:14px;padding:18px 22px 18px 0;border-bottom:1px solid var(--line);transition:.18s;animation:rowIn .4s ease backwards}
   @keyframes rowIn{from{opacity:0;transform:translateY(8px)}}
   .row:last-child{border-bottom:none}
-  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--lila);transition:width .22s cubic-bezier(.2,.7,.2,1)}
-  .row:hover{background:#FBFAF8}
-  .row:hover::before{width:4px}
-  .row .idx{font-family:var(--font-mono);font-size:13px;color:#B9B6C1;text-align:center;transition:.2s}
-  .row:hover .idx{color:var(--lima-deep)}
-  .mono-badge{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:20px;transition:transform .2s}
-  .row:hover .mono-badge{transform:rotate(-5deg) scale(1.06)}
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--c);transition:width .22s cubic-bezier(.2,.7,.2,1)}
+  .row:hover{background:var(--cs)}
+  .row:hover::before{width:5px}
+  .row .idx{font-family:var(--fm);font-size:13px;color:#C2BFCE;text-align:center;transition:.2s}
+  .row:hover .idx{color:var(--ink)}
+  .mono-badge{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:20px;color:#fff;transition:transform .2s;flex:none}
+  .row:hover .mono-badge{transform:rotate(-6deg) scale(1.07)}
   .row-body{min-width:0}
-  .row-title{font-family:var(--font-display);font-weight:600;font-size:18.5px;letter-spacing:-.005em;line-height:1.25}
-  .row-title mark{background:var(--lima);color:inherit;padding:0 3px;border-radius:3px}
+  .row-title{font-family:var(--fd);font-weight:600;font-size:18.5px;line-height:1.25}
+  .row-title mark{background:var(--lima);color:var(--lima-ink);padding:0 3px;border-radius:3px}
   .row-desc{font-size:13.5px;color:var(--ink-soft);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row-desc mark{background:var(--lima);color:inherit;padding:0 2px;border-radius:3px}
+  .row-desc mark{background:var(--lima);color:var(--lima-ink);padding:0 2px;border-radius:3px}
   .row-meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-  .badge{font-size:11px;font-weight:600;letter-spacing:.05em;padding:3px 10px;border-radius:999px;white-space:nowrap}
-  .host{font-family:var(--font-mono);font-size:11px;color:#A6A3AC}
-  .row-go{width:34px;height:34px;display:grid;place-items:center;color:#B9B6C1;border-radius:9px;transition:.2s}
-  .row:hover .row-go{color:var(--lila);background:var(--lila-soft);transform:translate(2px,-2px)}
-  .empty-search{padding:56px 20px;text-align:center;color:var(--ink-soft)}
-  .empty-search .big{font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--ink);margin-bottom:6px}
-  .empty-search button{margin-top:16px;font-weight:600;color:var(--lila);font-size:14px;padding:8px 18px;border:1px solid var(--lila-border);border-radius:999px;background:var(--lila-soft)}
-  .empty-search button:hover{background:var(--lila);color:#fff}
+  .badge{font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 12px;border-radius:999px;white-space:nowrap;color:#fff}
+  .host{font-family:var(--fm);font-size:11px;color:#A9A6BB}
+  .row-acts{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+  .mini{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#B7B4C6;transition:.18s}
+  .mini:hover{background:var(--morado);color:#fff}
+  .row.go{cursor:pointer}
+  .row:hover .go-arrow{color:var(--c);transform:translate(2px,-2px)}
+  .go-arrow{color:#C2BFCE;transition:.18s}
+  mark{background:var(--lima);color:var(--lima-ink)}
 
-  /* skeleton */
-  .sk{display:grid;grid-template-columns:58px 52px 1fr 100px;gap:14px;align-items:center;padding:22px 22px 22px 0;border-bottom:1px solid var(--line)}
+  /* ============ VISTA TARJETAS ============ */
+  .grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:18px}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh);transition:.22s cubic-bezier(.2,.8,.3,1.1);animation:rowIn .4s ease backwards;overflow:hidden}
+  .card:hover{transform:translateY(-5px);box-shadow:0 16px 34px var(--csh);border-color:var(--cb)}
+  .card-band{position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--c),var(--cd))}
+  .card .mono-badge{width:50px;height:50px}
+  .card h3{font-family:var(--fd);font-weight:600;font-size:18px;line-height:1.25}
+  .card p{font-size:13.5px;color:var(--ink-soft);flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:40px}
+  .card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px dashed var(--line)}
+  .card-acts{display:flex;gap:2px}
+
+  /* ============ SKELETON / ESTADOS ============ */
+  .sk{display:grid;grid-template-columns:56px 50px 1fr 110px;gap:14px;align-items:center;padding:22px 22px 22px 0;border-bottom:1px solid var(--line)}
   .sk:last-child{border-bottom:none}
-  .sk i{display:block;border-radius:8px;background:linear-gradient(90deg,#EFEDE9 25%,#F7F6F3 50%,#EFEDE9 75%);background-size:200% 100%;animation:sh 1.3s infinite}
+  .sk i{display:block;border-radius:8px;background:linear-gradient(90deg,#ECEAF4 25%,#F6F5FB 50%,#ECEAF4 75%);background-size:200% 100%;animation:sh 1.3s infinite}
   @keyframes sh{to{background-position:-200% 0}}
-  .sk .a{height:14px;width:30px;margin:0 auto;border-radius:6px}
-  .sk .b{height:46px;width:46px;border-radius:12px}
+  .sk .a{height:14px;width:30px;margin:0 auto}
+  .sk .b{height:46px;width:46px;border-radius:13px}
   .sk .c1{height:17px;width:46%;margin-bottom:9px}
   .sk .c2{height:12px;width:68%}
-  .sk .d{height:20px;width:80px;margin-left:auto;border-radius:999px}
+  .sk .d{height:22px;width:86px;margin-left:auto;border-radius:999px}
 
-  /* ============ ESTADOS GRANDES ============ */
-  .state-panel{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-1);padding:44px 40px;text-align:center}
-  .state-panel .glyph{width:64px;height:64px;border-radius:18px;margin:0 auto 18px;display:grid;place-items:center}
-  .state-panel h3{font-family:var(--font-display);font-size:26px;font-weight:600;margin-bottom:8px}
-  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:520px;margin:0 auto}
-  .state-panel .acts{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:11px;font-weight:600;font-size:14px;transition:.18s}
-  .btn-p{background:var(--lila);color:#fff;box-shadow:var(--sh-1)}
-  .btn-p:hover{background:#4E3D8B;box-shadow:var(--sh-2);transform:translateY(-1px)}
-  .btn-s{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+  .state-panel{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:46px 40px;text-align:center}
+  .state-panel .glyph{width:66px;height:66px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center}
+  .state-panel h3{font-family:var(--fd);font-size:26px;font-weight:700;margin-bottom:8px}
+  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:540px;margin:0 auto}
+  .state-panel .acts{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .btn-morado{background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;box-shadow:0 6px 16px rgba(124,58,237,.35)}
+  .btn-morado:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(124,58,237,.45)}
+  .btn-s{background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
   .btn-s:hover{border-color:var(--ink-soft)}
-  .btn-l{background:var(--lima);color:var(--ink)}
-  .btn-l:hover{background:#C9E63F;transform:translateY(-1px)}
-
-  /* setup pasos */
-  .steps{text-align:left;max-width:600px;margin:30px auto 0;display:flex;flex-direction:column;gap:0}
+  .steps{text-align:left;max-width:600px;margin:28px auto 0;display:flex;flex-direction:column}
   .step{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:14px 0;position:relative}
   .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:46px;bottom:-2px;width:1px;background:var(--line)}
-  .step .sn{width:36px;height:36px;border-radius:50%;background:var(--lila-soft);color:var(--lila);display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:500;border:1px solid var(--lila-border)}
-  .step h5{font-size:14.5px;font-weight:600;margin-bottom:3px}
+  .step .sn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;display:grid;place-items:center;font-family:var(--fm);font-size:13px}
+  .step h5{font-size:14.5px;font-weight:700;margin-bottom:3px}
   .step p{font-size:13px;color:var(--ink-soft);margin:0;max-width:none}
-  .step code{font-family:var(--font-mono);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+  .step code{font-family:var(--fm);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--morado-deep)}
   .setup-form{display:flex;gap:10px;max-width:600px;margin:26px auto 0}
-  .setup-form input{flex:1;padding:13px 16px;border:1px solid var(--line);border-radius:11px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;transition:.2s}
-  .setup-form input:focus{border-color:var(--lila);background:#fff;box-shadow:0 0 0 3px var(--lila-soft)}
-  details.code{max-width:600px;margin:20px auto 0;text-align:left}
-  details.code summary{font-size:13px;color:var(--lila);cursor:pointer;font-weight:600;padding:6px 0}
-  details.code pre{background:#23212B;color:#E8E6F2;border-radius:12px;padding:18px;font-family:var(--font-mono);font-size:12px;line-height:1.65;overflow-x:auto;margin-top:8px}
-  details.code .cm{color:#8B87A3}
+  .setup-form input{flex:1;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-family:var(--fm);background:var(--bg);color:var(--ink);outline:none;transition:.2s}
+  .setup-form input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
 
   /* ============ FOOTER ============ */
-  footer{border-top:1px solid var(--line);padding:22px 0 40px}
-  .foot-in{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft)}
+  footer{border-top:1px solid var(--line);padding:22px 0 44px}
+  .foot-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--fm);font-size:11.5px;color:var(--ink-soft)}
+  .foot-dots{display:inline-flex;gap:5px;margin-right:10px;vertical-align:-1px}
+  .foot-dots i{width:8px;height:8px;border-radius:50%}
 
-  /* ============ MODAL ============ */
-  .overlay{position:fixed;inset:0;background:rgba(35,33,43,.42);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  /* ============ OVERLAYS / MODALES ============ */
+  .overlay{position:fixed;inset:0;background:rgba(30,27,46,.5);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
   .overlay.open{display:flex;animation:fadeIn .2s ease}
   @keyframes fadeIn{from{opacity:0}}
-  .modal{background:var(--surface);border-radius:20px;width:100%;max-width:520px;box-shadow:0 24px 60px rgba(35,33,43,.28);animation:pop .28s cubic-bezier(.2,.9,.3,1.15)}
-  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}}
+  .modal{background:var(--surface);border-radius:22px;width:100%;max-width:540px;box-shadow:var(--sh-lg);animation:pop .3s cubic-bezier(.2,.9,.3,1.15);max-height:92vh;overflow:auto}
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}}
   .modal-head{display:flex;align-items:center;padding:22px 26px 0}
-  .modal-head h3{font-family:var(--font-display);font-size:22px;font-weight:600}
+  .modal-head h3{font-family:var(--fd);font-size:22px;font-weight:700}
   .modal-head .icon-btn{margin-left:auto}
   .modal-body{padding:18px 26px 26px}
-  .modal-body label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
-  .modal-body input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:11px;font-family:var(--font-mono);font-size:13px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
-  .modal-body input:focus{border-color:var(--lila);background:#fff;box-shadow:0 0 0 3px var(--lila-soft)}
-  .modal-acts{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-  .modal-acts .btn-p{flex:1;justify-content:center}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+  .field label b{color:var(--rojo)}
+  .field input{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
+  .field input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+  .swatches{display:flex;gap:9px;flex-wrap:wrap}
+  .sw-opt{width:34px;height:34px;border-radius:50%;background:var(--c);border:3px solid transparent;transition:.15s;position:relative}
+  .sw-opt:hover{transform:scale(1.12)}
+  .sw-opt.active{border-color:var(--ink);box-shadow:0 0 0 3px #fff inset,0 3px 8px rgba(30,27,46,.25)}
+  .modal-acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .modal-acts .btn-morado{flex:1;justify-content:center}
+  .modal-hint{margin-top:16px;padding:13px 15px;background:linear-gradient(120deg,#F5F1FE,#EEF3FE);border-radius:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.65;border:1px solid #EAE4F9}
   .test-line{margin-top:14px;font-size:13px;min-height:20px;display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
-  .test-line.ok{color:var(--oliva)} .test-line.bad{color:var(--rojo)}
-  .modal-hint{margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:10px;font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+  .test-line.ok{color:#65A30D;font-weight:600}.test-line.bad{color:var(--rojo);font-weight:600}
   .danger-link{margin-top:14px;font-size:12.5px;color:var(--rojo);text-decoration:underline;text-underline-offset:3px;padding:4px 0}
   .danger-link:hover{opacity:.75}
 
+  /* ============ DRAWER (hoja de la herramienta) ============ */
+  .drawer-ov{position:fixed;inset:0;background:rgba(30,27,46,.4);z-index:110;opacity:0;pointer-events:none;transition:.3s}
+  .drawer-ov.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,94vw);background:var(--surface);z-index:120;transform:translateX(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-14px 0 44px rgba(30,27,46,.2)}
+  .drawer.open{transform:none}
+  .drawer-head{color:#fff;padding:24px 26px;background:linear-gradient(120deg,var(--dc),var(--dd))}
+  .drawer-head .dr-top{display:flex;align-items:center;gap:12px}
+  .drawer-head h3{font-family:var(--fd);font-size:22px;font-weight:700;flex:1;line-height:1.2}
+  .drawer-head .icon-btn{color:rgba(255,255,255,.85)}
+  .drawer-head .icon-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+  .dr-meta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .dr-tag{font-family:var(--fm);font-size:11px;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3)}
+  .dr-sub{font-size:13px;color:rgba(255,255,255,.85);margin-top:10px}
+  .drawer-body{flex:1;overflow:auto;padding:22px 26px 30px}
+  .dr-bar{display:flex;gap:9px;margin-bottom:16px;flex-wrap:wrap}
+  .chip-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:12.5px;font-weight:600;transition:.15s}
+  .chip-btn:hover{border-color:var(--dc);color:var(--dc)}
+  .tbl-wrap{border:1.5px solid var(--line);border-radius:14px;overflow:auto;max-height:46vh}
+  table.sheet-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:420px}
+  .sheet-table th{position:sticky;top:0;background:#F3F1FB;font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-align:left;padding:9px 12px;border-bottom:1.5px solid var(--line)}
+  .sheet-table td{padding:9px 12px;border-bottom:1px solid var(--line);font-family:var(--fm);font-size:12px;color:var(--ink);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sheet-table tr:last-child td{border-bottom:none}
+  .sheet-table tr:hover td{background:#FBFAFE}
+  .tbl-note{font-family:var(--fm);font-size:11px;color:var(--ink-soft);margin-top:9px}
+  .dr-empty{padding:34px 20px;text-align:center;color:var(--ink-soft);font-size:13.5px;border:1.5px dashed var(--line);border-radius:14px}
+  .danger-zone{margin-top:24px;border:1.5px solid #FBD5D3;background:#FEF6F5;border-radius:14px;padding:16px}
+  .danger-zone h6{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rojo);margin-bottom:10px}
+  .chk{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-soft);cursor:pointer;margin-bottom:12px;user-select:none}
+  .chk input{accent-color:var(--rojo);width:16px;height:16px;cursor:pointer}
+
   /* ============ TOASTS ============ */
-  .toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
-  .toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-size:13.5px;box-shadow:var(--sh-2);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
+  .toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:13px;font-size:13.5px;font-weight:600;box-shadow:var(--sh-lg);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
+  .toast.ok{background:var(--lima);color:var(--lima-ink)}
+  .toast.bad{background:var(--rojo);color:#fff}
+  .toast.info{background:var(--ink);color:#fff}
   .toast svg{flex:none}
-  .toast.ok svg{color:var(--lima)} .toast.bad svg{color:#F0938B}
   .toast.out{animation:toastOut .3s ease forwards}
   @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}}
   @keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
 
-  mark{background:var(--lima);color:inherit}
-
-  @media(max-width:900px){
-    .wrap{grid-template-columns:1fr;gap:0}
-    aside.side{display:none}
-    .row{grid-template-columns:40px 44px 1fr 30px;padding:16px 14px 16px 0;gap:11px}
+  @media(max-width:820px){
+    .hero{padding:34px 26px 30px;border-radius:20px}
+    .row{grid-template-columns:38px 44px 1fr 34px;padding:15px 14px 15px 0;gap:10px}
     .row-meta{display:none}
-    .row .idx{font-size:12px}
-    .state-panel{padding:32px 22px}
+    .row-acts .mini.hoja{display:none}
     .sync span{display:none}
+    .glass-pill{display:none}
   }
 </style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<div class="band"></div>
+
 <header class="top">
   <div class="top-in">
     <div class="brand">
       <span class="brand-mark">T</span>
       <span>TALLER</span>
-      <small>· ÍNDICE DE HERRAMIENTAS</small>
+      <small>· ÍNDICE DE MÓDULOS</small>
     </div>
     <div class="top-right">
-      <div class="sync">
-        <span class="dot wait" id="syncDot"></span>
-        <span id="syncText">conectando…</span>
-      </div>
-      <button class="icon-btn ripple" id="btnRefresh" title="Actualizar desde la hoja" aria-label="Actualizar">
+      <div class="sync"><span class="dot wait" id="syncDot"></span><span id="syncText">conectando…</span></div>
+      <button class="icon-btn ripple" id="btnRefresh" title="Sincronizar con la hoja" aria-label="Sincronizar">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
       </button>
       <button class="icon-btn ripple" id="btnSettings" title="Ajustes de conexión" aria-label="Ajustes">
@@ -253,546 +287,718 @@
   </div>
 </header>
 
-<!-- aviso de datos de ejemplo -->
 <div class="demo-note" id="demoNote">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-  Mostrando <b>datos de ejemplo</b>. Conecta tu Google Sheet desde Ajustes para cargar tus herramientas reales.
-  <button id="demoToSettings">Conectar ahora</button>
+  Estás viendo <b>datos de ejemplo</b>. Conecta tu Google Sheet para gestionar módulos reales.
+  <button id="demoToSettings">Conectar</button>
 </div>
 
 <div class="wrap">
 
-  <!-- ================= SIDEBAR ================= -->
-  <aside class="side">
-    <div class="side-block">
-      <div>
-        <h4>CATEGORÍAS</h4>
-        <nav class="cat-nav" id="catNav"></nav>
-      </div>
-      <div>
-        <h4>ESTADO</h4>
-        <div class="status-card">
-          <div class="status-row"><span>Fuente</span><b id="stSource">—</b></div>
-          <div class="status-row"><span>Última sync</span><b id="stSync">—</b></div>
-          <div class="status-row"><span>Registros</span><b id="stCount">—</b></div>
-        </div>
-      </div>
-      <div>
-        <h4>ATAJOS</h4>
-        <div class="kb"><span class="kbd">/</span> enfocar búsqueda</div>
-        <div class="kb" style="margin-top:8px"><span class="kbd">Esc</span> limpiar filtros</div>
-      </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-top">
+      <span class="kicker">Taller de herramientas</span>
+      <span class="glass-pill" id="heroClock">—</span>
     </div>
-  </aside>
-
-  <!-- ================= CONTENIDO ================= -->
-  <main>
-    <div class="hero-kicker" id="todayLine">—</div>
-    <h1 class="hero" id="heroTitle" aria-label="Cada herramienta, a un clic."></h1>
+    <h1 class="hero-t">Todas tus herramientas,<br><em>un solo taller.</em></h1>
+    <p class="hero-sub">Cada módulo vive en el índice, tiene su propia hoja de datos en Google Sheets y se abre con un clic. Agrega, organiza y despliega sin tocar código.</p>
+    <div class="hero-cta">
+      <button class="btn btn-lima ripple" id="btnAdd">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Nuevo módulo
+      </button>
+      <button class="btn btn-ghost ripple" id="btnSyncHero">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        Sincronizar
+      </button>
+    </div>
     <div class="hero-stats">
-      <div class="stat"><div class="num" id="numTools">0</div><div class="lbl">herramientas</div></div>
-      <div class="stat-sep"></div>
-      <div class="stat"><div class="num" id="numCats">0</div><div class="lbl">categorías</div></div>
-      <div class="stat-sep"></div>
-      <div class="stat"><div class="num" style="font-size:30px;padding-top:8px;color:var(--ink-soft)" id="clock">—:—</div><div class="lbl">hora local</div></div>
+      <div class="hstat"><div class="num" id="statTools">—</div><div class="lbl">módulos</div></div>
+      <div class="hstat"><div class="num" id="statCats">—</div><div class="lbl">categorías</div></div>
+      <div class="hstat"><div class="num" id="statSheets">—</div><div class="lbl">hojas propias</div></div>
     </div>
+  </section>
 
-    <div class="controls">
-      <div class="search" id="searchBox">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="searchInput" placeholder="Buscar herramienta… (pulsa /)" autocomplete="off">
-        <button class="clear" id="searchClear" aria-label="Limpiar búsqueda">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <span class="view-note" id="viewNote"></span>
+  <!-- ===== TOOLBAR ===== -->
+  <div class="toolbar">
+    <div class="search" id="searchBox">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar módulo… (pulsa /)" autocomplete="off">
+      <button class="clear" id="searchClear" aria-label="Limpiar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
     </div>
-    <div class="chips" id="chips"></div>
+    <span class="view-note" id="viewNote"></span>
+    <div class="seg" role="group" aria-label="Vista">
+      <button id="segList" class="active" title="Vista índice">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      </button>
+      <button id="segGrid" title="Vista tarjetas">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
 
-    <div id="content"></div>
-  </main>
+  <div id="content"></div>
 </div>
 
 <footer>
   <div class="foot-in">
-    <span>TALLER — datos servidos desde Google Sheets vía Apps Script</span>
-    <span id="footHost">hosting: GitHub Pages · estático</span>
+    <span><span class="foot-dots"><i style="background:var(--morado)"></i><i style="background:var(--azul)"></i><i style="background:var(--rojo)"></i><i style="background:var(--lima)"></i></span>TALLER · hoja INDEX + una hoja por módulo</span>
+    <span>frontend: GitHub Pages · datos: Google Sheets</span>
   </div>
 </footer>
 
-<!-- ================= MODAL AJUSTES ================= -->
-<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Ajustes de conexión">
+<!-- ===== MODAL: AJUSTES ===== -->
+<div class="overlay" id="ovSettings" role="dialog" aria-modal="true" aria-label="Ajustes de conexión">
   <div class="modal">
     <div class="modal-head">
       <h3>Conexión a Google Sheets</h3>
-      <button class="icon-btn ripple" id="modalClose" aria-label="Cerrar">
+      <button class="icon-btn ripple" id="settingsClose" aria-label="Cerrar">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
     <div class="modal-body">
-      <label for="urlInput">URL /exec de tu Apps Script</label>
-      <input type="url" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+      <div class="field">
+        <label for="urlInput">URL /exec de tu Apps Script</label>
+        <input type="url" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+      </div>
       <div class="modal-acts">
-        <button class="btn btn-p ripple" id="btnTest">Probar y guardar</button>
-        <button class="btn btn-s ripple" id="btnDemo">Ver datos de ejemplo</button>
+        <button class="btn btn-morado ripple" id="btnTest">Probar y guardar</button>
+        <button class="btn btn-s ripple" id="btnDemo">Datos de ejemplo</button>
       </div>
       <div class="test-line" id="testLine"></div>
       <div class="modal-hint">
-        La hoja debe tener encabezados en la primera fila. Columnas reconocidas (flexibles):
-        <b>titulo / nombre</b>, <b>descripcion</b>, <b>url</b>, <b>categoria</b> (opcional).
-        La URL se guarda localmente en tu navegador (localStorage).
+        Pega el archivo <b>Code.gs</b> en Extensiones → Apps Script de tu hoja, ejecuta una vez la función
+        <b>instalar</b> (crea la hoja <b>INDEX</b>) y despliega como app web con acceso «Cualquier persona».
+        Columnas de INDEX: <b>id · titulo · descripcion · url · categoria · color · hoja · creado</b>.
+        Cada módulo nuevo recibe <b>su propia hoja</b> automáticamente.
       </div>
       <button class="danger-link" id="btnForget">Quitar URL guardada de este navegador</button>
     </div>
   </div>
 </div>
 
+<!-- ===== MODAL: NUEVO MÓDULO ===== -->
+<div class="overlay" id="ovAdd" role="dialog" aria-modal="true" aria-label="Nuevo módulo">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Nuevo módulo</h3>
+      <button class="icon-btn ripple" id="addClose" aria-label="Cerrar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="fTitulo">Título <b>*</b></label>
+        <input type="text" id="fTitulo" placeholder="Ej: Acortador de enlaces" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="fDesc">Descripción</label>
+        <input type="text" id="fDesc" placeholder="Qué hace, en una línea" maxlength="140">
+      </div>
+      <div class="field">
+        <label for="fUrl">URL de la herramienta</label>
+        <input type="url" id="fUrl" placeholder="https://tu-usuario.github.io/repo/ (opcional)">
+      </div>
+      <div class="field">
+        <label for="fCat">Categoría</label>
+        <input type="text" id="fCat" list="catList" placeholder="Ej: Desarrollo" maxlength="40">
+        <datalist id="catList"></datalist>
+      </div>
+      <div class="field">
+        <label>Color del módulo</label>
+        <div class="swatches" id="fSwatches"></div>
+      </div>
+      <div class="modal-acts">
+        <button class="btn btn-morado ripple" id="btnAddSave">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          Crear módulo y su hoja
+        </button>
+      </div>
+      <div class="modal-hint">Se escribirá una fila en la hoja <b>INDEX</b> y se creará una hoja propia con este nombre para los datos del módulo (clave · valor · fecha).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DRAWER: HOJA DEL MÓDULO ===== -->
+<div class="drawer-ov" id="drawerOv"></div>
+<aside class="drawer" id="drawer" aria-label="Datos de la hoja">
+  <div class="drawer-head" id="drawerHead">
+    <div class="dr-top">
+      <h3 id="drTitle">—</h3>
+      <button class="icon-btn ripple" id="drawerClose" aria-label="Cerrar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="dr-meta" id="drMeta"></div>
+    <div class="dr-sub" id="drSub"></div>
+  </div>
+  <div class="drawer-body">
+    <div class="dr-bar">
+      <button class="chip-btn ripple" id="drRefresh">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        Actualizar
+      </button>
+      <button class="chip-btn ripple" id="drEnsure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+        Crear hoja si falta
+      </button>
+      <button class="chip-btn ripple" id="drOpen" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        Abrir herramienta
+      </button>
+    </div>
+    <div id="drTable"></div>
+    <div class="danger-zone">
+      <h6>Zona de riesgo</h6>
+      <label class="chk"><input type="checkbox" id="drDelSheet"> Eliminar también su hoja de datos</label>
+      <button class="btn btn-s ripple" id="drDelete" style="border-color:#F3B9B5;color:var(--rojo)">Eliminar módulo del índice</button>
+    </div>
+  </div>
+</aside>
+
 <div class="toasts" id="toasts"></div>
 
 <script>
 /* ════════════════════════════════════════════════════════════
-   CONFIGURACIÓN — PEGA AQUÍ TU URL /exec DE APPS SCRIPT
-   (también puedes pegarla desde el botón de ajustes sin tocar
-   el código: se guarda en localStorage de tu navegador)
+   CONFIGURACIÓN — pega aquí tu URL /exec de Apps Script
+   (o déjala vacía y pégala desde el engranaje: queda guardada
+   en localStorage de tu navegador)
    ════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = ""; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const APPS_SCRIPT_URL = ""; // ej: "https://script.google.com/macros/s/AKfycb…/exec"
 
-const LS_KEY = "taller.sheetsUrl";
+const LS_URL  = "taller.sheetsUrl";
+const LS_VIEW = "taller.view";
 const $ = id => document.getElementById(id);
 
-/* ---------- DATOS DE EJEMPLO (solo si no hay hoja conectada) ---------- */
+/* ---------- paleta de módulos ---------- */
+const POOL = ['#7C3AED','#2563EB','#EF4444','#F97316','#EC4899','#65A30D','#0EA5E9','#14B8A6'];
+const CAT_MAP = {desarrollo:'#2563EB', diseno:'#EC4899', diseño:'#EC4899', utilidades:'#F97316', productividad:'#7C3AED', finanzas:'#65A30D', datos:'#0EA5E9', medios:'#14B8A6'};
+
+/* ---------- demo (solo si no hay hoja conectada) ---------- */
 const DEMO = [
-  {titulo:"Acortador de enlaces", descripcion:"Acorta y nombra URLs largas con un clic.", url:"https://acorta.local/", categoria:"Utilidades"},
-  {titulo:"Generador de paletas", descripcion:"Crea paletas de color armónicas desde un tono base.", url:"https://paletas.local/", categoria:"Diseño"},
-  {titulo:"Conversor de unidades", descripcion:"Longitud, masa, temperatura y datos al instante.", url:"https://unidades.local/", categoria:"Utilidades"},
-  {titulo:"Editor de JSON", descripcion:"Pega, valida y formatea JSON con árbol navegable.", url:"https://json.local/", categoria:"Desarrollo"},
-  {titulo:"Pomodoro de enfoque", descripcion:"Cronómetro de sesiones 25/5 con registro diario.", url:"https://pomodoro.local/", categoria:"Productividad"},
-  {titulo:"Calculadora de préstamos", descripcion:"Cuotas, intereses totales y tabla de amortización.", url:"https://prestamos.local/", categoria:"Finanzas"},
-  {titulo:"Extractor de colores", descripcion:"Sube una imagen y copia sus colores dominantes.", url:"https://colores.local/", categoria:"Diseño"},
-  {titulo:"Probador de APIs", descripcion:"Lanza peticiones GET/POST y lee la respuesta cruda.", url:"https://apis.local/", categoria:"Desarrollo"}
+  {titulo:'Acortador de enlaces', descripcion:'Acorta y nombra URLs largas con un clic.', url:'https://acorta.local/', categoria:'Utilidades', color:'#F97316'},
+  {titulo:'Generador de paletas', descripcion:'Paletas armónicas desde un tono base.', url:'https://paletas.local/', categoria:'Diseño', color:'#EC4899'},
+  {titulo:'Editor de JSON', descripcion:'Valida y formatea JSON con árbol navegable.', url:'https://json.local/', categoria:'Desarrollo', color:'#2563EB'},
+  {titulo:'Pomodoro de enfoque', descripcion:'Sesiones 25/5 con registro diario.', url:'https://pomodoro.local/', categoria:'Productividad', color:'#7C3AED'},
+  {titulo:'Calculadora de préstamos', descripcion:'Cuotas, intereses y amortización.', url:'https://prestamos.local/', categoria:'Finanzas', color:'#65A30D'},
+  {titulo:'Probador de APIs', descripcion:'Peticiones GET/POST y respuesta cruda.', url:'', categoria:'Desarrollo', color:'#0EA5E9'}
 ];
 
-/* ---------- ESTADO ---------- */
-let tools = [];            // lista normalizada
-let source = "—";          // "sheets" | "demo"
-let lastSync = null;       // Date
-let activeCat = "todas";
-let query = "";
+/* ---------- estado ---------- */
+let tools = [], source = '—', lastSync = null;
+let activeCat = 'todas', query = '', view = localStorage.getItem(LS_VIEW) || 'list';
+let addColor = POOL[0], drawerTool = null, delArmed = false;
 
-/* ---------- UTILIDADES ---------- */
-function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-function norm(s){ return String(s ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim(); }
-function pick(row, keys){
-  for(const k of Object.keys(row)){
-    if(keys.includes(norm(k))){
-      const v = row[k];
-      if(v !== "" && v != null) return v;
-    }
-  }
-  return "";
+/* ---------- utilidades ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+const hashIdx = (str,n) => { let h=0; for(const c of str) h=(h*31+c.charCodeAt(0))>>>0; return h%n; };
+const debounce = (fn,ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
+const hostOf = u => { try{ return new URL(u).hostname.replace(/^www\./,''); }catch{ return ''; } };
+function pick(row, keys){ for(const k of Object.keys(row)){ if(keys.includes(norm(k))){ const v=row[k]; if(v!==''&&v!=null) return v; } } return ''; }
+function hexToRgb(hex){ const m=hex.replace('#',''); return {r:parseInt(m.slice(0,2),16), g:parseInt(m.slice(2,4),16), b:parseInt(m.slice(4,6),16)}; }
+function rgba(hex,a){ const {r,g,b}=hexToRgb(hex); return `rgba(${r},${g},${b},${a})`; }
+function darken(hex,f){ const {r,g,b}=hexToRgb(hex); const d=v=>Math.round(v*f); return `rgb(${d(r)},${d(g)},${d(b)})`; }
+function onColor(hex){ const {r,g,b}=hexToRgb(hex); return (r*299+g*587+b*114)/1000 > 165 ? '#1E1B2E' : '#FFFFFF'; }
+function colorDe(t){
+  if(t.color && /^#([0-9a-f]{6})$/i.test(t.color)) return t.color;
+  const n = norm(t.cat); return CAT_MAP[n] || POOL[hashIdx(n||'x', POOL.length)];
 }
-function hostOf(u){ try{ return new URL(u).hostname.replace(/^www\./,""); }catch{ return ""; } }
-function hashIdx(str, n){ let h=0; for(const c of str) h=(h*31+c.charCodeAt(0))>>>0; return h%n; }
-function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+function setVars(el,c){ el.style.setProperty('--c',c); el.style.setProperty('--cd',darken(c,.72)); el.style.setProperty('--cs',rgba(c,.08)); el.style.setProperty('--csh',rgba(c,.28)); el.style.setProperty('--cb',rgba(c,.5)); }
 
-/* Colores por categoría: lila, rojo ladrillo, azul, oliva */
-const CAT_COLORS = [
-  {fg:"var(--lila)",  bg:"var(--lila-soft)"},
-  {fg:"var(--rojo)",  bg:"var(--rojo-soft)"},
-  {fg:"var(--azul)",  bg:"var(--azul-soft)"},
-  {fg:"var(--oliva)", bg:"var(--oliva-soft)"}
-];
-function catColor(name){ return CAT_COLORS[hashIdx(norm(name)||"x", CAT_COLORS.length)]; }
-
-/* ---------- RIPPLE ---------- */
-document.addEventListener("pointerdown", e=>{
-  const el = e.target.closest(".ripple");
-  if(!el) return;
-  const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height);
-  const s = document.createElement("span");
-  s.className = "rp";
+/* ---------- ripple / toasts ---------- */
+document.addEventListener('pointerdown', e=>{
+  const el = e.target.closest('.ripple'); if(!el) return;
+  const r = el.getBoundingClientRect(), d = Math.max(r.width,r.height);
+  const s = document.createElement('span');
+  s.className='rp';
   s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
-  el.appendChild(s);
-  s.addEventListener("animationend", ()=>s.remove());
+  el.appendChild(s); s.addEventListener('animationend',()=>s.remove());
 });
-
-/* ---------- TOASTS ---------- */
-function toast(msg, type="ok"){
-  const t = document.createElement("div");
+function toast(msg, type='ok'){
+  const icons = {
+    ok:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+    bad:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
+    info:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
+  };
+  const t = document.createElement('div');
   t.className = `toast ${type}`;
-  t.innerHTML = (type==="ok"
-    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
-    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>')
-    + esc(msg);
-  $("toasts").appendChild(t);
-  setTimeout(()=>{ t.classList.add("out"); t.addEventListener("animationend",()=>t.remove()); }, 3400);
+  t.innerHTML = icons[type] + esc(msg);
+  $('toasts').appendChild(t);
+  setTimeout(()=>{ t.classList.add('out'); t.addEventListener('animationend',()=>t.remove()); }, 3600);
 }
 
-/* ---------- HERO: titular animado palabra a palabra ---------- */
-(function(){
-  const words = ["Cada","herramienta,",["a","un"],"<em>clic.</em>"];
-  let i = 0;
-  const parts = ["Cada","herramienta,","a un","<em>clic.</em>"];
-  $("heroTitle").innerHTML = parts.map(p=>{
-    const inner = `<span style="animation-delay:${i*90}ms">${p}</span>`;
-    i++;
-    return `<span class="w">${inner}</span>`;
-  }).join(" ");
-})();
-
-/* fecha en español */
-(function(){
+/* ---------- reloj / "hace Xs" ---------- */
+function tickClock(){
   const d = new Date();
-  const f = d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-  $("todayLine").textContent = f;
-})();
-/* reloj en vivo */
-setInterval(()=>{
-  const d = new Date();
-  $("clock").textContent = d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
-},1000);
- $("clock").textContent = new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
-
-/* "hace Xs" desde la última sync */
+  $('heroClock').textContent =
+    d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).toUpperCase()
+    + ' · ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+}
+setInterval(tickClock, 1000); tickClock();
 setInterval(()=>{
   if(!lastSync) return;
   const s = Math.floor((Date.now()-lastSync)/1000);
-  $("stSync").textContent = s<60 ? `hace ${s}s` : `hace ${Math.floor(s/60)}m`;
-  $("syncText").textContent = `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`;
+  const txt = s<60 ? `hace ${s}s` : `hace ${Math.floor(s/60)}m`;
+  $('stSyncTmp'); // (no-op)
+  if($('syncDot').classList.contains('on')){
+    $('syncText').textContent = `sincronizado · ${txt}`;
+  }
 },1000);
 
-/* ---------- NORMALIZACIÓN DE FILAS DE LA HOJA ---------- */
+/* ---------- normalización de filas de INDEX ---------- */
 function normalize(rows){
   return rows.map(r=>({
-    titulo:  String(pick(r, ["titulo","título","nombre","title","name","herramienta"]) || "").trim(),
-    desc:    String(pick(r, ["descripcion","descripción","desc","detalle","description"]) || "").trim(),
-    url:     String(pick(r, ["url","link","enlace","website","direccion","dirección"]) || "").trim(),
-    cat:     String(pick(r, ["categoria","categoría","cat","tag","area","área","tipo"]) || "Sin categoría").trim() || "Sin categoría"
-  })).filter(t => t.titulo && t.url);
+    id:     String(pick(r,['id'])||''),
+    titulo: String(pick(r,['titulo','título','nombre','title'])||'').trim(),
+    desc:   String(pick(r,['descripcion','descripción','desc'])||'').trim(),
+    url:    String(pick(r,['url','link','enlace'])||'').trim(),
+    cat:    String(pick(r,['categoria','categoría','cat','area','área'])||'General').trim()||'General',
+    color:  String(pick(r,['color'])||'').trim(),
+    hoja:   String(pick(r,['hoja','sheet'])||'').trim(),
+    creado: String(pick(r,['creado','fecha'])||'')
+  })).filter(t=>t.titulo);
 }
 
-/* ---------- FETCH A APPS SCRIPT ---------- */
-async function fetchSheet(url){
-  const res = await fetch(url, { method:"GET", redirect:"follow" });
+/* ---------- API ---------- */
+function getUrl(){ return APPS_SCRIPT_URL || localStorage.getItem(LS_URL) || ''; }
+async function apiGetIndex(){
+  const res = await fetch(getUrl(), {method:'GET', redirect:'follow'});
   if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  const text = await res.text();
-  let json;
-  try{ json = JSON.parse(text); }
-  catch{ throw new Error("La respuesta no es JSON válido. Revisa tu doGet()."); }
-  const rows = Array.isArray(json) ? json : (json.data || json.tools || json.items || json.rows || []);
-  if(!Array.isArray(rows)) throw new Error("Formato no reconocido: se esperaba un array de filas.");
+  let j; try{ j = JSON.parse(await res.text()); }
+  catch{ throw new Error('La respuesta no es JSON válido. Revisa tu doGet().'); }
+  const rows = Array.isArray(j) ? j : (j.data || j.tools || j.items || []);
+  if(!Array.isArray(rows)) throw new Error('Formato no reconocido: se esperaba un array.');
   return rows;
 }
+async function apiGetSheet(name){
+  const res = await fetch(`${getUrl()}?action=sheet&name=${encodeURIComponent(name)}`, {redirect:'follow'});
+  const j = JSON.parse(await res.text());
+  if(!j.ok) throw new Error(j.error||'Error al leer la hoja');
+  return j;
+}
+async function apiPost(payload){
+  // text/plain evita el preflight CORS que Apps Script no atiende
+  const res = await fetch(getUrl(), {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload),
+    redirect:'follow'
+  });
+  const j = JSON.parse(await res.text());
+  if(!j.ok) throw new Error(j.error||'Error del servidor');
+  return j.data;
+}
 
-/* ---------- CARGA ---------- */
+/* ---------- carga ---------- */
 async function load(force=false){
-  const url = APPS_SCRIPT_URL || localStorage.getItem(LS_KEY) || "";
-  if(!url){ renderSetup(); return; }
+  if(!getUrl()){ renderSetup(); return; }
   renderSkeleton();
-  setSync("wait","conectando…");
-  $("stSource").textContent = "Google Sheets";
+  setSync('wait','conectando…');
   try{
-    const rows = await fetchSheet(url);
+    const rows = await apiGetIndex();
     tools = normalize(rows);
-    lastSync = new Date();
-    source = "sheets";
-    if(!tools.length){ renderEmptySheet(); setSync("off","hoja vacía"); return; }
-    setSync("on");
-    renderAll();
-    if(force) toast("Lista actualizada desde la hoja");
+    lastSync = new Date(); source = 'sheets';
+    if(!tools.length){ renderEmptyIndex(); setSync('off','índice vacío'); return; }
+    setSync('on'); renderAll();
+    if(force) toast('Índice sincronizado','ok');
   }catch(err){
-    renderError(err.message);
-    setSync("off","sin conexión");
+    renderError(err.message); setSync('off','sin conexión');
   }
 }
 function setSync(state, text){
-  const dot = $("syncDot");
-  dot.className = "dot " + (state==="wait" ? "wait" : state==="on" ? "on" : "off");
-  if(text) $("syncText").textContent = text;
-  if(state==="on" && lastSync){
+  const dot = $('syncDot');
+  dot.className = 'dot ' + state;
+  if(text) $('syncText').textContent = text;
+  else if(state==='on' && lastSync){
     const s = Math.floor((Date.now()-lastSync)/1000);
-    $("syncText").textContent = `sincronizado · hace ${s}s`;
+    $('syncText').textContent = `sincronizado · hace ${s}s`;
   }
 }
 
-/* ---------- RENDER ---------- */
+/* ---------- render ---------- */
 function filtered(){
   const q = norm(query);
   return tools.filter(t=>{
-    const okCat = activeCat==="todas" || norm(t.cat)===norm(activeCat);
-    const okQ = !q || norm(t.titulo+" "+t.desc+" "+t.cat).includes(q);
+    const okCat = activeCat==='todas' || norm(t.cat)===norm(activeCat);
+    const okQ = !q || norm(t.titulo+' '+t.desc+' '+t.cat).includes(q);
     return okCat && okQ;
   });
 }
-function highlight(text, q){
-  const safe = esc(text);
-  if(!q) return safe;
+function highlight(text,q){
+  const safe = esc(text); if(!q) return safe;
   try{
-    const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")})`,"ig");
-    return safe.replace(re, "<mark>$1</mark>");
+    const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'ig');
+    return safe.replace(re,'<mark>$1</mark>');
   }catch{ return safe; }
 }
 function renderAll(){
-  renderChips();
-  renderCatNav();
-  renderIndex();
-  $("numTools").textContent = tools.length;
-  $("numCats").textContent = new Set(tools.map(t=>norm(t.cat))).size;
-  $("stCount").textContent = tools.length;
-  $("stSync").textContent = "hace 0s";
-  $("demoNote").classList.toggle("show", source==="demo");
+  renderChips(); renderList();
+  $('statTools').textContent = tools.length;
+  $('statCats').textContent = new Set(tools.map(t=>norm(t.cat))).size;
+  $('statSheets').textContent = tools.filter(t=>t.hoja).length;
+  $('catList').innerHTML = [...new Set(tools.map(t=>t.cat))].map(c=>`<option value="${esc(c)}">`).join('');
+  $('demoNote').classList.toggle('show', source==='demo');
 }
 function renderChips(){
-  const cats = {};
-  tools.forEach(t=>{ cats[t.cat] = (cats[t.cat]||0)+1; });
-  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,"es"));
-  const all = `<button class="chip ripple ${activeCat==="todas"?"active":""}" data-cat="todas">Todas <span class="n">${tools.length}</span></button>`;
-  $("chips").innerHTML = all + names.map(c=>
-    `<button class="chip ripple ${activeCat===c?"active":""}" data-cat="${esc(c)}">${esc(c)} <span class="n">${cats[c]}</span></button>`
-  ).join("");
-  $("chips").querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
-    activeCat = ch.dataset.cat;
-    renderAll();
-  }));
-}
-function renderCatNav(){
-  const cats = {};
-  tools.forEach(t=>{ cats[t.cat] = (cats[t.cat]||0)+1; });
-  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,"es"));
-  const item = (name,label,n)=>{
-    const col = catColor(name);
-    return `<button class="cat-item ${activeCat===name?"active":""}" data-cat="${esc(name)}">
-      <span class="sw" style="background:${col.fg}"></span>${esc(label)}<span class="n">${n}</span></button>`;
+  const cats = {}; tools.forEach(t=>cats[t.cat]=(cats[t.cat]||0)+1);
+  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,'es'));
+  const chip = (name,label,n)=>{
+    const c = name==='todas' ? null : colorDe({cat:name,color:''});
+    if(name==='todas')
+      return `<button class="chip ripple ${activeCat==='todas'?'active':''}" data-cat="todas" style="--c:var(--ink)">Todas <span class="n">${n}</span></button>`;
+    return `<button class="chip ripple ${activeCat===name?'active':''}" data-cat="${esc(name)}"
+      style="--c:${c};${activeCat===name?`background:${c};color:${onColor(c)};border-color:${c}`:`color:${darken(c,.8)};border-color:${rgba(c,.45)}`};background:${activeCat===name?'':rgba(c,.08)}">
+      ${esc(label)} <span class="n">${n}</span></button>`;
   };
-  $("catNav").innerHTML =
-    item("todas","Todas",tools.length) +
-    names.map(c=>item(c,c,cats[c])).join("");
-  $("catNav").querySelectorAll(".cat-item").forEach(el=>el.addEventListener("click",()=>{
-    activeCat = el.dataset.cat;
-    renderAll();
-  }));
+  $('chips').innerHTML = chip('todas','Todas',tools.length) + names.map(c=>chip(c,c,cats[c])).join('');
+  $('chips').querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{ activeCat=ch.dataset.cat; renderAll(); }));
 }
-function renderIndex(){
-  const list = filtered();
-  const q = norm(query);
-  $("viewNote").textContent = list.length === tools.length
-    ? `${tools.length} registros`
-    : `${list.length} de ${tools.length}`;
-  if(!list.length){
-    $("content").innerHTML = `
-      <div class="index"><div class="empty-search">
-        <div class="big">Nada por aquí con «${esc(query)}».</div>
-        Prueba con otras palabras o limpia los filtros.
-        <br><button class="ripple" id="resetBtn">Limpiar búsqueda y filtros</button>
-      </div></div>`;
-    $("resetBtn").addEventListener("click", resetFilters);
-    return;
+function itemHTML(t,i,q){
+  const c = colorDe(t);
+  const badge = `<span class="badge" style="background:${c};color:${onColor(c)}">${esc(t.cat)}</span>`;
+  const hojaTag = t.hoja ? `<span class="host">▦ ${esc(t.hoja)}</span>` : `<span class="host">— sin hoja —</span>`;
+  const monogram = `<span class="mono-badge" style="background:linear-gradient(135deg,${c},${darken(c,.72)})">${esc(t.titulo.charAt(0).toUpperCase())}</span>`;
+  const body = `<span class="row-body">
+      <div class="row-title">${highlight(t.titulo,q)}</div>
+      ${t.desc?`<div class="row-desc">${highlight(t.desc,q)}</div>`:''}
+    </span>`;
+  const acts = `<span class="row-acts">
+      <button class="mini hoja" data-hoja="${i}" title="Ver su hoja de datos">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+      </button>
+      ${t.url
+        ? `<span class="go-arrow"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>`
+        : `<span class="go-arrow" style="color:${c}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>`}
+    </span>`;
+  if(view==='list'){
+    const open = t.url
+      ? `href="${esc(t.url)}" target="_blank" rel="noopener"`
+      : `data-pend="${i}" role="button" tabindex="0"`;
+    return `<${t.url?'a':'div'} class="row go" ${open} style="--c:${c};--cs:${rgba(c,.08)};animation-delay:${Math.min(i*35,350)}ms">
+      <span class="idx">${String(i+1).padStart(2,'0')}</span>${monogram}${body}
+      <span class="row-meta">${badge}${hojaTag}</span>${acts}</${t.url?'a':'div'}>`;
   }
-  $("content").innerHTML = `<div class="index">` + list.map((t,i)=>{
-    const col = catColor(t.cat);
-    return `<a class="row" href="${esc(t.url)}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i*35,350)}ms">
-      <span class="idx">${String(i+1).padStart(2,"0")}</span>
-      <span class="mono-badge" style="background:${col.bg};color:${col.fg}">${esc(t.titulo.charAt(0).toUpperCase())}</span>
-      <span class="row-body">
-        <div class="row-title">${highlight(t.titulo, q)}</div>
-        ${t.desc ? `<div class="row-desc">${highlight(t.desc, q)}</div>` : ""}
-      </span>
-      <span class="row-meta">
-        <span class="badge" style="color:${col.fg};background:${col.bg}">${esc(t.cat)}</span>
-        ${hostOf(t.url) ? `<span class="host">${esc(hostOf(t.url))} ↗</span>` : ""}
-      </span>
-      <span class="row-go">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
-      </span>
-    </a>`;
-  }).join("") + `</div>`;
+  return `<${t.url?'a':'div'} class="card go" ${t.url?`href="${esc(t.url)}" target="_blank" rel="noopener"`:`data-pend="${i}" role="button" tabindex="0"`}
+      style="animation-delay:${Math.min(i*40,400)}ms" data-card="${i}">
+      <span class="card-band"></span>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">${monogram}${badge}</div>
+      <h3>${highlight(t.titulo,q)}</h3>
+      <p>${highlight(t.desc||'Sin descripción aún.',q)}</p>
+      <div class="card-foot">
+        <span class="host">${t.url?esc(hostOf(t.url))||'—':'pendiente de URL'}</span>
+        <span class="card-acts">
+          <button class="mini hoja" data-hoja="${i}" title="Ver su hoja">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+          </button>
+          <span class="go-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+        </span>
+      </div>
+    </${t.url?'a':'div'}>`;
+}
+function renderList(){
+  const list = filtered(), q = norm(query);
+  $('viewNote').textContent = list.length===tools.length ? `${tools.length} registros` : `${list.length} de ${tools.length}`;
+  if(!list.length){
+    $('content').innerHTML = `<div class="index"><div class="state-panel" style="border:none;box-shadow:none">
+      <div class="glyph" style="background:${rgba('#7C3AED',.1)};color:var(--morado)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+      <h3>Nada con «${esc(query)}»</h3><p>Prueba otras palabras o limpia los filtros.</p>
+      <div class="acts"><button class="btn btn-morado ripple" id="resetBtn">Limpiar búsqueda y filtros</button></div>
+    </div></div>`;
+    $('resetBtn').addEventListener('click',resetFilters); return;
+  }
+  if(view==='list'){
+    $('content').innerHTML = `<div class="index">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
+  }else{
+    $('content').innerHTML = `<div class="grid">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
+    $('content').querySelectorAll('.card').forEach(el=>{ const t=list[+el.dataset.card]; if(t) setVars(el,colorDe(t)); });
+  }
+  $('content').querySelectorAll('[data-hoja]').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    const item = filtered()[+b.dataset.hoja]; if(item) openDrawer(item);
+  }));
+  $('content').querySelectorAll('[data-pend]').forEach(el=>el.addEventListener('click',()=>{
+    const item = filtered()[+el.dataset.pend]; if(item) openDrawer(item);
+  }));
 }
 function renderSkeleton(){
-  $("content").innerHTML = `<div class="index">` + Array(5).fill(0).map(()=>`
-    <div class="sk"><i class="a"></i><i class="b"></i><div><i class="c1"></i><i class="c2"></i></div><i class="d"></i></div>
-  `).join("") + `</div>`;
-  $("viewNote").textContent = "";
+  $('content').innerHTML = `<div class="index">` + Array(5).fill(0).map(()=>`
+    <div class="sk"><i class="a"></i><i class="b"></i><div><i class="c1"></i><i class="c2"></i></div><i class="d"></i></div>`).join('') + `</div>`;
+  $('viewNote').textContent='';
 }
 function renderError(msg){
-  $("content").innerHTML = `
-    <div class="state-panel">
-      <div class="glyph" style="background:var(--rojo-soft);color:var(--rojo)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
-      </div>
-      <h3>No pude leer la hoja</h3>
-      <p>${esc(msg)}</p>
-      <div class="acts">
-        <button class="btn btn-p ripple" id="errRetry">Reintentar</button>
-        <button class="btn btn-s ripple" id="errSettings">Revisar conexión</button>
-        <button class="btn btn-s ripple" id="errDemo">Datos de ejemplo</button>
-      </div>
-    </div>`;
-  $("errRetry").addEventListener("click", ()=>load());
-  $("errSettings").addEventListener("click", openModal);
-  $("errDemo").addEventListener("click", useDemo);
+  $('content').innerHTML = `<div class="state-panel">
+    <div class="glyph" style="background:${rgba('#EF4444',.1)};color:var(--rojo)">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+    <h3>No pude leer la hoja INDEX</h3><p>${esc(msg)}</p>
+    <div class="acts">
+      <button class="btn btn-morado ripple" id="errRetry">Reintentar</button>
+      <button class="btn btn-s ripple" id="errSettings">Revisar conexión</button>
+      <button class="btn btn-s ripple" id="errDemo">Datos de ejemplo</button>
+    </div></div>`;
+  $('errRetry').addEventListener('click',()=>load());
+  $('errSettings').addEventListener('click',openSettings);
+  $('errDemo').addEventListener('click',useDemo);
 }
-function renderEmptySheet(){
-  $("content").innerHTML = `
-    <div class="state-panel">
-      <div class="glyph" style="background:var(--lila-soft);color:var(--lila)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      </div>
-      <h3>La hoja está conectada, pero vacía</h3>
-      <p>Añade filas bajo los encabezados <b>titulo</b>, <b>descripcion</b>, <b>url</b> y <b>categoria</b>, y pulsa actualizar.</p>
-      <div class="acts"><button class="btn btn-p ripple" id="emptyRefresh">Actualizar ahora</button></div>
-    </div>`;
-  $("emptyRefresh").addEventListener("click", ()=>load());
-  renderChips(); renderCatNav();
-  $("numTools").textContent = 0; $("numCats").textContent = 0; $("stCount").textContent = 0;
+function renderEmptyIndex(){
+  $('content').innerHTML = `<div class="state-panel">
+    <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
+    <h3>Tu índice está vacío</h3>
+    <p>La hoja <b>INDEX</b> está conectada pero sin módulos. Crea el primero y su hoja de datos nacerá automáticamente.</p>
+    <div class="acts">
+      <button class="btn btn-lima ripple" id="emptyAdd">＋ Crear primer módulo</button>
+      <button class="btn btn-s ripple" id="emptySettings">Revisar conexión</button>
+    </div></div>`;
+  $('emptyAdd').addEventListener('click',openAdd);
+  $('emptySettings').addEventListener('click',openSettings);
+  $('statTools').textContent='0'; $('statCats').textContent='0'; $('statSheets').textContent='0';
+  $('chips').innerHTML=''; renderChips();
 }
 function renderSetup(){
-  $("numTools").textContent = "—"; $("numCats").textContent = "—";
-  $("stSource").textContent = "sin conectar"; $("stSync").textContent = "—"; $("stCount").textContent = "—";
-  $("viewNote").textContent = "";
-  $("chips").innerHTML = ""; $("catNav").innerHTML = "";
-  $("content").innerHTML = `
-    <div class="state-panel" style="text-align:center">
-      <div class="glyph" style="background:var(--lila-soft);color:var(--lila)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
-      <h3>Conecta tu Google Sheet</h3>
-      <p>Tres pasos y tu índice de herramientas estará vivo, alimentado por tu hoja de cálculo.</p>
-
-      <div class="steps">
-        <div class="step"><span class="sn">1</span><div>
-          <h5>Prepara la hoja</h5>
-          <p>Primera fila con encabezados: <code>titulo</code>, <code>descripcion</code>, <code>url</code>, <code>categoria</code>. Cada fila debajo es una herramienta.</p>
-        </div></div>
-        <div class="step"><span class="sn">2</span><div>
-          <h5>Publica el Apps Script</h5>
-          <p>Extensión → Apps Script, pega el <code>doGet()</code> de abajo, despliega como app web con acceso <b>«Cualquier persona»</b> y copia la URL que termina en <code>/exec</code>.</p>
-        </div></div>
-        <div class="step"><span class="sn">3</span><div>
-          <h5>Pega la URL aquí</h5>
-          <p>Se guarda solo en tu navegador. También puedes dejarla escrita en la constante <code>APPS_SCRIPT_URL</code> del código.</p>
-        </div></div>
-      </div>
-
-      <div class="setup-form">
-        <input type="url" id="setupUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
-        <button class="btn btn-p ripple" id="setupConnect">Conectar</button>
-      </div>
-      <div class="acts" style="margin-top:18px">
-        <button class="btn btn-l ripple" id="setupDemo">Explorar con datos de ejemplo</button>
-      </div>
-
-      <details class="code">
-        <summary>Ver el código doGet() para tu Apps Script</summary>
-<pre><span class="cm">// Pega esto en Extensiones → Apps Script de tu hoja</span>
-function doGet() {
-  const hoja = SpreadsheetApp
-    .getActiveSpreadsheet().getSheetByName('Herramientas');
-  const filas = hoja.getDataRange().getValues();
-  const cabeceras = filas.shift();
-  const data = filas.map(f =&gt;
-    Object.fromEntries(cabeceras.map((h, i) =&gt; [h, f[i]]))
-  );
-  return ContentService
-    .createTextOutput(JSON.stringify({ ok: true, data }))
-    .setMimeType(ContentService.MimeType.JSON);
-}</pre>
-      </details>
-    </div>`;
-  $("setupConnect").addEventListener("click", ()=>{
-    const u = $("setupUrl").value.trim();
+  ['statTools','statCats','statSheets'].forEach(id=>$(id).textContent='—');
+  $('viewNote').textContent=''; $('chips').innerHTML='';
+  $('content').innerHTML = `<div class="state-panel">
+    <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <h3>Conecta tu Google Sheet</h3>
+    <p>Un spreadsheet, muchas hojas: <b>INDEX</b> guarda la lista y cada módulo tiene la suya.</p>
+    <div class="steps">
+      <div class="step"><span class="sn">1</span><div><h5>Pega el Code.gs</h5>
+        <p>Dentro de tu hoja: <code>Extensiones → Apps Script</code>, borra todo y pega el archivo <code>Code.gs</code> que acompaña a esta página.</p></div></div>
+      <div class="step"><span class="sn">2</span><div><h5>Ejecuta <code>instalar</code> una vez</h5>
+        <p>Autoriza los permisos: se crea la hoja <code>INDEX</code> con sus encabezados listos.</p></div></div>
+      <div class="step"><span class="sn">3</span><div><h5>Despliega y pega la URL</h5>
+        <p><code>Implementar → App web</code> · ejecutar como <b>yo</b> · acceso <b>cualquier persona</b>. Copia la URL <code>/exec</code> aquí abajo.</p></div></div>
+    </div>
+    <div class="setup-form">
+      <input type="url" id="setupUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+      <button class="btn btn-morado ripple" id="setupConnect">Conectar</button>
+    </div>
+    <div class="acts" style="margin-top:18px">
+      <button class="btn btn-lima ripple" id="setupDemo">Explorar con datos de ejemplo</button>
+    </div></div>`;
+  $('setupConnect').addEventListener('click',()=>{
+    const u = $('setupUrl').value.trim();
     if(!validUrl(u)) return;
-    localStorage.setItem(LS_KEY, u);
-    toast("URL guardada. Conectando…");
-    load();
+    localStorage.setItem(LS_URL,u); toast('URL guardada. Conectando…','ok'); load();
   });
-  $("setupDemo").addEventListener("click", useDemo);
+  $('setupDemo').addEventListener('click',useDemo);
 }
 function validUrl(u){
-  if(!u){ toast("Pega primero la URL /exec","bad"); return false; }
-  if(!/^https:\/\/script\.google\.com\/macros\//.test(u) || !u.includes("/exec")){
-    toast("La URL debe ser de Apps Script y terminar en /exec","bad");
-    return false;
+  if(!u){ toast('Pega primero la URL /exec','bad'); return false; }
+  if(!/^https:\/\/script\.google\.com\/macros\//.test(u) || !u.includes('/exec')){
+    toast('Debe ser una URL de Apps Script terminada en /exec','bad'); return false;
   }
   return true;
 }
 function useDemo(){
-  tools = normalize(DEMO);
-  source = "demo"; lastSync = new Date();
-  activeCat = "todas"; query = ""; $("searchInput").value = ""; $("searchBox").classList.remove("has");
-  setSync("on"); $("stSource").textContent = "ejemplo local";
-  renderAll();
-  toast("Datos de ejemplo cargados");
+  tools = normalize(DEMO); source='demo'; lastSync=new Date();
+  activeCat='todas'; query=''; $('searchInput').value=''; $('searchBox').classList.remove('has');
+  setSync('on'); renderAll();
+  $('syncText').textContent='datos de ejemplo';
+  toast('Datos de ejemplo cargados','info');
 }
 
-/* ---------- BÚSQUEDA Y ATAJOS ---------- */
- $("searchInput").addEventListener("input", debounce(e=>{
-  query = e.target.value.trim();
-  $("searchBox").classList.toggle("has", !!query);
-  renderIndex();
-},160));
- $("searchClear").addEventListener("click", ()=>{
-  $("searchInput").value=""; query=""; $("searchBox").classList.remove("has");
-  renderIndex(); $("searchInput").focus();
-});
-function resetFilters(){
-  query=""; activeCat="todas";
-  $("searchInput").value=""; $("searchBox").classList.remove("has");
-  renderAll();
+/* ---------- drawer: hoja del módulo ---------- */
+function openDrawer(t){
+  drawerTool = t; delArmed = false;
+  const delBtn = $('drDelete');
+  delBtn.textContent = 'Eliminar módulo del índice';
+  delBtn.style.background=''; $('drDelSheet').checked=false;
+  const c = colorDe(t);
+  const head = $('drawerHead');
+  head.style.background = `linear-gradient(120deg,${c},${darken(c,.7)})`;
+  head.style.setProperty('--dc',c); head.style.setProperty('--dd',darken(c,.7));
+  $('drTitle').textContent = t.titulo;
+  $('drMeta').innerHTML = `
+    <span class="dr-tag" style="background:${rgba('#ffffff',.22)}">${esc(t.cat)}</span>
+    ${t.url?`<span class="dr-tag">${esc(hostOf(t.url))||'link'}</span>`:`<span class="dr-tag">sin URL · pendiente</span>`}
+    ${t.creado?`<span class="dr-tag">creado ${esc(t.creado)}</span>`:''}`;
+  $('drSub').textContent = t.hoja ? `Hoja de datos: "${t.hoja}" en tu spreadsheet` : 'Este módulo aún no tiene hoja asignada';
+  $('drOpen').hidden = !t.url;
+  $('drTable').innerHTML = `<div class="dr-empty">Cargando hoja…</div>`;
+  $('drawer').classList.add('open'); $('drawerOv').classList.add('open');
+  loadDrawerSheet();
 }
-document.addEventListener("keydown", e=>{
-  if(e.key==="/" && document.activeElement !== $("searchInput") && document.activeElement.tagName !== "INPUT"){
-    e.preventDefault(); $("searchInput").focus();
-  }
-  if(e.key==="Escape"){
-    if($("overlay").classList.contains("open")) closeModal();
-    else resetFilters();
-  }
-});
-
-/* ---------- REFRESH + MODAL ---------- */
- $("btnRefresh").addEventListener("click", ()=>{
-  const b = $("btnRefresh");
-  b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin");
-  if(source==="demo" || (!APPS_SCRIPT_URL && !localStorage.getItem(LS_KEY))) useDemo();
-  else load(true);
-});
-function openModal(){
-  $("urlInput").value = localStorage.getItem(LS_KEY) || APPS_SCRIPT_URL || "";
-  $("testLine").className = "test-line"; $("testLine").textContent = "";
-  $("overlay").classList.add("open");
-  setTimeout(()=>$("urlInput").focus(),80);
-}
-function closeModal(){ $("overlay").classList.remove("open"); }
- $("btnSettings").addEventListener("click", openModal);
- $("demoToSettings").addEventListener("click", openModal);
- $("modalClose").addEventListener("click", closeModal);
- $("overlay").addEventListener("click", e=>{ if(e.target===$("overlay")) closeModal(); });
- $("btnTest").addEventListener("click", async ()=>{
-  const u = $("urlInput").value.trim();
-  if(!validUrl(u)) return;
-  const line = $("testLine");
-  line.className="test-line"; line.innerHTML="Probando conexión…";
+async function loadDrawerSheet(){
+  const t = drawerTool; if(!t) return;
+  const box = $('drTable');
+  if(!t.hoja){ box.innerHTML = `<div class="dr-empty">Sin hoja asignada. Usa «Crear hoja si falta».</div>`; return; }
+  box.innerHTML = `<div class="dr-empty">Cargando…</div>`;
   try{
-    const rows = await fetchSheet(u);
-    const n = normalize(rows).length;
-    line.className="test-line ok";
-    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} herramienta(s) detectadas.`;
-    localStorage.setItem(LS_KEY, u);
-    toast("Conexión guardada");
-    setTimeout(()=>{ closeModal(); load(); }, 700);
+    const j = await apiGetSheet(t.hoja);
+    if(!j.existe){ box.innerHTML = `<div class="dr-empty">La hoja «${esc(t.hoja)}» no existe todavía.</div>`; return; }
+    const rows = j.data;
+    if(!rows.length){ box.innerHTML = `<div class="dr-empty">La hoja existe pero aún no tiene datos.</div>`; return; }
+    const headers = Object.keys(rows[0]);
+    const MAX = 40;
+    box.innerHTML = `<div class="tbl-wrap"><table class="sheet-table">
+      <thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${rows.slice(0,MAX).map(r=>`<tr>${headers.map(h=>`<td>${esc(r[h])}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>${rows.length>MAX?`<div class="tbl-note">Mostrando ${MAX} de ${rows.length} filas.</div>`:''}`;
   }catch(err){
-    line.className="test-line bad";
+    box.innerHTML = `<div class="dr-empty">Error: ${esc(err.message)}</div>`;
+  }
+}
+function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').classList.remove('open'); drawerTool=null; }
+ $('drawerClose').addEventListener('click',closeDrawer);
+ $('drawerOv').addEventListener('click',closeDrawer);
+ $('drRefresh').addEventListener('click',loadDrawerSheet);
+ $('drEnsure').addEventListener('click',async ()=>{
+  if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
+  if(!drawerTool) return;
+  try{
+    await apiPost({action:'ensureSheet', name: drawerTool.hoja || drawerTool.titulo});
+    toast('Hoja lista','ok'); loadDrawerSheet();
+  }catch(err){ toast(err.message,'bad'); }
+});
+ $('drOpen').addEventListener('click',()=>{ if(drawerTool?.url) window.open(drawerTool.url,'_blank','noopener'); });
+ $('drDelete').addEventListener('click',async ()=>{
+  if(!drawerTool) return;
+  const btn = $('drDelete');
+  if(!delArmed){
+    delArmed = true;
+    btn.textContent = '¿Seguro? Clic de nuevo para confirmar';
+    btn.style.background = 'var(--rojo)'; btn.style.color = '#fff'; btn.style.borderColor='var(--rojo)';
+    setTimeout(()=>{ delArmed=false; btn.textContent='Eliminar módulo del índice'; btn.style.background=''; btn.style.color=''; btn.style.borderColor=''; }, 4000);
+    return;
+  }
+  try{
+    await apiPost({action:'deleteTool', id:drawerTool.id, titulo:drawerTool.titulo, borrarHoja:$('drDelSheet').checked});
+    toast(`Módulo «${drawerTool.titulo}» eliminado`,'ok');
+    closeDrawer(); load();
+  }catch(err){ toast(err.message,'bad'); }
+});
+
+/* ---------- nuevo módulo ---------- */
+function openAdd(){
+  if(source==='demo' || !getUrl()){ toast('Conecta tu Google Sheet para crear módulos','info'); openSettings(); return; }
+  $('fTitulo').value=''; $('fDesc').value=''; $('fUrl').value='';
+  $('fCat').value=''; addColor = POOL[0]; renderSwatches();
+  $('ovAdd').classList.add('open'); setTimeout(()=>$('fTitulo').focus(),80);
+}
+function renderSwatches(){
+  $('fSwatches').innerHTML = POOL.map(c=>
+    `<button type="button" class="sw-opt ${c===addColor?'active':''}" data-c="${c}" style="--c:${c}" aria-label="${c}"></button>`).join('');
+  $('fSwatches').querySelectorAll('.sw-opt').forEach(b=>b.addEventListener('click',()=>{
+    addColor = b.dataset.c; renderSwatches();
+  }));
+}
+ $('btnAdd').addEventListener('click',openAdd);
+ $('addClose').addEventListener('click',()=>$('ovAdd').classList.remove('open'));
+ $('ovAdd').addEventListener('click',e=>{ if(e.target===$('ovAdd')) $('ovAdd').classList.remove('open'); });
+ $('btnAddSave').addEventListener('click',async ()=>{
+  const titulo = $('fTitulo').value.trim();
+  if(!titulo){ toast('El título es obligatorio','bad'); $('fTitulo').focus(); return; }
+  const btn = $('btnAddSave'); btn.disabled=true;
+  try{
+    const out = await apiPost({
+      action:'addTool',
+      titulo,
+      descripcion: $('fDesc').value.trim(),
+      url: $('fUrl').value.trim(),
+      categoria: $('fCat').value.trim() || 'General',
+      color: addColor
+    });
+    $('ovAdd').classList.remove('open');
+    toast(`Módulo creado · hoja "${out.hoja}" ${out.hojaCreada?'creada':'reutilizada'}`,'ok');
+    load();
+  }catch(err){ toast(err.message,'bad'); }
+  finally{ btn.disabled=false; }
+});
+
+/* ---------- ajustes ---------- */
+function openSettings(){
+  $('urlInput').value = localStorage.getItem(LS_URL) || APPS_SCRIPT_URL || '';
+  $('testLine').className='test-line'; $('testLine').textContent='';
+  $('ovSettings').classList.add('open'); setTimeout(()=>$('urlInput').focus(),80);
+}
+function closeSettings(){ $('ovSettings').classList.remove('open'); }
+ $('btnSettings').addEventListener('click',openSettings);
+ $('demoToSettings').addEventListener('click',openSettings);
+ $('settingsClose').addEventListener('click',closeSettings);
+ $('ovSettings').addEventListener('click',e=>{ if(e.target===$('ovSettings')) closeSettings(); });
+ $('btnTest').addEventListener('click',async ()=>{
+  const u = $('urlInput').value.trim();
+  if(!validUrl(u)) return;
+  const line = $('testLine');
+  line.className='test-line'; line.textContent='Probando conexión…';
+  try{
+    const rows = await apiGetIndexFrom(u);
+    const n = normalize(rows).length;
+    line.className='test-line ok';
+    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s) en INDEX.`;
+    localStorage.setItem(LS_URL,u); toast('Conexión guardada','ok');
+    setTimeout(()=>{ closeSettings(); load(); },700);
+  }catch(err){
+    line.className='test-line bad';
     line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> ${esc(err.message)}`;
   }
 });
- $("btnDemo").addEventListener("click", ()=>{ closeModal(); useDemo(); });
- $("btnForget").addEventListener("click", ()=>{
-  localStorage.removeItem(LS_KEY);
-  toast("URL guardada eliminada");
-  closeModal(); renderSetup();
+async function apiGetIndexFrom(u){
+  const res = await fetch(u,{redirect:'follow'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const j = JSON.parse(await res.text());
+  const rows = Array.isArray(j)?j:(j.data||[]);
+  if(!Array.isArray(rows)) throw new Error('Formato no reconocido');
+  return rows;
+}
+ $('btnDemo').addEventListener('click',()=>{ closeSettings(); useDemo(); });
+ $('btnForget').addEventListener('click',()=>{
+  localStorage.removeItem(LS_URL); toast('URL guardada eliminada','info');
+  closeSettings(); renderSetup();
 });
 
-/* ---------- ARRANQUE ---------- */
+/* ---------- búsqueda / vista / atajos / sync ---------- */
+ $('searchInput').addEventListener('input', debounce(e=>{
+  query = e.target.value.trim();
+  $('searchBox').classList.toggle('has',!!query);
+  renderList();
+},160));
+ $('searchClear').addEventListener('click',()=>{
+  $('searchInput').value=''; query=''; $('searchBox').classList.remove('has');
+  renderList(); $('searchInput').focus();
+});
+function resetFilters(){
+  query=''; activeCat='todas';
+  $('searchInput').value=''; $('searchBox').classList.remove('has');
+  renderAll();
+}
+function setView(v){
+  view = v; localStorage.setItem(LS_VIEW,v);
+  $('segList').classList.toggle('active',v==='list');
+  $('segGrid').classList.toggle('active',v==='grid');
+  renderList();
+}
+ $('segList').addEventListener('click',()=>setView('list'));
+ $('segGrid').addEventListener('click',()=>setView('grid'));
+setView(view);
+document.addEventListener('keydown',e=>{
+  if(e.key==='/' && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='TEXTAREA'){
+    e.preventDefault(); $('searchInput').focus();
+  }
+  if(e.key==='Escape'){
+    if($('drawer').classList.contains('open')) closeDrawer();
+    else if($('ovAdd').classList.contains('open')) $('ovAdd').classList.remove('open');
+    else if($('ovSettings').classList.contains('open')) closeSettings();
+    else resetFilters();
+  }
+});
+function doSync(){
+  const b=$('btnRefresh'); b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin');
+  if(source==='demo' || !getUrl()) { source==='demo' ? useDemo() : load(); }
+  else load(true);
+}
+ $('btnRefresh').addEventListener('click',doSync);
+ $('btnSyncHero').addEventListener('click',doSync);
+
+/* ---------- arranque ---------- */
 load();
 </script>
 </body>
