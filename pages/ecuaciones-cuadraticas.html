@@ -4,11 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ecuaciones Cuadráticas · TALLER</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='38' font-weight='bold' text-anchor='middle' fill='%23D4F542'%3Ex²%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='38' font-weight='bold' text-anchor='middle' fill='%23D4F542'%3Ex%C2%B2%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/mathlive/mathlive.min.js"></script>
+<script>
+/* ═══ Se ejecuta ANTES de que <math-field> se inicialice ═══
+   1) soundsEnabled=false → elimina los ~8 fetch 404 (sonidos por tecla)
+      que además podían abortar la inserción al escribir.
+   2) fontsDirectory → ruta estable de las fuentes KaTeX.            */
+if (window.MathfieldElement) {
+  MathfieldElement.soundsEnabled = false;
+  try { MathfieldElement.fontsDirectory = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts'; } catch(e){}
+}
+</script>
 <style>
   :root{
     --morado:#7C3AED; --morado-deep:#5B21B6; --lila:#A78BFA;
@@ -72,12 +82,15 @@
   .mfcard .lab{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .lab .hoja-btn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:8px;border:1.5px solid var(--line);font-size:10.5px;letter-spacing:.08em;color:var(--ink-soft);background:var(--bg)}
   .lab .hoja-btn:hover{border-color:var(--morado);color:var(--morado)}
+  .lib-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:10px;letter-spacing:.06em;font-weight:700}
+  .lib-pill.ok{background:#F2F8DC;color:var(--lima-ink)}
+  .lib-pill.bad{background:#FEF2F1;color:#B91C1C}
   math-field{display:block;width:100%;margin-top:12px;padding:16px 18px;font-size:1.5rem;border:2px solid var(--line);border-radius:14px;background:var(--surface);
     --caret-color:var(--morado);--selection-background-color:#E6DDFB;--contains-highlight-background-color:#F3EEFE;outline:none;resize:none}
   math-field:focus-within{border-color:var(--morado);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
   .locknote{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:12.5px;color:var(--ink-soft)}
   .locknote b{color:var(--morado-deep)}
-  .mf-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+  .mf-acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.18s;border:none}
   .btn-lima{background:var(--lima);color:var(--lima-ink);box-shadow:0 6px 18px rgba(212,245,66,.35)}
   .btn-lima:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,245,66,.45)}
@@ -137,7 +150,6 @@
   .obs-na{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:#F7F6FB;border:1.5px dashed var(--line);border-radius:12px;font-size:13.5px;color:var(--ink-soft)}
   .obs-na svg{flex:none;color:#A9A6BB;margin-top:2px}
 
-  /* ASPA / RUFFINI */
   .mini-tables{display:flex;gap:26px;flex-wrap:wrap;align-items:center;margin:10px 0}
   table.aspa{border-collapse:collapse}
   table.aspa td{width:64px;height:48px;text-align:center;font-family:var(--fm);font-size:17px;font-weight:600;border-bottom:2px solid var(--ink);border-right:2px solid var(--ink)}
@@ -150,9 +162,7 @@
   table.ruf th{background:#F3F1FB;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
   table.ruf td.rl{border:none;font-weight:600;color:var(--morado-deep);text-align:right}
   table.ruf td.cero{color:#65A30D;font-weight:700}
-  table.ruf td,table.ruf th .ML__mathlive{font-size:1rem}
 
-  /* GRÁFICO */
   .ggb-note{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;flex-wrap:wrap}
   .ggb-note i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:-1px}
   #ggbBox{width:100%;min-height:300px;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#FAFAFC}
@@ -207,7 +217,7 @@
     <p class="hero-sub">Usa el <b>teclado de MathLive</b> (el físico está bloqueado). Acepto cualquier combinación — <code>0=ax²+bx+c</code>, <code>ax²+bx+c=0</code>, <code>ax²+bx=0</code>, fracciones, productos — y la llevo a la forma general <code>ax²+bx+c=0</code>.</p>
     <div class="hero-stats">
       <div class="hstat"><div class="num">9</div><div class="lbl">métodos</div></div>
-      <div class="hstat"><div class="num">118→∞</div><div class="lbl">combinaciones</div></div>
+      <div class="hstat"><div class="num">∞</div><div class="lbl">combinaciones</div></div>
       <div class="hstat"><div class="num" id="statLogs">—</div><div class="lbl">en la hoja</div></div>
     </div>
   </section>
@@ -216,16 +226,14 @@
   <div class="mfcard">
     <div class="lab">
       Ecuación
+      <span class="lib-pill bad" id="libStatus">MathLive: verificando…</span>
       <button class="hoja-btn ripple" id="btnSheet" title="Crear la hoja Ecuaciones Cuadraticas si no existe">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
         Crear hoja si falta
       </button>
     </div>
-    <math-field id="mf" virtual-keyboard-mode="manual" spellcheck="false">x^2-5x+6=0</math-field>
-    <div class="locknote">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Teclado físico <b>bloqueado</b> · escribe solo con el teclado virtual de MathLive
-    </div>
+
+    <!-- Botones ENCIMA del campo: nunca quedan tapados por el teclado virtual -->
     <div class="mf-acts">
       <button class="btn btn-lima ripple" id="btnSolve">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -236,6 +244,14 @@
         Limpiar
       </button>
     </div>
+
+    <math-field id="mf" virtual-keyboard-mode="onfocus" spellcheck="false">x^2-5x+6=0</math-field>
+
+    <div class="locknote">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Teclado físico <b>bloqueado</b> · toca el campo para abrir el teclado de MathLive
+    </div>
+
     <div class="ej-title">Ejemplos (toca para cargar y resolver)</div>
     <div class="ej-chips" id="ejChips"></div>
   </div>
@@ -261,12 +277,8 @@
 <script>
 /* ═══════════════════════════════════════════════════════════════
    ⚙️ CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
-   ═══════════════════════════════════════════════════════════════
-   APPS_SCRIPT_URL → la MISMA URL /exec que pusiste en index.html.
-   También funciona con ?api=<url> en la barra de direcciones.
-   Sin URL el módulo funciona igual (modo local), solo no registra.
    ═══════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const APPS_SCRIPT_URL = ""; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
 const SHEET_NAME      = "Ecuaciones Cuadraticas"; // ← nombre EXACTO de la hoja
 
 const $ = id => document.getElementById(id);
@@ -275,8 +287,17 @@ function on(id, ev, fn){
   if(!el){ console.warn(`[TALLER] el elemento #${id} no existe; evento "${ev}" sin conectar.`); return null; }
   el.addEventListener(ev, fn); return el;
 }
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const setTxt = (id,v)=>{ const el=$(id); if(el) el.textContent=v; };
 
-/* ═══════════════ RENDER LATEX → HTML (MathLive) ═══════════════ */
+/* indicador visible de que MathLive cargó */
+(function(){
+  const p = $('libStatus'); if(!p) return;
+  if(window.MathfieldElement){ p.className='lib-pill ok'; p.textContent='MathLive ✓'; }
+  else { p.className='lib-pill bad'; p.textContent='MathLive ✗ sin conexión al CDN'; }
+})();
+
+/* ═══════════════ RENDER LATEX → HTML ═══════════════ */
 function M(tex){
   try{
     if(window.MathLive && MathLive.convertLatexToMarkup) return MathLive.convertLatexToMarkup(tex);
@@ -284,9 +305,9 @@ function M(tex){
   }catch(e){}
   return `<code class="texfall">${esc(tex)}</code>`;
 }
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /* ═══════════════ FRACCIONES EXACTAS ═══════════════ */
+class ParseErr extends Error{}
 const gcd = (a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;};
 const lcm = (a,b)=>Math.abs(a/gcd(a,b)*b);
 class Frac{
@@ -325,7 +346,7 @@ const r6 = v => Math.round(v*1e6)/1e6;
 const fmt = v => String(r6(v));
 const pn  = v => v<0?`(${v})`:String(v);
 
-/* ═══════════════ POLINOMIOS (coeficientes Frac) ═══════════════ */
+/* ═══════════════ POLINOMIOS ═══════════════ */
 class Poly{
   constructor(c=[]){this.c=c;}
   static constF(f){return new Poly([f]);}
@@ -345,7 +366,6 @@ class Poly{
 }
 
 /* ═══════════════ PARSER LaTeX → POLINOMIO ═══════════════ */
-class ParseErr extends Error{}
 function cleanLatex(s){
   return String(s||'')
     .replace(/−/g,'-').replace(/–/g,'-')
@@ -363,7 +383,7 @@ function tokenize(s){
       const m=/^\\([a-zA-Z]+)/.exec(s.slice(i));
       if(!m) throw new ParseErr('hay un comando incompleto');
       if(m[1]==='frac'){T.push({t:'frac'});i+=m[0].length;}
-      else throw new ParseErr(`no reconozco el comando \\${m[1]} — uso números, x, + − × ÷, ^, paréntesis y fracciones \\frac{ }{ }`);
+      else throw new ParseErr(`no reconozco el comando \\${m[1]} — usa números, x, + − × ÷, ^, paréntesis y \\frac{ }{ }`);
       continue;
     }
     if(isD(c)||c==='.'){
@@ -468,7 +488,7 @@ function parseSide(str){
   return new Parser(tokenize(str)).parseFull();
 }
 
-/* ═══════════════ ANÁLISIS DE LA ECUACIÓN ═══════════════ */
+/* ═══════════════ ANÁLISIS ═══════════════ */
 function intCoeffs(eq){
   const a=eq.coeff(2),b=eq.coeff(1),c=eq.coeff(0);
   const L=lcm(lcm(a.d,b.d),c.d);
@@ -504,16 +524,14 @@ function roots(A,B,C){
       let n=-B,k=k0,den=2*A;
       const g=gcd(gcd(Math.abs(n),k),Math.abs(den));
       n/=g;k/=g;den/=g; if(den<0){n=-n;den=-den;}
-      R.irr={n,k,m,den};
       R.tex1=irrTex(n,k,m,den,1); R.tex2=irrTex(n,k,m,den,-1);
       R.d1=(n+k*Math.sqrt(m))/den; R.d2=(n-k*Math.sqrt(m))/den;
     }
   }
   return R;
 }
-function radTex(k,m){return (k===1?'':String(k))+'\\sqrt{'+m+'}';}
 function irrTex(n,k,m,den,sign){
-  const mid=sign>0?'+':'-', rad=radTex(k,m);
+  const mid=sign>0?'+':'-', rad=(k===1?'':k)+'\\sqrt{'+m+'}';
   if(den===1){ if(n===0)return (sign>0?'':'-')+rad; return `${n}${mid}${rad}`; }
   if(n===0) return `\\pm\\frac{${rad}}{${den}}`;
   return `\\frac{${n}${mid}${rad}}{${den}}`;
@@ -555,7 +573,7 @@ function termCoef(v,sym,first){
   const coef=(sym&&a===1)?'':a;
   return (first&&v<0?'-':sign)+coef+sym;
 }
-function polyTex(A,B,C){ // enteros
+function polyTex(A,B,C){
   let s=termCoef(A,'x^{2}',true)+termCoef(B,'x',A===0)+termCoef(C,'',A===0&&B===0);
   return s||'0';
 }
@@ -566,7 +584,7 @@ function coefTex(fr,sym,first){
   const coef=(sym&&abs.n===1&&abs.d===1)?'':abs.tex();
   return sign+coef+sym;
 }
-function linFactorTex(p,q){ // p·x + q  (p,q Frac)
+function linFactorTex(p,q){
   let s=coefTex(p,'x',true); if(s==='')s='0';
   if(!q.isZero())s+=coefTex(q,'',false);
   return s;
@@ -599,10 +617,9 @@ function findAspa(A,B,C){
   for(const p of divisors(A).flatMap(d=>[d,-d])){
     const r=A/p;
     for(const q of qs){
-      const s=C-q*0, s2=C===0?0:C/q;
-      if(C!==0&&q*s2!==C) continue;
-      const ss=C===0?0:s2;
-      if(p*ss+q*r===B) return {p,q,r,s:ss};
+      const s=C===0?0:C/q;
+      if(C!==0&&q*s!==C) continue;
+      if(p*s+q*r===B) return {p,q,r,s};
     }
   }
   return null;
@@ -718,9 +735,9 @@ function mExtraccion(A,B,C,R){
     }else{
       const [k,m]=sqSimplify(val.n*val.d);
       const den=val.d;
-      h+=paso(`x=\\pm${irrTex(0,k,m,den,1).replace('\\pm','')}`,'radical simplificada');
-      h+=paso(`x_1=\\sqrt{${val.tex().replace(/\\frac|{|}/g,'')}}\\text{…}\\quad x_1\\approx ${fmt(Math.sqrt(val.num()))}\\quad x_2\\approx ${fmt(-Math.sqrt(val.num()))}`);
-      h+=paso(`x_1=${irrTex(0,k,m,den,1)}\\qquad x_2=${irrTex(0,k,m,den,-1).replace(/^-/,'-')}`,'con signo');
+      h+=paso(`x=\\pm\\frac{${k===1?'':k}\\sqrt{${m}}}{${den}}`,'radical simplificada');
+      h+=paso(`x_1\\approx ${fmt(Math.sqrt(val.num()))}\\qquad x_2\\approx ${fmt(-Math.sqrt(val.num()))}`);
+      h+=paso(`x_1=\\frac{${k===1?'':k}\\sqrt{${m}}}{${den}}\\qquad x_2=-\\frac{${k===1?'':k}\\sqrt{${m}}}{${den}}`,'con signo');
     }
   }else{
     h+=paso('x^{2}<0','un cuadrado nunca es negativo → sin soluciones reales');
@@ -824,9 +841,7 @@ function renderSolution(G){
     item.querySelector('.acc-h').addEventListener('click',()=>{
       const was=item.classList.contains('open');
       item.classList.toggle('open',!was);
-      if(i===8&&!was){ // gráfico: lazy-load GeoGebra
-        setTimeout(()=>{ if(!ggbTried) loadGGB(); else if(ggbApi) plotGGB(); },60);
-      }
+      if(i===8&&!was){ setTimeout(()=>{ if(!ggbTried) loadGGB(); else if(ggbApi) plotGGB(); },60); }
     });
     acc.appendChild(item);
   });
@@ -901,15 +916,28 @@ function toast(msg,type='ok'){
   setTimeout(()=>{t.classList.add('out');t.addEventListener('animationend',()=>t.remove());},3200);
 }
 
-/* ═══════════════ MATHLIVE + TECLADO BLOQUEADO ═══════════════ */
+/* ═══════════════ MATHLIVE + TECLADO FÍSICO BLOQUEADO ═══════════════
+   Clave: solo cancelamos eventos TRUSTED (generados por el teclado
+   físico del usuario). Los eventos sintéticos (isTrusted=false) del
+   teclado virtual de MathLive pasan intactos. Además usamos fase de
+   captura + stopPropagation para que NINGÚN handler interno reciba
+   la pulsación física.                                                  */
 const mf=$('mf');
-if(mf){
-  ['keydown','keypress','beforeinput','paste','drop'].forEach(ev=>mf.addEventListener(ev,e=>e.preventDefault()));
-  try{ mf.menuItems=[]; }catch(e){}
+if(mf && window.MathfieldElement){
+  try{ mf.soundsEnabled = false; }catch(e){}
+  const block = e => {
+    if(e.isTrusted){ e.stopPropagation(); e.preventDefault(); }
+  };
+  ['keydown','keypress','beforeinput','paste','drop','compositionstart','compositionupdate','compositionend']
+    .forEach(ev=>mf.addEventListener(ev, block, true));
 }
 
 /* ═══════════════ RESOLVER ═══════════════ */
 function solve(){
+  if(!window.MathfieldElement){
+    showAlerta({tipo:'error',titulo:'MathLive no cargó',msg:'Revisa tu conexión a internet y recarga la página (Ctrl+F5). Sin MathLive no puedo mostrar el editor.'});
+    return;
+  }
   const latex=mf?(mf.getValue?mf.getValue('latex'):mf.value):'';
   try{
     const G=analyze(latex);
@@ -923,7 +951,7 @@ function solve(){
   }
 }
 on('btnSolve','click',solve);
-on('btnClear','click',()=>{ if(mf) mf.value=''; $('alerta').className='alerta'; $('zona').classList.remove('show'); lastSolution=null; if(mf) mf.focus(); });
+on('btnClear','click',()=>{ if(mf) mf.value=''; const a=$('alerta'); if(a) a.className='alerta'; const z=$('zona'); if(z) z.classList.remove('show'); lastSolution=null; if(mf) mf.focus(); });
 
 /* ejemplos */
 const EJEMPLOS=[
@@ -959,7 +987,6 @@ async function apiPost(payload){
   return j.data;
 }
 function setDot(st,txt){ const d=$('syncDot'); if(d)d.className='dot '+st; if(txt)setTxt('syncText',txt); }
-function setTxt(id,v){ const el=$(id); if(el) el.textContent=v; }
 async function sheetStatus(){
   if(!getApi()){ setDot('wait','modo local · sin hoja'); setTxt('statLogs','—'); return; }
   setDot('wait','verificando hoja…');
