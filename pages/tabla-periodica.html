@@ -131,7 +131,7 @@
   .lewis-box h6{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
   .lewis{position:relative;width:96px;height:96px}
   .lewis .sym{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:30px;color:var(--ink)}
-  .lewis i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ec)}
+  .lewis i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ec,#7C3AED)}
   .lewis-na{font-family:var(--fm);font-size:11px;color:var(--ink-soft);padding:18px 0}
   .lewis-cap{font-size:11px;color:var(--ink-soft);text-align:center}
 
@@ -542,7 +542,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ═══════ FICHA DEL ELEMENTO ═══════ */
-function lewisHTML(z,v,C){
+function lewisHTML(z,v,C,sym){
   let pos=[0,0,0,0]; // top, right, bottom, left
   if(z===2){ pos=[2,0,0,0]; }
   else for(let i=0;i<v;i++){ if(i<4)pos[i]=1; else pos[i-4]=2; }
@@ -550,10 +550,10 @@ function lewisHTML(z,v,C){
   const P=[[[37,2],[51,2]],[[86,37],[86,51]],[[37,86],[51,86]],[[2,37],[2,51]]]; // pares
   let dots='';
   pos.forEach((n,i)=>{
-    if(n===1) dots+=`<i style="left:${S[i][0]}px;top:${S[i][1]}px"></i>`;
-    if(n===2) dots+=`<i style="left:${P[i][0][0]}px;top:${P[i][0][1]}px"></i><i style="left:${P[i][1][0]}px;top:${P[i][1][1]}px"></i>`;
+    if(n===1) dots+=`<i style="left:${S[i][0]}px;top:${S[i][1]}px;background:${C.c}"></i>`;
+    if(n===2) dots+=`<i style="left:${P[i][0][0]}px;top:${P[i][0][1]}px;background:${C.c}"></i><i style="left:${P[i][1][0]}px;top:${P[i][1][1]}px;background:${C.c}"></i>`;
   });
-  return `<div class="lewis"><span class="sym">${z===2?'He':''}</span>${dots}</div>`;
+  return `<div class="lewis"><span class="sym">${sym}</span>${dots}</div>`;
 }
 function openFicha(d){
   const e={z:d[0],sym:d[1],name:d[2],mass:d[3],cat:d[4],ox:d[5],g:d[6],p:d[7]};
@@ -586,13 +586,15 @@ function openFicha(d){
     return `<span class="ox" style="color:${col};border-color:${col}44;background:${col}14">${o}</span>`;
   }).join('');
 
-  const rep=[0,1,3,4,5,6,7].includes(e.cat);
-  $('fLewis').innerHTML = rep
-    ? lewisHTML(e.z,cfg.val.v,C)
+    const rep=[0,1,3,4,5,6,7].includes(e.cat);
+  const lw=$('fLewis');
+  if(lw){ lw.style.setProperty('--ec',C.c); }
+  if(lw) lw.innerHTML = rep
+    ? lewisHTML(e.z,cfg.val.v,C,e.sym)
     : `<div class="lewis-na">— no representativo —</div>`;
   $('fLewisCap').textContent = rep
     ? `${cfg.val.v} electrón${cfg.val.v===1?'':'es'} de valencia`
-    : 'La estructura de Lewis se dibuja para elementos representativos';
+    : `Diagrama de puntos clásico solo para representativos · valencia: ${cfg.val.src.map(s=>s[0]+s[1]+s[2]).join(' + ')}`;
 
   const cf=$('fConfFull');
   cf.innerHTML=supHTML(cfg.full)+`<button class="copy ripple" data-copy="${plain(cfg.full)}">copiar</button>`;
