@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TALLER · Índice de módulos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='38' font-weight='bold' text-anchor='middle' fill='%23D4F542'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -24,7 +25,7 @@
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,select,textarea{font-family:inherit}
   ::selection{background:var(--lima);color:var(--lima-ink)}
-  :focus-visible{outline:2px solid var(--morado);offset:2px;border-radius:4px}
+  :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
   svg{display:block}
 
   .ripple{position:relative;overflow:hidden}
@@ -292,6 +293,12 @@
   </div>
 </header>
 
+<div class="demo-note" id="demoNote">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  Estás viendo <b>datos de ejemplo</b>. Pega tu URL /exec en <b>APPS_SCRIPT_URL</b> (dentro del HTML) para conectar.
+  <button id="demoToSettings">Ajustes</button>
+</div>
+
 <div class="wrap">
 
   <!-- ===== HERO ===== -->
@@ -301,6 +308,7 @@
       <span class="glass-pill" id="heroClock">—</span>
     </div>
     <h1 class="hero-t">Todas tus herramientas,<br><em>un solo taller.</em></h1>
+    <p class="hero-sub">El índice vive aquí, los módulos en <code>pages/</code> y sus datos en Google Sheets: una hoja <code>INDEX</code> y una hoja propia por módulo. Cero configuración en cada dispositivo.</p>
     <div class="hero-cta">
       <button class="btn btn-lima ripple" id="btnAdd">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -370,9 +378,8 @@
       <div class="test-line" id="testLine"></div>
       <div class="modal-hint">
         La URL <b>canónica</b> vive en la constante <code>APPS_SCRIPT_URL</code> al inicio del script de este
-        <code>index.html</code>: edítala <b>una sola vez</b> y funcionará igual en todos tus dispositivos,
-        sin configurar nada más. Lo que guardes aquí es solo un <b>override local</b> de este navegador,
-        por si quieres probar otra implementación sin tocar el código.
+        <code>index.html</code>: edítala <b>una sola vez</b> y funcionará igual en todos tus dispositivos.
+        Lo que guardes aquí es solo un <b>override local</b> de este navegador.
       </div>
     </div>
   </div>
@@ -415,6 +422,10 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
           Crear módulo y su hoja
         </button>
+      </div>
+      <div class="modal-hint">
+        Se escribirá una fila en la hoja <b>INDEX</b> y se creará una hoja propia para los datos del módulo.
+        El archivo se resolverá dentro de <b>pages/</b> automáticamente: escribe solo el nombre, ej. <code>acortador.html</code>.
       </div>
     </div>
   </div>
@@ -464,17 +475,27 @@
    ⚙️  CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
    ═══════════════════════════════════════════════════════════════
    1) APPS_SCRIPT_URL → pega tu URL /exec UNA SOLA VEZ aquí.
-      Al estar en el código, sirve para todos los dispositivos
-      (no hay que configurar nada en cada navegador).
+      Sirve para todos los dispositivos, sin configurar nada más.
    2) PAGES_DIR → carpeta donde viven tus módulos en el repo.
-      Las rutas de las herramientas se resuelven hacia ahí.
    ═══════════════════════════════════════════════════════════════ */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
 const PAGES_DIR       = "pages/"; // ← carpeta de módulos en tu repo
 
-const LS_URL  = "taller.sheetsUrlOverride"; // override local opcional
+const LS_URL  = "taller.sheetsUrlOverride";
 const LS_VIEW = "taller.view";
+
+/* ---------- accesores BLINDADOS ----------
+   $ devuelve null si falta el elemento (sin explotar).
+   on() conecta eventos y avisa en consola si el ID no existe,
+   pero NUNCA detiene la ejecución del script.               */
 const $ = id => document.getElementById(id);
+function on(id, ev, fn){
+  const el = $(id);
+  if(!el){ console.warn(`[TALLER] el elemento #${id} no existe en el HTML; su evento "${ev}" quedó sin conectar.`); return null; }
+  el.addEventListener(ev, fn); return el;
+}
+const setTxt  = (id,v)=>{ const el=$(id); if(el) el.textContent=v; };
+const setHTML = (id,v)=>{ const el=$(id); if(el) el.innerHTML=v; };
 
 /* ---------- paleta de módulos ---------- */
 const POOL = ['#7C3AED','#2563EB','#EF4444','#F97316','#EC4899','#65A30D','#0EA5E9','#14B8A6'];
@@ -503,12 +524,12 @@ const hostOf = u => { try{ return new URL(u).hostname.replace(/^www\./,''); }cat
 const slug = s => norm(s).replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').replace(/-+/g,'-');
 const isExternal = u => /^https?:\/\//i.test(u);
 
-/* Resuelve la ruta de un módulo: nombre de archivo → pages/, http → tal cual */
+/* Resuelve la ruta: nombre de archivo → pages/, http → tal cual */
 function resolveUrl(u){
   u = String(u||'').trim();
   if(!u) return '';
   if(isExternal(u)) return u;
-  if(u.startsWith('/')) return u.substring(1); // relativa a la raíz del repo
+  if(u.startsWith('/')) return u.substring(1);
   return PAGES_DIR + u.replace(/^\/+/,'');
 }
 function destLabel(t){
@@ -537,6 +558,7 @@ document.addEventListener('pointerdown', e=>{
   el.appendChild(s); s.addEventListener('animationend',()=>s.remove());
 });
 function toast(msg, type='ok'){
+  const box = $('toasts'); if(!box) return;
   const icons = {
     ok:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
     bad:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
@@ -545,24 +567,23 @@ function toast(msg, type='ok'){
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   t.innerHTML = icons[type] + esc(msg);
-  $('toasts').appendChild(t);
+  box.appendChild(t);
   setTimeout(()=>{ t.classList.add('out'); t.addEventListener('animationend',()=>t.remove()); }, 3600);
 }
 
 /* ---------- reloj / "hace Xs" ---------- */
 function tickClock(){
   const d = new Date();
-  $('heroClock').textContent =
+  setTxt('heroClock',
     d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).toUpperCase()
-    + ' · ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    + ' · ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
 }
 setInterval(tickClock, 1000); tickClock();
 setInterval(()=>{
   if(!lastSync) return;
+  const dot=$('syncDot'); if(!dot || !dot.classList.contains('on')) return;
   const s = Math.floor((Date.now()-lastSync)/1000);
-  if($('syncDot').classList.contains('on')){
-    $('syncText').textContent = `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`;
-  }
+  setTxt('syncText', `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`);
 },1000);
 
 /* ---------- normalización de filas de INDEX ---------- */
@@ -627,11 +648,11 @@ async function load(force=false){
 }
 function setSync(state, text){
   const dot = $('syncDot');
-  dot.className = 'dot ' + state;
-  if(text) $('syncText').textContent = text;
+  if(dot) dot.className = 'dot ' + state;
+  if(text) setTxt('syncText', text);
   else if(state==='on' && lastSync){
     const s = Math.floor((Date.now()-lastSync)/1000);
-    $('syncText').textContent = `sincronizado · hace ${s}s`;
+    setTxt('syncText', `sincronizado · hace ${s}s`);
   }
 }
 
@@ -653,13 +674,14 @@ function highlight(text,q){
 }
 function renderAll(){
   renderChips(); renderList();
-  $('statTools').textContent = tools.length;
-  $('statCats').textContent = new Set(tools.map(t=>norm(t.cat))).size;
-  $('statSheets').textContent = tools.filter(t=>t.hoja).length;
-  $('catList').innerHTML = [...new Set(tools.map(t=>t.cat))].map(c=>`<option value="${esc(c)}">`).join('');
-  $('demoNote').classList.toggle('show', source==='demo');
+  setTxt('statTools', tools.length);
+  setTxt('statCats', new Set(tools.map(t=>norm(t.cat))).size);
+  setTxt('statSheets', tools.filter(t=>t.hoja).length);
+  const cl=$('catList'); if(cl) cl.innerHTML = [...new Set(tools.map(t=>t.cat))].map(c=>`<option value="${esc(c)}">`).join('');
+  const dn=$('demoNote'); if(dn) dn.classList.toggle('show', source==='demo');
 }
 function renderChips(){
+  const box=$('chips'); if(!box) return;
   const cats = {}; tools.forEach(t=>cats[t.cat]=(cats[t.cat]||0)+1);
   const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,'es'));
   const chip = (name,label,n)=>{
@@ -671,8 +693,8 @@ function renderChips(){
       : `color:${darken(c,.8)};border-color:${rgba(c,.45)};background:${rgba(c,.08)}`;
     return `<button class="chip ripple ${activeCat===name?'active':''}" data-cat="${esc(name)}" style="${style}">${esc(label)} <span class="n">${n}</span></button>`;
   };
-  $('chips').innerHTML = chip('todas','Todas',tools.length) + names.map(c=>chip(c,c,cats[c])).join('');
-  $('chips').querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{ activeCat=ch.dataset.cat; renderAll(); }));
+  box.innerHTML = chip('todas','Todas',tools.length) + names.map(c=>chip(c,c,cats[c])).join('');
+  box.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{ activeCat=ch.dataset.cat; renderAll(); }));
 }
 function itemHTML(t,i,q){
   const c = colorDe(t);
@@ -681,7 +703,6 @@ function itemHTML(t,i,q){
   const open = dest
     ? `href="${esc(dest)}"${ext?' target="_blank" rel="noopener"':''}`
     : `data-pend="${i}" role="button" tabindex="0"`;
-  const tag = `<span class="tag-${t.url?'a':'b'}"></span>`;
   const badge = `<span class="badge" style="background:${c};color:${onColor(c)}">${esc(t.cat)}</span>`;
   const hojaTag = t.hoja ? `<span class="host">▦ ${esc(t.hoja)}</span>` : `<span class="host">— sin hoja —</span>`;
   const monogram = `<span class="mono-badge" style="background:linear-gradient(135deg,${c},${darken(c,.72)})">${esc(t.titulo.charAt(0).toUpperCase())}</span>`;
@@ -717,38 +738,41 @@ function itemHTML(t,i,q){
     </${dest?'a':'div'}>`;
 }
 function renderList(){
+  const box=$('content'); if(!box) return;
   const list = filtered(), q = norm(query);
-  $('viewNote').textContent = list.length===tools.length ? `${tools.length} registros` : `${list.length} de ${tools.length}`;
+  setTxt('viewNote', list.length===tools.length ? `${tools.length} registros` : `${list.length} de ${tools.length}`);
   if(!list.length){
-    $('content').innerHTML = `<div class="index"><div class="state-panel" style="border:none;box-shadow:none">
+    box.innerHTML = `<div class="index"><div class="state-panel" style="border:none;box-shadow:none">
       <div class="glyph" style="background:${rgba('#7C3AED',.1)};color:var(--morado)">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
       <h3>Nada con «${esc(query)}»</h3><p>Prueba otras palabras o limpia los filtros.</p>
       <div class="acts"><button class="btn btn-morado ripple" id="resetBtn">Limpiar búsqueda y filtros</button></div>
     </div></div>`;
-    $('resetBtn').addEventListener('click',resetFilters); return;
+    on('resetBtn','click',resetFilters); return;
   }
   if(view==='list'){
-    $('content').innerHTML = `<div class="index">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
+    box.innerHTML = `<div class="index">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
   }else{
-    $('content').innerHTML = `<div class="grid">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
-    $('content').querySelectorAll('.card').forEach(el=>{ const t=list[+el.dataset.card]; if(t) setVars(el,colorDe(t)); });
+    box.innerHTML = `<div class="grid">` + list.map((t,i)=>itemHTML(t,i,q)).join('') + `</div>`;
+    box.querySelectorAll('.card').forEach(el=>{ const t=list[+el.dataset.card]; if(t) setVars(el,colorDe(t)); });
   }
-  $('content').querySelectorAll('[data-hoja]').forEach(b=>b.addEventListener('click',e=>{
+  box.querySelectorAll('[data-hoja]').forEach(b=>b.addEventListener('click',e=>{
     e.preventDefault(); e.stopPropagation();
     const item = filtered()[+b.dataset.hoja]; if(item) openDrawer(item);
   }));
-  $('content').querySelectorAll('[data-pend]').forEach(el=>el.addEventListener('click',()=>{
+  box.querySelectorAll('[data-pend]').forEach(el=>el.addEventListener('click',()=>{
     const item = filtered()[+el.dataset.pend]; if(item) openDrawer(item);
   }));
 }
 function renderSkeleton(){
-  $('content').innerHTML = `<div class="index">` + Array(5).fill(0).map(()=>`
+  const box=$('content'); if(!box) return;
+  box.innerHTML = `<div class="index">` + Array(5).fill(0).map(()=>`
     <div class="sk"><i class="a"></i><i class="b"></i><div><i class="c1"></i><i class="c2"></i></div><i class="d"></i></div>`).join('') + `</div>`;
-  $('viewNote').textContent='';
+  setTxt('viewNote','');
 }
 function renderError(msg){
-  $('content').innerHTML = `<div class="state-panel">
+  const box=$('content'); if(!box) return;
+  box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:${rgba('#EF4444',.1)};color:var(--rojo)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
     <h3>No pude leer la hoja INDEX</h3><p>${esc(msg)}</p>
@@ -757,12 +781,13 @@ function renderError(msg){
       <button class="btn btn-s ripple" id="errSettings">Revisar conexión</button>
       <button class="btn btn-s ripple" id="errDemo">Datos de ejemplo</button>
     </div></div>`;
-  $('errRetry').addEventListener('click',()=>load());
-  $('errSettings').addEventListener('click',openSettings);
-  $('errDemo').addEventListener('click',useDemo);
+  on('errRetry','click',()=>load());
+  on('errSettings','click',openSettings);
+  on('errDemo','click',useDemo);
 }
 function renderEmptyIndex(){
-  $('content').innerHTML = `<div class="state-panel">
+  const box=$('content'); if(!box) return;
+  box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
     <h3>Tu índice está vacío</h3>
@@ -771,15 +796,16 @@ function renderEmptyIndex(){
       <button class="btn btn-lima ripple" id="emptyAdd">＋ Crear primer módulo</button>
       <button class="btn btn-s ripple" id="emptySettings">Revisar conexión</button>
     </div></div>`;
-  $('emptyAdd').addEventListener('click',openAdd);
-  $('emptySettings').addEventListener('click',openSettings);
-  $('statTools').textContent='0'; $('statCats').textContent='0'; $('statSheets').textContent='0';
-  $('chips').innerHTML='';
+  on('emptyAdd','click',openAdd);
+  on('emptySettings','click',openSettings);
+  setTxt('statTools','0'); setTxt('statCats','0'); setTxt('statSheets','0');
+  const cb=$('chips'); if(cb) cb.innerHTML='';
 }
 function renderSetup(){
-  ['statTools','statCats','statSheets'].forEach(id=>$(id).textContent='—');
-  $('viewNote').textContent=''; $('chips').innerHTML='';
-  $('content').innerHTML = `<div class="state-panel">
+  ['statTools','statCats','statSheets'].forEach(id=>setTxt(id,'—'));
+  setTxt('viewNote',''); const cb=$('chips'); if(cb) cb.innerHTML='';
+  const box=$('content'); if(!box) return;
+  box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
     <h3>Falta un paso: tu URL /exec</h3>
@@ -790,7 +816,7 @@ function renderSetup(){
       <div class="step"><span class="sn">2</span><div><h5>Despliega la app web</h5>
         <p><code>Implementar → App web</code> · ejecutar como <b>yo</b> · acceso <b>cualquier persona</b>. Copia la URL que termina en <code>/exec</code>.</p></div></div>
       <div class="step"><span class="sn">3</span><div><h5>Pégala en el HTML (una vez)</h5>
-        <p>Abre <code>index.html</code> y escribe la URL en la constante <code>APPS_SCRIPT_URL</code>, al inicio del script. Listo: sirve en todos tus dispositivos y visitantes.</p></div></div>
+        <p>Abre <code>index.html</code> y escribe la URL en la constante <code>APPS_SCRIPT_URL</code>, al inicio del script. Listo: sirve en todos tus dispositivos.</p></div></div>
     </div>
     <div class="setup-form-label">…o solo para este navegador (override temporal)</div>
     <div class="setup-form">
@@ -800,12 +826,12 @@ function renderSetup(){
     <div class="acts" style="margin-top:18px">
       <button class="btn btn-lima ripple" id="setupDemo">Explorar con datos de ejemplo</button>
     </div></div>`;
-  $('setupConnect').addEventListener('click',()=>{
-    const u = $('setupUrl').value.trim();
+  on('setupConnect','click',()=>{
+    const inp=$('setupUrl'); const u = inp ? inp.value.trim() : '';
     if(!validUrl(u)) return;
     localStorage.setItem(LS_URL,u); toast('URL guardada localmente. Conectando…','ok'); load();
   });
-  $('setupDemo').addEventListener('click',useDemo);
+  on('setupDemo','click',useDemo);
 }
 function validUrl(u){
   if(!u){ toast('Pega primero la URL /exec','bad'); return false; }
@@ -816,37 +842,42 @@ function validUrl(u){
 }
 function useDemo(){
   tools = normalize(DEMO); source='demo'; lastSync=new Date();
-  activeCat='todas'; query=''; $('searchInput').value=''; $('searchBox').classList.remove('has');
+  activeCat='todas'; query='';
+  const si=$('searchInput'); if(si) si.value='';
+  const sb=$('searchBox'); if(sb) sb.classList.remove('has');
   setSync('on'); renderAll();
-  $('syncText').textContent='datos de ejemplo';
+  setTxt('syncText','datos de ejemplo');
   toast('Datos de ejemplo cargados','info');
 }
 
 /* ---------- drawer: hoja del módulo ---------- */
 function openDrawer(t){
+  if(!$('drawer')){ console.warn('[TALLER] el drawer fue eliminado del HTML; no puedo mostrar la hoja.'); return; }
   drawerTool = t; delArmed = false;
   const delBtn = $('drDelete');
-  delBtn.textContent = 'Eliminar módulo del índice';
-  delBtn.style.background=''; delBtn.style.color=''; delBtn.style.borderColor='';
-  $('drDelSheet').checked=false;
+  if(delBtn){ delBtn.textContent='Eliminar módulo del índice'; delBtn.style.background=''; delBtn.style.color=''; delBtn.style.borderColor=''; }
+  const chk=$('drDelSheet'); if(chk) chk.checked=false;
   const c = colorDe(t);
   const head = $('drawerHead');
-  head.style.background = `linear-gradient(120deg,${c},${darken(c,.7)})`;
-  head.style.setProperty('--dc',c); head.style.setProperty('--dd',darken(c,.7));
-  $('drTitle').textContent = t.titulo;
-  $('drMeta').innerHTML = `
+  if(head){
+    head.style.background = `linear-gradient(120deg,${c},${darken(c,.7)})`;
+    head.style.setProperty('--dc',c); head.style.setProperty('--dd',darken(c,.7));
+  }
+  setTxt('drTitle', t.titulo);
+  setHTML('drMeta', `
     <span class="dr-tag">${esc(t.cat)}</span>
     ${t.url?`<span class="dr-tag">${esc(destLabel(t))}</span>`:`<span class="dr-tag">sin destino · solo hoja</span>`}
-    ${t.creado?`<span class="dr-tag">creado ${esc(t.creado)}</span>`:''}`;
-  $('drSub').textContent = t.hoja ? `Hoja de datos: "${t.hoja}" en tu spreadsheet` : 'Este módulo aún no tiene hoja asignada';
-  $('drOpen').hidden = !t.url;
-  $('drTable').innerHTML = `<div class="dr-empty">Cargando hoja…</div>`;
-  $('drawer').classList.add('open'); $('drawerOv').classList.add('open');
+    ${t.creado?`<span class="dr-tag">creado ${esc(t.creado)}</span>`:''}`);
+  setTxt('drSub', t.hoja ? `Hoja de datos: "${t.hoja}" en tu spreadsheet` : 'Este módulo aún no tiene hoja asignada');
+  const op=$('drOpen'); if(op) op.hidden = !t.url;
+  setHTML('drTable', `<div class="dr-empty">Cargando hoja…</div>`);
+  $('drawer').classList.add('open');
+  const ov=$('drawerOv'); if(ov) ov.classList.add('open');
   loadDrawerSheet();
 }
 async function loadDrawerSheet(){
   const t = drawerTool; if(!t) return;
-  const box = $('drTable');
+  const box = $('drTable'); if(!box) return;
   if(source==='demo'){ box.innerHTML = `<div class="dr-empty">Modo ejemplo: conecta tu hoja para ver los datos reales.</div>`; return; }
   if(!t.hoja){ box.innerHTML = `<div class="dr-empty">Sin hoja asignada. Usa «Crear hoja si falta».</div>`; return; }
   box.innerHTML = `<div class="dr-empty">Cargando…</div>`;
@@ -865,11 +896,15 @@ async function loadDrawerSheet(){
     box.innerHTML = `<div class="dr-empty">Error: ${esc(err.message)}</div>`;
   }
 }
-function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').classList.remove('open'); drawerTool=null; }
- $('drawerClose').addEventListener('click',closeDrawer);
- $('drawerOv').addEventListener('click',closeDrawer);
- $('drRefresh').addEventListener('click',loadDrawerSheet);
- $('drEnsure').addEventListener('click',async ()=>{
+function closeDrawer(){
+  const d=$('drawer'); if(d) d.classList.remove('open');
+  const ov=$('drawerOv'); if(ov) ov.classList.remove('open');
+  drawerTool=null;
+}
+on('drawerClose','click',closeDrawer);
+on('drawerOv','click',closeDrawer);
+on('drRefresh','click',loadDrawerSheet);
+on('drEnsure','click',async ()=>{
   if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
   if(!drawerTool) return;
   try{
@@ -877,13 +912,16 @@ function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').clas
     toast('Hoja lista','ok'); loadDrawerSheet();
   }catch(err){ toast(err.message,'bad'); }
 });
- $('drOpen').addEventListener('click',()=>{
-  if(drawerTool?.url) window.open(resolveUrl(drawerTool.url), isExternal(resolveUrl(drawerTool.url))?'_blank':'_self');
+on('drOpen','click',()=>{
+  if(drawerTool?.url){
+    const u = resolveUrl(drawerTool.url);
+    if(isExternal(u)) window.open(u,'_blank','noopener'); else location.href = u;
+  }
 });
- $('drDelete').addEventListener('click',async ()=>{
+on('drDelete','click',async ()=>{
   if(!drawerTool) return;
   if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
-  const btn = $('drDelete');
+  const btn = $('drDelete'); if(!btn) return;
   if(!delArmed){
     delArmed = true;
     btn.textContent = '¿Seguro? Clic de nuevo para confirmar';
@@ -892,7 +930,7 @@ function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOv').clas
     return;
   }
   try{
-    await apiPost({action:'deleteTool', id:drawerTool.id, titulo:drawerTool.titulo, borrarHoja:$('drDelSheet').checked});
+    await apiPost({action:'deleteTool', id:drawerTool.id, titulo:drawerTool.titulo, borrarHoja:$('drDelSheet')?.checked});
     toast(`Módulo «${drawerTool.titulo}» eliminado`,'ok');
     closeDrawer(); load();
   }catch(err){ toast(err.message,'bad'); }
@@ -904,70 +942,77 @@ function openAdd(){
     toast('Pega tu URL /exec en APPS_SCRIPT_URL (en el HTML) o en Ajustes','info');
     openSettings(); return;
   }
-  $('fTitulo').value=''; $('fDesc').value=''; $('fFile').value='';
-  $('fCat').value=''; addColor = POOL[0]; fileDirty = false;
+  const set=(id,v)=>{ const el=$(id); if(el) el.value=v; };
+  set('fTitulo',''); set('fDesc',''); set('fFile',''); set('fCat','');
+  addColor = POOL[0]; fileDirty = false;
   renderSwatches(); updateFilePreview();
-  $('ovAdd').classList.add('open'); setTimeout(()=>$('fTitulo').focus(),80);
+  const ov=$('ovAdd'); if(ov) ov.classList.add('open');
+  const f=$('fTitulo'); if(f) setTimeout(()=>f.focus(),80);
 }
 function renderSwatches(){
-  $('fSwatches').innerHTML = POOL.map(c=>
+  const box=$('fSwatches'); if(!box) return;
+  box.innerHTML = POOL.map(c=>
     `<button type="button" class="sw-opt ${c===addColor?'active':''}" data-c="${c}" style="--c:${c}" aria-label="${c}"></button>`).join('');
-  $('fSwatches').querySelectorAll('.sw-opt').forEach(b=>b.addEventListener('click',()=>{
+  box.querySelectorAll('.sw-opt').forEach(b=>b.addEventListener('click',()=>{
     addColor = b.dataset.c; renderSwatches();
   }));
 }
 function updateFilePreview(){
-  const v = $('fFile').value.trim();
-  const el = $('filePreview');
+  const inp=$('fFile'); const el=$('filePreview'); if(!inp||!el) return;
+  const v = inp.value.trim();
   if(!v){ el.textContent = 'Vacío → módulo sin destino: vivirá solo como hoja de datos.'; return; }
   el.textContent = '→ ' + new URL(resolveUrl(v), location.href).href;
 }
- $('fTitulo').addEventListener('input',()=>{
-  if(!fileDirty) $('fFile').value = slug($('fTitulo').value) + '.html';
+on('fTitulo','input',()=>{
+  if(!fileDirty){ const f=$('fFile'); if(f) f.value = slug($('fTitulo').value) + '.html'; }
   updateFilePreview();
 });
- $('fFile').addEventListener('input',()=>{ fileDirty=true; updateFilePreview(); });
- $('btnAdd').addEventListener('click',openAdd);
- $('addClose').addEventListener('click',()=>$('ovAdd').classList.remove('open'));
- $('ovAdd').addEventListener('click',e=>{ if(e.target===$('ovAdd')) $('ovAdd').classList.remove('open'); });
- $('btnAddSave').addEventListener('click',async ()=>{
-  const titulo = $('fTitulo').value.trim();
-  if(!titulo){ toast('El título es obligatorio','bad'); $('fTitulo').focus(); return; }
-  const btn = $('btnAddSave'); btn.disabled=true;
+on('fFile','input',()=>{ fileDirty=true; updateFilePreview(); });
+on('btnAdd','click',openAdd);
+on('addClose','click',()=>{ const ov=$('ovAdd'); if(ov) ov.classList.remove('open'); });
+ $('ovAdd')?.addEventListener('click',e=>{ if(e.target===$('ovAdd')) $('ovAdd').classList.remove('open'); });
+on('btnAddSave','click',async ()=>{
+  const inp=$('fTitulo');
+  const titulo = inp ? inp.value.trim() : '';
+  if(!titulo){ toast('El título es obligatorio','bad'); inp?.focus(); return; }
+  const btn = $('btnAddSave'); if(btn) btn.disabled=true;
   try{
+    const g=id=>{ const el=$(id); return el?el.value.trim():''; };
     const out = await apiPost({
       action:'addTool',
       titulo,
-      descripcion: $('fDesc').value.trim(),
-      url: $('fFile').value.trim(),          // se guarda tal cual; resolveUrl() lo manda a pages/
-      categoria: $('fCat').value.trim() || 'General',
+      descripcion: g('fDesc'),
+      url: g('fFile'),          // se guarda tal cual; resolveUrl() lo manda a pages/
+      categoria: g('fCat') || 'General',
       color: addColor
     });
-    $('ovAdd').classList.remove('open');
+    const ov=$('ovAdd'); if(ov) ov.classList.remove('open');
     toast(`Módulo creado · hoja "${out.hoja}" ${out.hojaCreada?'creada':'reutilizada'}`,'ok');
     load();
   }catch(err){ toast(err.message,'bad'); }
-  finally{ btn.disabled=false; }
+  finally{ if(btn) btn.disabled=false; }
 });
 
 /* ---------- ajustes ---------- */
 function openSettings(){
+  const ov=$('ovSettings'); if(!ov) return;
   const override = localStorage.getItem(LS_URL) || '';
-  $('urlInput').value = override || APPS_SCRIPT_URL;
-  $('btnRestore').hidden = !override;
-  $('testLine').className='test-line'; $('testLine').textContent='';
-  $('ovSettings').classList.add('open'); setTimeout(()=>$('urlInput').focus(),80);
+  const inp=$('urlInput'); if(inp) inp.value = override || APPS_SCRIPT_URL;
+  const br=$('btnRestore'); if(br) br.hidden = !override;
+  const tl=$('testLine'); if(tl){ tl.className='test-line'; tl.textContent=''; }
+  ov.classList.add('open');
+  if(inp) setTimeout(()=>inp.focus(),80);
 }
-function closeSettings(){ $('ovSettings').classList.remove('open'); }
- $('btnSettings').addEventListener('click',openSettings);
- $('demoToSettings').addEventListener('click',openSettings);
- $('settingsClose').addEventListener('click',closeSettings);
- $('ovSettings').addEventListener('click',e=>{ if(e.target===$('ovSettings')) closeSettings(); });
- $('btnTest').addEventListener('click',async ()=>{
-  const u = $('urlInput').value.trim();
+function closeSettings(){ const ov=$('ovSettings'); if(ov) ov.classList.remove('open'); }
+on('btnSettings','click',openSettings);
+on('demoToSettings','click',openSettings);
+on('settingsClose','click',closeSettings);
+ $('ovSettings')?.addEventListener('click',e=>{ if(e.target===$('ovSettings')) closeSettings(); });
+on('btnTest','click',async ()=>{
+  const inp=$('urlInput'); const u = inp ? inp.value.trim() : '';
   if(!validUrl(u)) return;
   const line = $('testLine');
-  line.className='test-line'; line.textContent='Probando conexión…';
+  if(line){ line.className='test-line'; line.textContent='Probando conexión…'; }
   try{
     const res = await fetch(u,{redirect:'follow'});
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -975,66 +1020,77 @@ function closeSettings(){ $('ovSettings').classList.remove('open'); }
     const rows = Array.isArray(j)?j:(j.data||[]);
     if(!Array.isArray(rows)) throw new Error('Formato no reconocido');
     const n = normalize(rows).length;
-    line.className='test-line ok';
-    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s) en INDEX.`;
-    localStorage.setItem(LS_URL,u); $('btnRestore').hidden = (u === APPS_SCRIPT_URL);
+    if(line){
+      line.className='test-line ok';
+      line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s) en INDEX.`;
+    }
+    localStorage.setItem(LS_URL,u);
+    const br=$('btnRestore'); if(br) br.hidden = (u === APPS_SCRIPT_URL);
     toast(u===APPS_SCRIPT_URL ? 'Conexión verificada' : 'Override local guardado','ok');
     setTimeout(()=>{ closeSettings(); load(); },700);
   }catch(err){
-    line.className='test-line bad';
-    line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> ${esc(err.message)}`;
+    if(line){
+      line.className='test-line bad';
+      line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> ${esc(err.message)}`;
+    }
   }
 });
- $('btnRestore').addEventListener('click',()=>{
+on('btnRestore','click',()=>{
   localStorage.removeItem(LS_URL);
-  $('urlInput').value = APPS_SCRIPT_URL;
-  $('btnRestore').hidden = true;
+  const inp=$('urlInput'); if(inp) inp.value = APPS_SCRIPT_URL;
+  const br=$('btnRestore'); if(br) br.hidden = true;
   toast('Restaurada la URL del código','info');
   load();
 });
 
 /* ---------- búsqueda / vista / atajos / sync ---------- */
- $('searchInput').addEventListener('input', debounce(e=>{
+on('searchInput','input', debounce(e=>{
   query = e.target.value.trim();
-  $('searchBox').classList.toggle('has',!!query);
+  const sb=$('searchBox'); if(sb) sb.classList.toggle('has',!!query);
   renderList();
 },160));
- $('searchClear').addEventListener('click',()=>{
-  $('searchInput').value=''; query=''; $('searchBox').classList.remove('has');
-  renderList(); $('searchInput').focus();
+on('searchClear','click',()=>{
+  const si=$('searchInput'); if(si) si.value='';
+  query='';
+  const sb=$('searchBox'); if(sb) sb.classList.remove('has');
+  renderList(); si?.focus();
 });
 function resetFilters(){
   query=''; activeCat='todas';
-  $('searchInput').value=''; $('searchBox').classList.remove('has');
+  const si=$('searchInput'); if(si) si.value='';
+  const sb=$('searchBox'); if(sb) sb.classList.remove('has');
   renderAll();
 }
 function setView(v){
   view = v; localStorage.setItem(LS_VIEW,v);
-  $('segList').classList.toggle('active',v==='list');
-  $('segGrid').classList.toggle('active',v==='grid');
+  const a=$('segList'), b=$('segGrid');
+  if(a) a.classList.toggle('active',v==='list');
+  if(b) b.classList.toggle('active',v==='grid');
   renderList();
 }
- $('segList').addEventListener('click',()=>setView('list'));
- $('segGrid').addEventListener('click',()=>setView('grid'));
+on('segList','click',()=>setView('list'));
+on('segGrid','click',()=>setView('grid'));
 setView(view);
 document.addEventListener('keydown',e=>{
-  if(e.key==='/' && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='TEXTAREA'){
-    e.preventDefault(); $('searchInput').focus();
+  const ae=document.activeElement;
+  if(e.key==='/' && ae && ae.tagName!=='INPUT' && ae.tagName!=='TEXTAREA'){
+    e.preventDefault(); $('searchInput')?.focus();
   }
   if(e.key==='Escape'){
-    if($('drawer').classList.contains('open')) closeDrawer();
-    else if($('ovAdd').classList.contains('open')) $('ovAdd').classList.remove('open');
-    else if($('ovSettings').classList.contains('open')) closeSettings();
+    if($('drawer')?.classList.contains('open')) closeDrawer();
+    else if($('ovAdd')?.classList.contains('open')) $('ovAdd').classList.remove('open');
+    else if($('ovSettings')?.classList.contains('open')) closeSettings();
     else resetFilters();
   }
 });
 function doSync(){
-  const b=$('btnRefresh'); b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin');
+  const b=$('btnRefresh');
+  if(b){ b.classList.remove('spin'); void b.offsetWidth; b.classList.add('spin'); }
   if(!getUrl()){ source==='demo' ? useDemo() : load(); }
   else load(true);
 }
- $('btnRefresh').addEventListener('click',doSync);
- $('btnSyncHero').addEventListener('click',doSync);
+on('btnRefresh','click',doSync);
+on('btnSyncHero','click',doSync);
 
 /* ---------- arranque ---------- */
 load();
