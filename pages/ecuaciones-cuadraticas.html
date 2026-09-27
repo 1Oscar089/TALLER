@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecuaciones Cuadráticas · TALLER</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='38' font-weight='bold' text-anchor='middle' fill='%23D4F542'%3Ex²%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathlive/mathlive.min.js"></script>
+<style>
+  :root{
+    --morado:#7C3AED; --morado-deep:#5B21B6; --lila:#A78BFA;
+    --azul:#2563EB; --rojo:#EF4444; --naranja:#F97316;
+    --lima:#D4F542; --lima-ink:#3F5206;
+    --bg:#F5F5FA; --surface:#FFFFFF; --ink:#1E1B2E; --ink-soft:#67647A;
+    --line:#E8E6F2;
+    --sh:0 1px 2px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.07);
+    --sh-lg:0 14px 40px rgba(30,27,46,.16);
+    --fd:'Space Grotesk',sans-serif; --fu:'Archivo',sans-serif; --fm:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ::selection{background:var(--lima);color:var(--lima-ink)}
+  :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
+  svg{display:block}
+  .ripple{position:relative;overflow:hidden}
+  .rp{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards}
+  @keyframes rp{to{transform:scale(2.6);opacity:0}}
+
+  .band{height:4px;background:linear-gradient(90deg,var(--morado),var(--azul) 35%,var(--rojo) 70%,var(--lima))}
+  header.top{position:sticky;top:0;z-index:60;background:rgba(245,245,250,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .top-in{max-width:1080px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:14px}
+  .back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13.5px;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;text-decoration:none;box-shadow:0 4px 10px rgba(124,58,237,.3);transition:.18s}
+  .back:hover{transform:translateX(-2px)}
+  .brand-t{font-family:var(--fd);font-weight:700;font-size:17px}
+  .brand-t small{font-family:var(--fm);font-size:10px;color:var(--ink-soft);letter-spacing:.14em;font-weight:400;margin-left:8px}
+  .top-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+  .sync{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11.5px;color:var(--ink-soft)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.on{background:#65A30D;box-shadow:0 0 0 3px #EAF5D3}
+  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px #FDE8E8}
+  .dot.wait{background:#C6C3D4;box-shadow:0 0 0 3px #ECEAF4}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 90px}
+
+  .hero{position:relative;overflow:hidden;border-radius:22px;padding:28px 32px;color:#fff;
+    background:
+      radial-gradient(520px 240px at 92% -40%, rgba(239,68,68,.55), transparent 60%),
+      radial-gradient(420px 220px at -6% 125%, rgba(212,245,66,.38), transparent 60%),
+      linear-gradient(115deg,#5B21B6,#7C3AED 45%,#2563EB 100%);
+    box-shadow:var(--sh-lg)}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+    background-size:34px 34px;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
+  .hero>*{position:relative}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .kicker::before{content:"";width:22px;height:3px;background:var(--lima);border-radius:2px}
+  .hero h1{font-family:var(--fd);font-weight:700;font-size:clamp(24px,3.4vw,38px);margin-top:8px}
+  .hero h1 em{font-style:normal;color:var(--lima)}
+  .hero-sub{margin-top:6px;font-size:14px;color:rgba(255,255,255,.82);max-width:680px}
+  .hero-sub code{font-family:var(--fm);font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:0 6px;border-radius:6px;color:var(--lima)}
+  .hero-stats{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .hstat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(6px);border-radius:13px;padding:10px 18px;min-width:104px}
+  .hstat .num{font-family:var(--fd);font-weight:700;font-size:24px;line-height:1}
+  .hstat .lbl{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:4px}
+
+  /* EDITOR */
+  .mfcard{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:20px 22px}
+  .mfcard .lab{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .lab .hoja-btn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:8px;border:1.5px solid var(--line);font-size:10.5px;letter-spacing:.08em;color:var(--ink-soft);background:var(--bg)}
+  .lab .hoja-btn:hover{border-color:var(--morado);color:var(--morado)}
+  math-field{display:block;width:100%;margin-top:12px;padding:16px 18px;font-size:1.5rem;border:2px solid var(--line);border-radius:14px;background:var(--surface);
+    --caret-color:var(--morado);--selection-background-color:#E6DDFB;--contains-highlight-background-color:#F3EEFE;outline:none;resize:none}
+  math-field:focus-within{border-color:var(--morado);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+  .locknote{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:12.5px;color:var(--ink-soft)}
+  .locknote b{color:var(--morado-deep)}
+  .mf-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.18s;border:none}
+  .btn-lima{background:var(--lima);color:var(--lima-ink);box-shadow:0 6px 18px rgba(212,245,66,.35)}
+  .btn-lima:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,245,66,.45)}
+  .btn-s{background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
+  .btn-s:hover{border-color:var(--ink-soft)}
+  .ej-title{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:18px}
+  .ej-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+  .ej{padding:6px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-family:var(--fm);font-size:12px;color:var(--ink-soft);transition:.15s}
+  .ej:hover{border-color:var(--morado);color:var(--morado);transform:translateY(-1px)}
+
+  /* ALERTAS */
+  .alerta{display:none;margin-top:18px;border-radius:16px;padding:16px 18px;border:1.5px solid;align-items:flex-start;gap:12px;animation:pop .25s cubic-bezier(.2,.9,.3,1.15)}
+  .alerta.show{display:flex}
+  .alerta .a-ico{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}
+  .alerta h4{font-family:var(--fd);font-size:16px;margin-bottom:2px}
+  .alerta p{font-size:14px;line-height:1.55}
+  .alerta p .ML__mathlive{font-size:1.05em}
+  .alerta.err{background:#FEF2F1;border-color:#F6C6C2}.alerta.err .a-ico{background:var(--rojo);color:#fff}.alerta.err h4{color:#B91C1C}
+  .alerta.warn{background:#FFF6EC;border-color:#F8D8B4}.alerta.warn .a-ico{background:var(--naranja);color:#fff}.alerta.warn h4{color:#C2410C}
+  .alerta.info{background:#EEF3FE;border-color:#C9D8F8}.alerta.info .a-ico{background:var(--azul);color:#fff}.alerta.info h4{color:#1D4ED8}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}}
+
+  /* RESULTADO */
+  #zona{margin-top:22px;display:none}
+  #zona.show{display:block}
+  .gcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:20px 24px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .gcard .geq{font-size:1.5rem}
+  .gcard .gmeta{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  .gchip{font-family:var(--fm);font-size:12px;padding:6px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+  .gchip b{color:var(--morado-deep)}
+  .gchip.delta-ok{background:#F2F8DC;border-color:#DCE8AF;color:var(--lima-ink)}
+  .gchip.delta-doble{background:#EEF3FE;border-color:#C9D8F8;color:#1D4ED8}
+  .gchip.delta-neg{background:#FEF2F1;border-color:#F6C6C2;color:#B91C1C}
+  .escala-note{width:100%;font-size:12px;color:var(--ink-soft);font-family:var(--fm)}
+
+  .acc{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .acc-item{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;box-shadow:var(--sh);overflow:hidden;transition:border-color .2s}
+  .acc-item.open{border-color:var(--lila)}
+  .acc-h{width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;text-align:left}
+  .acc-h:hover{background:#FBFAFE}
+  .acc-h .nnum{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;display:grid;place-items:center;font-family:var(--fm);font-size:12.5px;flex:none}
+  .acc-h h3{font-family:var(--fd);font-size:15.5px;font-weight:600;flex:1}
+  .st{font-family:var(--fm);font-size:10px;letter-spacing:.08em;font-weight:700;padding:4px 11px;border-radius:999px;flex:none}
+  .st.ok{background:#F2F8DC;color:var(--lima-ink)}
+  .st.na{background:#EFEEF4;color:#8B8899}
+  .st.nota{background:#FFF3E4;color:#C2410C}
+  .acc-h .chev{color:#B7B4C6;transition:.2s;flex:none}
+  .acc-item.open .chev{transform:rotate(180deg);color:var(--morado)}
+  .acc-b{display:none;padding:4px 20px 20px 60px;border-top:1px dashed var(--line)}
+  .acc-item.open .acc-b{display:block;animation:fadeIn .25s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}}
+
+  .paso{display:flex;align-items:center;gap:14px;padding:7px 0;border-bottom:1px dotted var(--line);flex-wrap:wrap}
+  .paso:last-child{border-bottom:none}
+  .paso .ML__mathlive{font-size:1.14rem}
+  .paso .pn{font-size:12px;color:var(--ink-soft);font-family:var(--fm)}
+  .obs-na{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:#F7F6FB;border:1.5px dashed var(--line);border-radius:12px;font-size:13.5px;color:var(--ink-soft)}
+  .obs-na svg{flex:none;color:#A9A6BB;margin-top:2px}
+
+  /* ASPA / RUFFINI */
+  .mini-tables{display:flex;gap:26px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  table.aspa{border-collapse:collapse}
+  table.aspa td{width:64px;height:48px;text-align:center;font-family:var(--fm);font-size:17px;font-weight:600;border-bottom:2px solid var(--ink);border-right:2px solid var(--ink)}
+  table.aspa td.cross{border-right:none;border-left:2px solid var(--ink)}
+  table.aspa tr:last-child td{border-bottom:none}
+  .aspa-leg{font-family:var(--fm);font-size:12px;color:var(--ink-soft);line-height:2}
+  .aspa-leg b{color:var(--morado-deep)}
+  table.ruf{border-collapse:collapse;font-family:var(--fm)}
+  table.ruf td,table.ruf th{border:1.5px solid var(--line);padding:6px 12px;text-align:center;font-size:14px;min-width:56px}
+  table.ruf th{background:#F3F1FB;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+  table.ruf td.rl{border:none;font-weight:600;color:var(--morado-deep);text-align:right}
+  table.ruf td.cero{color:#65A30D;font-weight:700}
+  table.ruf td,table.ruf th .ML__mathlive{font-size:1rem}
+
+  /* GRÁFICO */
+  .ggb-note{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;flex-wrap:wrap}
+  .ggb-note i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:-1px}
+  #ggbBox{width:100%;min-height:300px;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#FAFAFC}
+  .ggb-err{padding:30px;text-align:center;color:var(--ink-soft);font-size:13.5px}
+
+  footer{border-top:1px solid var(--line);padding:20px 0 40px}
+  .foot-in{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--fm);font-size:11px;color:var(--ink-soft)}
+  .foot-in a{color:var(--morado);font-weight:600;text-decoration:none}
+  .foot-in a:hover{text-decoration:underline}
+
+  .toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:9px;padding:11px 17px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:var(--sh-lg);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
+  .toast.ok{background:var(--lima);color:var(--lima-ink)}
+  .toast.bad{background:var(--rojo);color:#fff}
+  .toast.info{background:var(--ink);color:#fff}
+  .toast.out{animation:toastOut .3s ease forwards}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+
+  .texfall{font-family:var(--fm);font-size:13px;background:var(--bg);padding:2px 8px;border-radius:6px;border:1px solid var(--line)}
+
+  @media(max-width:720px){
+    .acc-b{padding-left:20px}
+    .gcard .gmeta{margin-left:0}
+    .sync span{display:none}
+    .brand-t small{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="band"></div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="back ripple" href="../index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      TALLER
+    </a>
+    <span class="brand-t">Ecuaciones Cuadráticas<small>· MÓDULO</small></span>
+    <div class="top-right">
+      <div class="sync"><span class="dot wait" id="syncDot"></span><span id="syncText">conectando…</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="kicker">Álgebra · 9 métodos de solución</span>
+    <h1>Escribe la ecuación, <em>obtén todo.</em></h1>
+    <p class="hero-sub">Usa el <b>teclado de MathLive</b> (el físico está bloqueado). Acepto cualquier combinación — <code>0=ax²+bx+c</code>, <code>ax²+bx+c=0</code>, <code>ax²+bx=0</code>, fracciones, productos — y la llevo a la forma general <code>ax²+bx+c=0</code>.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">9</div><div class="lbl">métodos</div></div>
+      <div class="hstat"><div class="num">118→∞</div><div class="lbl">combinaciones</div></div>
+      <div class="hstat"><div class="num" id="statLogs">—</div><div class="lbl">en la hoja</div></div>
+    </div>
+  </section>
+
+  <!-- ===== EDITOR ===== -->
+  <div class="mfcard">
+    <div class="lab">
+      Ecuación
+      <button class="hoja-btn ripple" id="btnSheet" title="Crear la hoja Ecuaciones Cuadraticas si no existe">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+        Crear hoja si falta
+      </button>
+    </div>
+    <math-field id="mf" virtual-keyboard-mode="manual" spellcheck="false">x^2-5x+6=0</math-field>
+    <div class="locknote">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Teclado físico <b>bloqueado</b> · escribe solo con el teclado virtual de MathLive
+    </div>
+    <div class="mf-acts">
+      <button class="btn btn-lima ripple" id="btnSolve">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        Resolver
+      </button>
+      <button class="btn btn-s ripple" id="btnClear">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        Limpiar
+      </button>
+    </div>
+    <div class="ej-title">Ejemplos (toca para cargar y resolver)</div>
+    <div class="ej-chips" id="ejChips"></div>
+  </div>
+
+  <div class="alerta" id="alerta"></div>
+
+  <!-- ===== RESULTADO ===== -->
+  <div id="zona">
+    <div class="gcard" id="gcard"></div>
+    <div class="acc" id="acc"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <span>TALLER · módulo de álgebra · hoja "Ecuaciones Cuadraticas"</span>
+    <a href="../index.html">← volver al índice</a>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ⚙️ CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
+   ═══════════════════════════════════════════════════════════════
+   APPS_SCRIPT_URL → la MISMA URL /exec que pusiste en index.html.
+   También funciona con ?api=<url> en la barra de direcciones.
+   Sin URL el módulo funciona igual (modo local), solo no registra.
+   ═══════════════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const SHEET_NAME      = "Ecuaciones Cuadraticas"; // ← nombre EXACTO de la hoja
+
+const $ = id => document.getElementById(id);
+function on(id, ev, fn){
+  const el = $(id);
+  if(!el){ console.warn(`[TALLER] el elemento #${id} no existe; evento "${ev}" sin conectar.`); return null; }
+  el.addEventListener(ev, fn); return el;
+}
+
+/* ═══════════════ RENDER LATEX → HTML (MathLive) ═══════════════ */
+function M(tex){
+  try{
+    if(window.MathLive && MathLive.convertLatexToMarkup) return MathLive.convertLatexToMarkup(tex);
+    if(window.MathfieldElement && MathfieldElement.convertLatexToMarkup) return MathfieldElement.convertLatexToMarkup(tex);
+  }catch(e){}
+  return `<code class="texfall">${esc(tex)}</code>`;
+}
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ═══════════════ FRACCIONES EXACTAS ═══════════════ */
+const gcd = (a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a||1;};
+const lcm = (a,b)=>Math.abs(a/gcd(a,b)*b);
+class Frac{
+  constructor(n,d=1){
+    if(!isFinite(n)||!isFinite(d)) throw new ParseErr('hay un número no válido en la expresión');
+    if(d===0) throw new ParseErr('hay una división entre cero');
+    if(n===0){this.n=0;this.d=1;return;}
+    if(d<0){n=-n;d=-d;}
+    const g=gcd(n,d); this.n=n/g; this.d=d/g;
+  }
+  add(o){return new Frac(this.n*o.d+o.n*this.d,this.d*o.d);}
+  sub(o){return this.add(o.neg());}
+  mul(o){return new Frac(this.n*o.n,this.d*o.d);}
+  div(o){if(o.n===0)throw new ParseErr('hay una división entre cero');return new Frac(this.n*o.d,this.d*o.n);}
+  neg(){return new Frac(-this.n,this.d);}
+  isZero(){return this.n===0;}
+  isNeg(){return this.n<0;}
+  isInt(){return this.d===1;}
+  cmp(o){return this.n*o.d-this.d*o.n;}
+  num(){return this.n/this.d;}
+  tex(){return this.d===1?String(this.n):(this.n<0?'-':'')+`\\frac{${Math.abs(this.n)}}{${this.d}}`;}
+  str(){return this.d===1?String(this.n):this.n+'/'+this.d;}
+  static fromDec(s){
+    if(s.includes('.')){
+      const neg=s.startsWith('-'); const [i,f]=s.replace('-','').split('.');
+      const den=10**f.length, num=Number(i)*den+Number(f||'0');
+      return new Frac(neg?-num:num,den);
+    }
+    return new Frac(Number(s),1);
+  }
+}
+const divisors = n => { n=Math.abs(n); if(n===0) return []; const d=[]; for(let i=1;i*i<=n;i++){ if(n%i===0){d.push(i); if(i!==n/i)d.push(n/i);} } return d.sort((a,b)=>a-b); };
+const isSquare = n => { if(n<0) return null; const r=Math.round(Math.sqrt(n)); return r*r===n?r:null; };
+function sqSimplify(n){ let k=1; for(let i=2;i*i<=n;i++){ while(n%(i*i)===0){n/=(i*i);k*=i;} } return [k,n]; }
+const r6 = v => Math.round(v*1e6)/1e6;
+const fmt = v => String(r6(v));
+const pn  = v => v<0?`(${v})`:String(v);
+
+/* ═══════════════ POLINOMIOS (coeficientes Frac) ═══════════════ */
+class Poly{
+  constructor(c=[]){this.c=c;}
+  static constF(f){return new Poly([f]);}
+  static x(){return new Poly([new Frac(0),new Frac(1)]);}
+  trim(){const c=[...this.c];while(c.length>1&&c[c.length-1].isZero())c.pop();return new Poly(c);}
+  deg(){const t=this.trim();if(t.c.length===1&&t.c[0].isZero())return -1;return t.c.length-1;}
+  coeff(i){return this.c[i]||new Frac(0);}
+  add(o){const n=Math.max(this.c.length,o.c.length),out=[];
+    for(let i=0;i<n;i++)out.push(this.coeff(i).add(o.coeff(i)));return new Poly(out).trim();}
+  sub(o){return this.add(o.neg());}
+  neg(){return new Poly(this.c.map(f=>f.neg()));}
+  mul(o){const out=Array(this.c.length+o.c.length-1).fill(0).map(()=>new Frac(0));
+    for(let i=0;i<this.c.length;i++)for(let j=0;j<o.c.length;j++)out[i+j]=out[i+j].add(this.c[i].mul(o.c[j]));
+    return new Poly(out).trim();}
+  scale(f){return new Poly(this.c.map(x=>x.mul(f)));}
+  pow(k){let r=Poly.constF(new Frac(1));for(let i=0;i<k;i++)r=r.mul(this);return r;}
+}
+
+/* ═══════════════ PARSER LaTeX → POLINOMIO ═══════════════ */
+class ParseErr extends Error{}
+function cleanLatex(s){
+  return String(s||'')
+    .replace(/−/g,'-').replace(/–/g,'-')
+    .replace(/×/g,'*').replace(/÷/g,'/')
+    .replace(/²/g,'^{2}').replace(/³/g,'^{3}')
+    .replace(/\s+/g,'')
+    .replace(/\\left|\\right/g,'')
+    .replace(/\\cdot|\\times/g,'*');
+}
+function tokenize(s){
+  const T=[]; let i=0; const isD=c=>c>='0'&&c<='9';
+  while(i<s.length){
+    const c=s[i];
+    if(c==='\\'){
+      const m=/^\\([a-zA-Z]+)/.exec(s.slice(i));
+      if(!m) throw new ParseErr('hay un comando incompleto');
+      if(m[1]==='frac'){T.push({t:'frac'});i+=m[0].length;}
+      else throw new ParseErr(`no reconozco el comando \\${m[1]} — uso números, x, + − × ÷, ^, paréntesis y fracciones \\frac{ }{ }`);
+      continue;
+    }
+    if(isD(c)||c==='.'){
+      let j=i; while(j<s.length&&(isD(s[j])||s[j]==='.'))j++;
+      const num=s.slice(i,j);
+      if((num.match(/\./g)||[]).length>1) throw new ParseErr(`el número "${num}" no es válido`);
+      T.push({t:'num',v:num}); i=j; continue;
+    }
+    if(c==='x'){T.push({t:'var'});i++;continue;}
+    if('+-*/^(){}'.includes(c)){T.push({t:c});i++;continue;}
+    throw new ParseErr(`carácter no válido: "${c}"`);
+  }
+  return T;
+}
+class Parser{
+  constructor(T){this.T=T;this.i=0;}
+  peek(){return this.T[this.i];}
+  next(){return this.T[this.i++];}
+  expect(t){
+    const tok=this.next();
+    if(!tok||tok.t!==t) throw new ParseErr(`esperaba "${t}" — revisa paréntesis y llaves`);
+  }
+  parseFull(){
+    const p=this.parseExpr();
+    const rest=this.peek();
+    if(rest) throw new ParseErr(rest.t===')'?'hay un paréntesis de cierre sin abrir':'sobró contenido al final de un lado de la ecuación');
+    return p;
+  }
+  parseExpr(){
+    let p=this.parseTerm();
+    while(this.peek()&&(this.peek().t==='+'||this.peek().t==='-')){
+      const op=this.next().t, q=this.parseTerm();
+      p = op==='+'?p.add(q):p.sub(q);
+    }
+    return p;
+  }
+  parseTerm(){
+    let p=this.parseFactor();
+    for(;;){
+      const t=this.peek(); if(!t)break;
+      if(t.t==='*'){this.next();p=p.mul(this.parseFactor());continue;}
+      if(t.t==='/'){
+        this.next();
+        const q=this.parseFactor();
+        if(q.deg()>0) throw new ParseErr('no admito la incógnita en el denominador');
+        const d=q.coeff(0); if(d.isZero()) throw new ParseErr('hay una división entre cero');
+        p=p.scale(new Frac(d.d,d.n)); continue;
+      }
+      if(t.t==='num'||t.t==='var'||t.t==='frac'||t.t==='('){p=p.mul(this.parseFactor());continue;}
+      break;
+    }
+    return p;
+  }
+  parseFactor(){
+    const t=this.peek();
+    if(t&&t.t==='-'){this.next();return this.parseFactor().neg();}
+    if(t&&t.t==='+'){this.next();return this.parseFactor();}
+    let base=this.parseAtom();
+    if(this.peek()&&this.peek().t==='^'){this.next();base=base.pow(this.parseExponent());}
+    return base;
+  }
+  parseExponent(){
+    const t=this.peek();
+    if(!t) throw new ParseErr('esperaba un exponente después de "^"');
+    if(t.t==='-') throw new ParseErr('no admito exponentes negativos');
+    if(t.t==='{'){
+      this.next();
+      const e=this.parseExpr(); this.expect('}');
+      if(e.deg()>0) throw new ParseErr('el exponente debe ser un número entero, no una expresión con x');
+      const v=e.coeff(0);
+      if(!v.isInt()||v.n<0||v.n>6) throw new ParseErr('el exponente debe ser un entero entre 0 y 6');
+      return v.n;
+    }
+    if(t.t==='num'){
+      this.next();
+      const v=Frac.fromDec(t.v);
+      if(!v.isInt()||v.n<0||v.n>6) throw new ParseErr('el exponente debe ser un entero entre 0 y 6');
+      return v.n;
+    }
+    throw new ParseErr('esperaba un número entero como exponente');
+  }
+  parseAtom(){
+    const t=this.next();
+    if(!t) throw new ParseErr('la expresión está incompleta');
+    switch(t.t){
+      case 'num': return Poly.constF(Frac.fromDec(t.v));
+      case 'var': return Poly.x();
+      case '(': { const p=this.parseExpr(); this.expect(')'); return p; }
+      case 'frac': {
+        this.expect('{'); const num=this.parseExpr(); this.expect('}');
+        this.expect('{'); const den=this.parseExpr(); this.expect('}');
+        if(den.deg()>0) throw new ParseErr('no admito la incógnita en el denominador');
+        const d=den.coeff(0); if(d.isZero()) throw new ParseErr('hay una división entre cero');
+        return num.scale(new Frac(d.d,d.n));
+      }
+      default: throw new ParseErr('la expresión está incompleta');
+    }
+  }
+}
+function parseSide(str){
+  if(!str) throw new ParseErr('hay un lado vacío de la ecuación');
+  return new Parser(tokenize(str)).parseFull();
+}
+
+/* ═══════════════ ANÁLISIS DE LA ECUACIÓN ═══════════════ */
+function intCoeffs(eq){
+  const a=eq.coeff(2),b=eq.coeff(1),c=eq.coeff(0);
+  const L=lcm(lcm(a.d,b.d),c.d);
+  let A=a.n*(L/a.d),B=b.n*(L/b.d),C=c.n*(L/c.d);
+  const g=gcd(gcd(Math.abs(A),Math.abs(B)),Math.abs(C));
+  if(g>1){A/=g;B/=g;C/=g;}
+  if(A<0){A=-A;B=-B;C=-C;}
+  return [A,B,C,L>1];
+}
+function roots(A,B,C){
+  const D=B*B-4*A*C, R={D};
+  if(D<0){
+    R.tipo='complejas';
+    const [k0,m]=sqSimplify(-D);
+    let n=-B,k=k0,den=2*A;
+    const g=gcd(gcd(Math.abs(n),k),Math.abs(den));
+    n/=g;k/=g;den/=g; if(den<0){n=-n;den=-den;}
+    R.tex1=compTex(n,k,m,den,1); R.tex2=compTex(n,k,m,den,-1);
+    R.re=n/den; R.im=k*Math.sqrt(m)/den; R.x1=null;R.x2=null;
+  }else if(D===0){
+    R.tipo='doble';
+    const x=new Frac(-B,2*A);
+    R.x1=x;R.x2=x;R.tex1=x.tex();R.tex2=x.tex();R.d1=x.num();R.d2=x.num();
+  }else{
+    const sq=isSquare(D);
+    if(sq!==null){
+      R.tipo='racionales';
+      const r1=new Frac(-B+sq,2*A),r2=new Frac(-B-sq,2*A);
+      R.x1=r1;R.x2=r2;R.tex1=r1.tex();R.tex2=r2.tex();R.d1=r1.num();R.d2=r2.num();
+    }else{
+      R.tipo='irracionales';
+      const [k0,m]=sqSimplify(D);
+      let n=-B,k=k0,den=2*A;
+      const g=gcd(gcd(Math.abs(n),k),Math.abs(den));
+      n/=g;k/=g;den/=g; if(den<0){n=-n;den=-den;}
+      R.irr={n,k,m,den};
+      R.tex1=irrTex(n,k,m,den,1); R.tex2=irrTex(n,k,m,den,-1);
+      R.d1=(n+k*Math.sqrt(m))/den; R.d2=(n-k*Math.sqrt(m))/den;
+    }
+  }
+  return R;
+}
+function radTex(k,m){return (k===1?'':String(k))+'\\sqrt{'+m+'}';}
+function irrTex(n,k,m,den,sign){
+  const mid=sign>0?'+':'-', rad=radTex(k,m);
+  if(den===1){ if(n===0)return (sign>0?'':'-')+rad; return `${n}${mid}${rad}`; }
+  if(n===0) return `\\pm\\frac{${rad}}{${den}}`;
+  return `\\frac{${n}${mid}${rad}}{${den}}`;
+}
+function compTex(n,k,m,den,sign){
+  const mid=sign>0?'+':'-';
+  const rad=((k===1?'':k)+(m===1?'':'\\sqrt{'+m+'}')+'i');
+  if(den===1){ if(n===0)return (sign>0?'':'-')+rad; return `${n}${mid}${rad}`; }
+  if(n===0) return `\\pm\\frac{${rad}}{${den}}`;
+  return `\\frac{${n}${mid}${rad}}{${den}}`;
+}
+function analyze(raw){
+  const s=cleanLatex(raw);
+  if(!s) throw new ParseErr('escribe una ecuación primero');
+  const parts=s.split('=');
+  if(parts.length===1) throw new ParseErr('falta el signo "=" — una ecuación necesita dos lados');
+  if(parts.length>2)  throw new ParseErr('hay más de un signo "=" — usa uno solo');
+  const eq=parseSide(parts[0]).sub(parseSide(parts[1])).trim();
+  const d=eq.deg();
+  if(d===-1) return {tipo:'info',titulo:'Identidad: infinitas soluciones',
+    msg:'Al simplificar queda <b>0 = 0</b>: la igualdad es cierta para cualquier valor de x.'};
+  if(d===0) return {tipo:'error',titulo:'Ecuación sin solución',
+    msg:`Al pasar todo a un lado queda <b>${eq.coeff(0).str()} ≠ 0</b>: la igualdad nunca se cumple.`};
+  if(d===1){
+    const r=eq.coeff(0).neg().div(eq.coeff(1));
+    return {tipo:'warn',titulo:'No es cuadrática: es lineal (grado 1)',
+      msg:`La incógnita llega como máximo a la primera potencia; su solución es ${M(r.tex())}. Incluye un término con <b>x²</b> para usar este módulo.`};
+  }
+  if(d>2) return {tipo:'error',titulo:`No es cuadrática: es de grado ${d}`,
+    msg:`Encontré potencias de x hasta <b>x^${d}</b>. Este módulo resuelve exclusivamente ecuaciones de segundo grado.`};
+  const [A,B,C,scaled]=intCoeffs(eq);
+  return {tipo:'cuadratica',A,B,C,scaled,latexIn:String(raw||''),R:roots(A,B,C)};
+}
+
+/* ═══════════════ TEX HELPERS ═══════════════ */
+function termCoef(v,sym,first){
+  if(v===0)return '';
+  const sign=v<0?'-':(first?'':'+'), a=Math.abs(v);
+  const coef=(sym&&a===1)?'':a;
+  return (first&&v<0?'-':sign)+coef+sym;
+}
+function polyTex(A,B,C){ // enteros
+  let s=termCoef(A,'x^{2}',true)+termCoef(B,'x',A===0)+termCoef(C,'',A===0&&B===0);
+  return s||'0';
+}
+function coefTex(fr,sym,first){
+  if(fr.isZero())return '';
+  const sign=fr.isNeg()?'-':(first?'':'+');
+  const abs=new Frac(Math.abs(fr.n),fr.d);
+  const coef=(sym&&abs.n===1&&abs.d===1)?'':abs.tex();
+  return sign+coef+sym;
+}
+function linFactorTex(p,q){ // p·x + q  (p,q Frac)
+  let s=coefTex(p,'x',true); if(s==='')s='0';
+  if(!q.isZero())s+=coefTex(q,'',false);
+  return s;
+}
+const intLin=p=>p===1?'x':(p===-1?'-x':`${p}x`);
+const intCst=q=>q===0?'':(q>0?`+${q}`:String(q));
+const paso=(tex,nota='')=>`<div class="paso"><span>${M(tex)}</span>${nota?`<span class="pn">${nota}</span>`:''}</div>`;
+const obsHTML=t=>`<div class="obs-na"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>${t}</span></div>`;
+const absFrac=f=>new Frac(Math.abs(f.n),f.d);
+
+/* ═══════════════ LOS 9 MÉTODOS ═══════════════ */
+function mGeneral(A,B,C,R){
+  let h='';
+  h+=paso('x=\\frac{-b\\pm\\sqrt{b^{2}-4ac}}{2a}','fórmula general');
+  h+=paso(`\\Delta=${pn(B)}^{2}-4\\cdot${pn(A)}\\cdot${pn(C)}=${R.D}`,'discriminante');
+  if(R.D<0){
+    h+=paso(`x=\\frac{${-B}\\pm\\sqrt{${R.D}}}{${2*A}}`,'Δ<0 → raíces complejas conjugadas');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+  }else if(R.D===0){
+    h+=paso(`x=\\frac{${-B}}{${2*A}}=${R.tex1}`,'Δ=0 → raíz doble');
+  }else{
+    h+=paso(`x=\\frac{${-B}\\pm\\sqrt{${R.D}}}{${2*A}}`);
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+  }
+  if(R.d1!=null) h+=paso(`x_1\\approx ${fmt(R.d1)}\\qquad x_2\\approx ${fmt(R.d2)}`,'aproximación decimal');
+  return {estado:'ok',html:h};
+}
+function findAspa(A,B,C){
+  const qs = C===0 ? [0] : divisors(C).flatMap(d=>[d,-d]);
+  for(const p of divisors(A).flatMap(d=>[d,-d])){
+    const r=A/p;
+    for(const q of qs){
+      const s=C-q*0, s2=C===0?0:C/q;
+      if(C!==0&&q*s2!==C) continue;
+      const ss=C===0?0:s2;
+      if(p*ss+q*r===B) return {p,q,r,s:ss};
+    }
+  }
+  return null;
+}
+function mAspa(A,B,C,R){
+  if(R.D<0) return {estado:'na',html:obsHTML(`Δ=${R.D}<0: las raíces son complejas, no existe factorización con números reales.`)};
+  if(isSquare(R.D)===null) return {estado:'na',html:obsHTML(`Δ=${R.D} no es cuadrado perfecto: las raíces son irracionales y no hay factorización entera. Usa la Fórmula General.`)};
+  const cb=findAspa(A,B,C);
+  if(!cb) return {estado:'na',html:obsHTML('No encontré factorización entera. Usa División Sintética o Fórmula General.')};
+  const {p,q,r,s}=cb;
+  let h='';
+  h+=`<div class="mini-tables">
+    <table class="aspa"><tr><td>${p}</td><td class="cross">${q}</td></tr><tr><td>${r}</td><td class="cross">${s}</td></tr></table>
+    <div class="aspa-leg"><b>aspa simple</b><br>p·r = ${p*r} = a<br>q·s = ${q*s} = c<br>(p·s)+(q·r) = ${p*s}+${q*r} = <b>${p*s+q*r} = b</b></div>
+  </div>`;
+  h+=paso(`(${intLin(p)}${intCst(q)})(${intLin(r)}${intCst(s)})=0`,'factorización');
+  const f1=new Frac(-q,p), f2=new Frac(-s,r);
+  h+=paso(`${intLin(p)}${intCst(q)}=0\\Rightarrow x=${f1.tex()}\\qquad ${intLin(r)}${intCst(s)}=0\\Rightarrow x=${f2.tex()}`);
+  return {estado:'ok',html:h};
+}
+function mCuadrado(A,B,C,R){
+  const BA=new Frac(B,A), CA=new Frac(C,A), hb=new Frac(B,2*A), D=R.D;
+  let h='';
+  h+=paso(polyTex(A,B,C)+'=0','forma general');
+  if(A!==1) h+=paso(`x^{2}${coefTex(BA,'x')}${coefTex(CA,'')}=0`,`dividir entre ${A}`);
+  h+=paso(`x^{2}${coefTex(BA,'x')}=${CA.neg().tex()}`,'trasladar el término independiente');
+  h+=paso(`\\left(x${coefTex(hb,'',true)}\\right)^{2}=\\left(${coefTex(hb,'',true)}\\right)^{2}=${new Frac(D,4*A*A).tex()}`,'sumar (b/2a)² a ambos lados');
+  if(D<0){
+    h+=paso(`\\left(x${coefTex(hb,'',true)}\\right)^{2}=${new Frac(D,4*A*A).tex()}`,'un cuadrado nunca es negativo → sin soluciones reales');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`,'raíces complejas');
+  }else if(D===0){
+    h+=paso(`x${coefTex(hb.neg(),'')}=0\\Rightarrow x=${R.tex1}`,'raíz doble');
+  }else{
+    h+=paso(`x${coefTex(hb.neg(),'')}=\\pm\\frac{\\sqrt{${D}}}{${2*A}}`,'extraer raíz cuadrada');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+  }
+  return {estado:'ok',html:h};
+}
+function mLoh(A,B,C,R){
+  const S=new Frac(-B,A),P=new Frac(C,A),u=new Frac(-B,2*A),v2=u.mul(u).sub(P);
+  let h='';
+  h+=paso(`x_1+x_2=${S.tex()}\\Rightarrow u=\\frac{x_1+x_2}{2}=\\frac{${-B}}{${2*A}}=${u.tex()}`,'Po-Shen Loh: promedio de las raíces');
+  h+=paso(`x_1\\cdot x_2=${P.tex()}`,'producto');
+  h+=paso(`x=u\\pm\\sqrt{u^{2}-P}\\qquad u^{2}-P=${v2.tex()}`);
+  if(R.D<0){
+    h+=paso('u^{2}-P<0','la desviación es imaginaria → raíces complejas');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+  }else if(R.D===0){
+    h+=paso(`x=u=${u.tex()}`,'v=0 → raíz doble');
+  }else if(isSquare(R.D)!==null){
+    const v=new Frac(isSquare(R.D),2*A);
+    h+=paso(`x=${u.tex()}\\pm${v.tex()}`);
+    h+=paso(`x_1=${R.x1.tex()}\\qquad x_2=${R.x2.tex()}`);
+  }else{
+    h+=paso(`x=${u.tex()}\\pm\\frac{\\sqrt{${R.D}}}{${2*A}}`,'desviación irracional');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+  }
+  return {estado:'ok',html:h};
+}
+function parVieta(S,P){
+  if(P.isZero()&&S.isInt()) return ['0',S.str()];
+  if(!S.isInt()||!P.isInt()||P.n===0) return null;
+  for(const m of divisors(P.n)){
+    const n=P.n/m;
+    if(m+n===S.n) return [String(m),String(n)];
+    if(-m+n===S.n) return [String(-m),String(n)];
+  }
+  return null;
+}
+function mVieta(A,B,C,R){
+  const S=new Frac(-B,A),P=new Frac(C,A);
+  let h='',est='ok';
+  h+=paso(`x_1+x_2=-\\frac{b}{a}=-\\frac{${B}}{${A}}=${S.tex()}`,'suma (Vieta)');
+  h+=paso(`x_1\\cdot x_2=\\frac{c}{a}=\\frac{${C}}{${A}}=${P.tex()}`,'producto (Vieta)');
+  h+=paso(`t^{2}${coefTex(S.neg(),'t')}${coefTex(P,'')}=0`,'ecuación reconstruida a partir de S y P');
+  const par=parVieta(S,P);
+  if(par){
+    h+=paso(`x_1=${par[0]}\\qquad x_2=${par[1]}`,'¡dos números que suman S y multiplican P!');
+  }else if(R.D<0){
+    h+=paso('S\\text{ y }P\\text{ existen, pero las raíces son complejas}');
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`);
+    est='nota';
+  }else{
+    h+=paso(`x_1=${R.tex1}\\qquad x_2=${R.tex2}`,'no hay par entero: raíces irracionales (obtenidas con la general)');
+  }
+  h+=`<div class="paso"><span class="pn">Comprobación exacta: x₁+x₂ = ${S.str()} ✓ &nbsp;·&nbsp; x₁·x₂ = ${P.str()} ✓</span></div>`;
+  return {estado:est,html:h};
+}
+function mFactorComun(A,B,C,R){
+  if(C!==0) return {estado:'na',html:obsHTML(`El factor común directo requiere <b>c=0</b> (incompleta mixta). Aquí c=${C}≠0: hay término independiente; usa Aspa Simple o Fórmula General.`)};
+  let h='';
+  h+=paso(`${polyTex(A,B,C)}=0`,'c=0 → el factor común es x');
+  h+=paso(`x\\left(${linFactorTex(new Frac(A),new Frac(B))}\\right)=0`);
+  h+=paso('x=0\\quad\\text{o}\\quad '+linFactorTex(new Frac(A),new Frac(B))+'=0','producto igual a cero');
+  if(B===0) h+=paso('x=0','raíz doble');
+  else h+=paso(`x_1=0\\qquad x_2=${new Frac(-B,A).tex()}`);
+  return {estado:'ok',html:h};
+}
+function mExtraccion(A,B,C,R){
+  if(B!==0) return {estado:'na',html:obsHTML(`La extracción directa requiere <b>b=0</b> (incompleta pura, solo x² y constante). Aquí b=${B}≠0.`)};
+  let h='';
+  h+=paso(`${polyTex(A,B,C)}=0`);
+  h+=paso(`${A}x^{2}=${-C}`,'despejar x²');
+  if(-C===0){ h+=paso('x^{2}=0\\Rightarrow x=0','raíz doble'); return {estado:'ok',html:h}; }
+  const val=new Frac(-C,A);
+  h+=paso(`x^{2}=${val.tex()}`);
+  if(val.n>0){
+    const sqN=isSquare(val.n), sqD=isSquare(val.d);
+    if(sqN&&sqD){
+      const r=new Frac(sqN,sqD);
+      h+=paso(`x=\\pm${r.tex()}`,'raíz exacta');
+      h+=paso(`x_1=${r.tex()}\\qquad x_2=${r.neg().tex()}`);
+    }else{
+      const [k,m]=sqSimplify(val.n*val.d);
+      const den=val.d;
+      h+=paso(`x=\\pm${irrTex(0,k,m,den,1).replace('\\pm','')}`,'radical simplificada');
+      h+=paso(`x_1=\\sqrt{${val.tex().replace(/\\frac|{|}/g,'')}}\\text{…}\\quad x_1\\approx ${fmt(Math.sqrt(val.num()))}\\quad x_2\\approx ${fmt(-Math.sqrt(val.num()))}`);
+      h+=paso(`x_1=${irrTex(0,k,m,den,1)}\\qquad x_2=${irrTex(0,k,m,den,-1).replace(/^-/,'-')}`,'con signo');
+    }
+  }else{
+    h+=paso('x^{2}<0','un cuadrado nunca es negativo → sin soluciones reales');
+    const [k,m]=sqSimplify(C*A);
+    h+=paso(`x_1=${compTex(0,k,m,A,1)}\\qquad x_2=${compTex(0,k,m,A,-1)}`,'raíces complejas');
+  }
+  return {estado:'ok',html:h};
+}
+function rationalCandidates(A,B,C){
+  const out=[];
+  if(C===0){out.push(new Frac(0));}
+  const ps=C===0?[1]:divisors(C);
+  for(const p of ps)for(const q of divisors(A))for(const s of [1,-1]){
+    const f=new Frac(s*p,q);
+    if(!out.some(x=>x.cmp(f)===0)) out.push(f);
+  }
+  out.sort((a,b)=>(b.isInt()-a.isInt())||(a.num()-b.num()));
+  return out;
+}
+function ruffiniFind(A,B,C){
+  for(const r of rationalCandidates(A,B,C)){
+    const q1=new Frac(A), q2=new Frac(B).add(new Frac(A).mul(r));
+    const rem=new Frac(C).add(r.mul(q2));
+    if(rem.isZero()) return {r,q1,q2};
+  }
+  return null;
+}
+function rufCell(f){const fr=f instanceof Frac?f:new Frac(f);return fr.isInt()?String(fr.n):M(fr.tex());}
+function mRuffini(A,B,C,R){
+  if(R.D<0) return {estado:'na',html:obsHTML(`Δ=${R.D}<0: raíces complejas, no hay raíz racional que probar con el Teorema del Factor.`)};
+  if(isSquare(R.D)===null) return {estado:'na',html:obsHTML(`Δ=${R.D} no es cuadrado perfecto: las raíces son irracionales y Ruffini (con candidatos racionales) no las encuentra. Usa Fórmula General.`)};
+  const f=ruffiniFind(A,B,C);
+  if(!f) return {estado:'na',html:obsHTML('No encontré raíz racional.')};
+  const {r,q1,q2}=f;
+  const ar=q1.mul(r), br=q2.mul(r);
+  let h='';
+  h+=`<table class="ruf">
+    <tr><td class="rl"></td><th>a</th><th>b</th><th>c</th></tr>
+    <tr><td class="rl">r = ${rufCell(r)}</td><td>${rufCell(A)}</td><td>${rufCell(B)}</td><td>${rufCell(C)}</td></tr>
+    <tr><td class="rl"></td><td></td><td>${rufCell(ar)}</td><td>${rufCell(br)}</td></tr>
+    <tr><td class="rl"></td><td>${rufCell(q1)}</td><td>${rufCell(q2)}</td><td class="cero">0</td></tr>
+  </table>`;
+  h+=paso('\\text{residuo}=0','✓ el Teorema del Factor confirma que x=r es raíz');
+  h+=paso(`\\left(x${r.isNeg()?'+'+absFrac(r).tex():'-'+r.tex()}\\right)\\left(${linFactorTex(q1,q2)}\\right)=0`,'factorización por Ruffini');
+  h+=paso(`x_1=${r.tex()}\\qquad ${linFactorTex(q1,q2)}=0\\Rightarrow x_2=${new Frac(-q2.n,q2.d*q1.n).tex()}`,'del cociente de grado 1');
+  return {estado:'ok',html:h};
+}
+function mGrafico(A,B,C,R){
+  const xv=-B/(2*A), yv=A*xv*xv+B*xv+C;
+  let h=`<div class="ggb-note">
+    <span><i style="background:#7C3AED"></i>parábola y = ${polyTex(A,B,C)}</span>
+    ${R.d1!=null?`<span><i style="background:#EF4444"></i>raíces R₁≈${fmt(R.d1)}, R₂≈${fmt(R.d2)}</span>`:`<span><i style="background:#EF4444"></i>sin cortes con el eje X (raíces complejas)</span>`}
+    <span><i style="background:#65A30D"></i>vértice V(${fmt(xv)}, ${fmt(yv)})</span>
+    <span>· <b>gráfico bloqueado</b> (solo lectura)</span>
+  </div>
+  <div id="ggbBox"></div>`;
+  return {estado:'ok',html:h};
+}
+const METODOS=[
+  {t:'Fórmula General',                      f:mGeneral},
+  {t:'Factorización por Inspección (Aspa Simple)', f:mAspa},
+  {t:'Completar el Cuadrado',                f:mCuadrado},
+  {t:'Método de Po-Shen Loh',                f:mLoh},
+  {t:'Fórmulas de Vieta (Suma y Producto)',  f:mVieta},
+  {t:'Factor Común (Incompletas Mixtas)',    f:mFactorComun},
+  {t:'Extracción Directa de Raíces (Incompletas Puras)', f:mExtraccion},
+  {t:'División Sintética (Ruffini + Teorema del Factor)', f:mRuffini},
+  {t:'Método Gráfico',                       f:mGrafico}
+];
+
+/* ═══════════════ RENDER DE LA SOLUCIÓN ═══════════════ */
+let lastSolution=null;
+function renderSolution(G){
+  const {A,B,C,R}=G;
+  const nat = R.tipo==='complejas'?'sin raíces reales (complejas conjugadas)'
+            : R.tipo==='doble'?'una raíz doble real':'dos raíces reales distintas';
+  const dcls = R.tipo==='complejas'?'delta-neg':(R.tipo==='doble'?'delta-doble':'delta-ok');
+  $('gcard').innerHTML=`
+    <span class="geq">${M(polyTex(A,B,C)+'=0')}</span>
+    <div class="gmeta">
+      <span class="gchip">a = <b>${A}</b></span>
+      <span class="gchip">b = <b>${B}</b></span>
+      <span class="gchip">c = <b>${C}</b></span>
+      <span class="gchip ${dcls}">Δ = <b>${R.D}</b> · ${nat}</span>
+    </div>
+    ${G.scaled?`<span class="escala-note">· multiplicamos por un número para dejar coeficientes enteros (ecuación equivalente, mismas raíces)</span>`:''}`;
+  const acc=$('acc'); acc.innerHTML='';
+  METODOS.forEach((m,i)=>{
+    let res;
+    try{ res=m.f(A,B,C,R); }catch(e){ res={estado:'na',html:obsHTML('No pude aplicar este método: '+esc(e.message))}; }
+    const item=document.createElement('div');
+    item.className='acc-item'+(i===0?' open':'');
+    item.innerHTML=`
+      <button class="acc-h ripple">
+        <span class="nnum">${i+1}</span>
+        <h3>${m.t}</h3>
+        <span class="st ${res.estado}">${res.estado==='ok'?'APLICA':res.estado==='na'?'NO APLICA':'CON NOTA'}</span>
+        <span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+      </button>
+      <div class="acc-b">${res.html}</div>`;
+    item.querySelector('.acc-h').addEventListener('click',()=>{
+      const was=item.classList.contains('open');
+      item.classList.toggle('open',!was);
+      if(i===8&&!was){ // gráfico: lazy-load GeoGebra
+        setTimeout(()=>{ if(!ggbTried) loadGGB(); else if(ggbApi) plotGGB(); },60);
+      }
+    });
+    acc.appendChild(item);
+  });
+  $('zona').classList.add('show');
+  lastSolution=G;
+  if(ggbApi) plotGGB();
+}
+
+/* ═══════════════ GEOGEBRA BLOQUEADO ═══════════════ */
+let ggbApi=null, ggbTried=false;
+function ggbError(){
+  const b=$('ggbBox');
+  if(b) b.innerHTML=`<div class="ggb-err">No pude cargar GeoGebra (¿sin internet?). El resto de los métodos funciona igual.</div>`;
+}
+function loadGGB(){
+  if(ggbTried) return; ggbTried=true;
+  const s=document.createElement('script');
+  s.src='https://www.geogebra.org/apps/deployggb.js';
+  s.onload=()=>{
+    if(typeof GGBApplet==='undefined'){ggbError();return;}
+    const el=$('ggbBox'); if(!el){return;}
+    const w=Math.max(280,(el.clientWidth||600));
+    const params={
+      appName:'graphing', width:w, height:Math.round(Math.min(w*0.62,460)),
+      showToolBar:false, showAlgebraInput:false, showMenuBar:false, showResetIcon:false,
+      enableRightClick:false, enableShiftDragZoom:false, allowStyleBar:false,
+      preventFocus:true, language:'es', buttonShadows:false, buttonRounding:false,
+      appletOnLoad(api){ ggbApi=api; if(lastSolution&&lastSolution.tipo==='cuadratica') plotGGB(); }
+    };
+    new GGBApplet(params,'5.0').inject('ggbBox');
+  };
+  s.onerror=ggbError;
+  document.head.appendChild(s);
+}
+function plotGGB(){
+  if(!ggbApi||!lastSolution||lastSolution.tipo!=='cuadratica') return;
+  const {A,B,C,R}=lastSolution, api=ggbApi;
+  api.reset();
+  const fTex=`f(x)=${A}x^2${B?((B>0?'+':'-')+Math.abs(B)+'x'):''}${C?((C>0?'+':'-')+Math.abs(C)):''}`;
+  api.evalCommand(fTex);
+  api.setColor('f',124,58,237); api.setLineThickness('f',5);
+  const xv=-B/(2*A), yv=A*xv*xv+B*xv+C;
+  let xs=[xv-4,xv+4];
+  if(R.d1!=null){
+    api.evalCommand(`R1=(${fmt(R.d1)},0)`); api.setColor('R1',239,68,68); api.setPointSize('R1',6);
+    api.evalCommand(`R2=(${fmt(R.d2)},0)`); api.setColor('R2',239,68,68); api.setPointSize('R2',6);
+    xs.push(R.d1,R.d2);
+  }
+  api.evalCommand(`V=(${fmt(xv)},${fmt(yv)})`); api.setColor('V',101,163,13); api.setPointSize('V',6);
+  const xmin=Math.min(...xs)-3, xmax=Math.max(...xs)+3, h=Math.max(xmax-xmin,6);
+  api.setCoordSystem(r6(xmin),r6(xmax),r6(yv-3),r6(yv+A*Math.pow(h/2,2)+4));
+}
+
+/* ═══════════════ ALERTAS / TOASTS ═══════════════ */
+function showAlerta(a){
+  const box=$('alerta'); if(!box) return;
+  const ico={err:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z|M12 9v4M12 17h.01',
+             warn:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z|M12 9v4M12 17h.01',
+             info:'M12 16v-4M12 8h.01|M12 8v.01'}[a.tipo]||'';
+  const [p1,p2]=ico.split('|');
+  box.className=`alerta show ${a.tipo==='warn'?'warn':a.tipo==='info'?'info':'err'}`;
+  box.innerHTML=`<span class="a-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="${p1}"/><path d="${p2}"/></svg></span>
+    <div><h4>${esc(a.titulo||'Observación')}</h4><p>${a.msg}</p></div>`;
+  $('zona')?.classList.remove('show');
+  lastSolution=null;
+}
+function toast(msg,type='ok'){
+  const box=$('toasts'); if(!box) return;
+  const t=document.createElement('div');
+  t.className=`toast ${type}`; t.textContent=msg;
+  box.appendChild(t);
+  setTimeout(()=>{t.classList.add('out');t.addEventListener('animationend',()=>t.remove());},3200);
+}
+
+/* ═══════════════ MATHLIVE + TECLADO BLOQUEADO ═══════════════ */
+const mf=$('mf');
+if(mf){
+  ['keydown','keypress','beforeinput','paste','drop'].forEach(ev=>mf.addEventListener(ev,e=>e.preventDefault()));
+  try{ mf.menuItems=[]; }catch(e){}
+}
+
+/* ═══════════════ RESOLVER ═══════════════ */
+function solve(){
+  const latex=mf?(mf.getValue?mf.getValue('latex'):mf.value):'';
+  try{
+    const G=analyze(latex);
+    if(G.tipo!=='cuadratica'){ showAlerta(G); return; }
+    const box=$('alerta'); if(box) box.className='alerta';
+    renderSolution(G);
+    toast('Ecuación resuelta con los 9 métodos','ok');
+    logSheet(G,latex);
+  }catch(e){
+    showAlerta({tipo:'error',titulo:'No pude interpretar la ecuación',msg:esc(e.message||'Revisa la sintaxis.')});
+  }
+}
+on('btnSolve','click',solve);
+on('btnClear','click',()=>{ if(mf) mf.value=''; $('alerta').className='alerta'; $('zona').classList.remove('show'); lastSolution=null; if(mf) mf.focus(); });
+
+/* ejemplos */
+const EJEMPLOS=[
+  {t:'x^2-5x+6=0',n:'completa'},
+  {t:'0=2x^2-8',n:'0 = …'},
+  {t:'3x^2=27',n:'pura'},
+  {t:'x^2-7x=0',n:'mixta'},
+  {t:'(x-2)(x+3)=0',n:'factorizada'},
+  {t:'2x^2=3x+5',n:'trasladada'},
+  {t:'\\frac{1}{2}x^{2}-3x+\\frac{5}{2}=0',n:'fracciones'},
+  {t:'x^2+x+1=0',n:'Δ<0'},
+  {t:'x+3=0',n:'lineal ✗'}
+];
+(function(){
+  const box=$('ejChips'); if(!box) return;
+  EJEMPLOS.forEach(e=>{
+    const b=document.createElement('button');
+    b.className='ej ripple'; b.textContent=e.n; b.title=e.t;
+    b.addEventListener('click',()=>{ if(mf) mf.value=e.t; solve(); });
+    box.appendChild(b);
+  });
+})();
+
+/* ═══════════════ CONEXIÓN A LA HOJA ═══════════════ */
+function getApi(){
+  const q=new URLSearchParams(location.search);
+  return (q.get('api')||APPS_SCRIPT_URL||localStorage.getItem('taller.sheetsUrlOverride')||'').trim();
+}
+async function apiPost(payload){
+  const res=await fetch(getApi(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),redirect:'follow'});
+  const j=JSON.parse(await res.text());
+  if(!j.ok) throw new Error(j.error||'Error del servidor');
+  return j.data;
+}
+function setDot(st,txt){ const d=$('syncDot'); if(d)d.className='dot '+st; if(txt)setTxt('syncText',txt); }
+function setTxt(id,v){ const el=$(id); if(el) el.textContent=v; }
+async function sheetStatus(){
+  if(!getApi()){ setDot('wait','modo local · sin hoja'); setTxt('statLogs','—'); return; }
+  setDot('wait','verificando hoja…');
+  try{
+    const res=await fetch(`${getApi()}?action=sheet&name=${encodeURIComponent(SHEET_NAME)}`,{redirect:'follow'});
+    const j=JSON.parse(await res.text());
+    if(!j.ok) throw new Error(j.error||'error');
+    setTxt('statLogs',j.existe?j.data.length:'0');
+    setDot('on',`hoja "${SHEET_NAME}" · ${j.existe?j.data.length:0} filas`);
+  }catch(e){ setDot('off','hoja no accesible'); }
+}
+async function logSheet(G,latex){
+  if(!getApi()) return;
+  try{
+    const r=G.R;
+    const raices = r.tipo==='complejas'
+      ? `x=${fmt(r.re)}±${fmt(r.im)}i`
+      : `x1=${r.x1?r.x1.str():fmt(r.d1)}; x2=${r.x2?r.x2.str():fmt(r.d2)}`;
+    await apiPost({action:'saveRow',hoja:SHEET_NAME,
+      values:[new Date().toISOString(),latex,`${G.A}x^2+${G.B}x+${G.C}=0`,raices]});
+    const n=$('statLogs').textContent;
+    if(/^\d+$/.test(n)) setTxt('statLogs',+n+1);
+  }catch(e){/* silencioso */}
+}
+on('btnSheet','click',async ()=>{
+  if(!getApi()){ toast('Pega tu URL /exec en APPS_SCRIPT_URL (inicio del script)','bad'); return; }
+  try{ await apiPost({action:'ensureSheet',name:SHEET_NAME}); toast(`Hoja "${SHEET_NAME}" lista`,'ok'); sheetStatus(); }
+  catch(e){ toast(e.message,'bad'); }
+});
+
+/* ripple */
+document.addEventListener('pointerdown',e=>{
+  const el=e.target.closest('.ripple'); if(!el) return;
+  const r=el.getBoundingClientRect(),d=Math.max(r.width,r.height);
+  const s=document.createElement('span'); s.className='rp';
+  s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+  el.appendChild(s); s.addEventListener('animationend',()=>s.remove());
+});
+
+/* arranque */
+sheetStatus();
+</script>
+</body>
+</html>
