@@ -23,7 +23,7 @@
   body{background:var(--bg);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  input,select,textarea{font-family:inherit}
+  input,select{font-family:inherit}
   ::selection{background:var(--lima);color:var(--lima-ink)}
   :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
   svg{display:block}
@@ -76,8 +76,7 @@
   h1.hero-t{font-family:var(--fd);font-weight:700;font-size:clamp(34px,4.8vw,58px);line-height:1.06;letter-spacing:-.015em}
   h1.hero-t em{font-style:normal;color:var(--lima);position:relative;white-space:nowrap}
   h1.hero-t em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(212,245,66,.28);border-radius:3px}
-  .hero-sub{margin-top:14px;max-width:580px;font-size:15.5px;color:rgba(255,255,255,.82)}
-  .hero-sub code{font-family:var(--fm);font-size:13px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:1px 7px;border-radius:6px;color:var(--lima)}
+  .hero-sub{margin-top:14px;max-width:560px;font-size:15.5px;color:rgba(255,255,255,.82)}
   .hero-cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.18s;border:none}
   .btn-lima{background:var(--lima);color:var(--lima-ink);box-shadow:0 6px 18px rgba(212,245,66,.35)}
@@ -164,23 +163,15 @@
   .state-panel{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:46px 40px;text-align:center}
   .state-panel .glyph{width:66px;height:66px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center}
   .state-panel h3{font-family:var(--fd);font-size:26px;font-weight:700;margin-bottom:8px}
-  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:560px;margin:0 auto}
+  .state-panel p{color:var(--ink-soft);font-size:14.5px;max-width:520px;margin:0 auto}
   .state-panel .acts{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   .btn-morado{background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;box-shadow:0 6px 16px rgba(124,58,237,.35)}
   .btn-morado:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(124,58,237,.45)}
   .btn-s{background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
   .btn-s:hover{border-color:var(--ink-soft)}
-  .steps{text-align:left;max-width:620px;margin:28px auto 0;display:flex;flex-direction:column}
-  .step{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:14px 0;position:relative}
-  .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:46px;bottom:-2px;width:1px;background:var(--line)}
-  .step .sn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;display:grid;place-items:center;font-family:var(--fm);font-size:13px}
-  .step h5{font-size:14.5px;font-weight:700;margin-bottom:3px}
-  .step p{font-size:13px;color:var(--ink-soft);margin:0;max-width:none}
-  .step code{font-family:var(--fm);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--morado-deep)}
-  .setup-form{display:flex;gap:10px;max-width:620px;margin:26px auto 0}
+  .setup-form{display:flex;gap:10px;max-width:560px;margin:26px auto 0}
   .setup-form input{flex:1;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-family:var(--fm);background:var(--bg);color:var(--ink);outline:none;transition:.2s}
   .setup-form input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
-  .setup-form-label{max-width:620px;margin:26px auto 0;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:left}
 
   /* ============ FOOTER ============ */
   footer{border-top:1px solid var(--line);padding:22px 0 44px}
@@ -205,15 +196,19 @@
   .field input{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
   .field input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
   .field input.mono{font-family:var(--fm);font-size:13px}
-  .url-preview{margin:-8px 0 16px;font-family:var(--fm);font-size:11.5px;color:var(--morado-deep);background:linear-gradient(120deg,#F5F1FE,#EEF3FE);border:1px dashed var(--lila);border-radius:9px;padding:8px 12px;word-break:break-all}
-  .swatches{display:flex;gap:9px;flex-wrap:wrap}
-  .sw-opt{width:34px;height:34px;border-radius:50%;background:var(--c);border:3px solid transparent;transition:.15s}
-  .sw-opt:hover{transform:scale(1.12)}
-  .sw-opt.active{border-color:var(--ink);box-shadow:0 0 0 3px #fff inset,0 3px 8px rgba(30,27,46,.25)}
+  .field select{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg);cursor:pointer}
+  .field select:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+  .chk-sm{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;margin-top:8px;user-select:none}
+  .chk-sm input{accent-color:var(--morado);width:15px;height:15px;cursor:pointer}
+  .color-row{display:flex;align-items:center;gap:12px}
+  input[type=color]{width:58px;height:42px;border:1.5px solid var(--line);border-radius:11px;background:var(--surface);padding:3px;cursor:pointer;transition:.2s}
+  input[type=color]:hover{border-color:var(--morado)}
+  input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+  input[type=color]::-webkit-color-swatch{border:none;border-radius:7px}
+  input[type=color]::-moz-color-swatch{border:none;border-radius:7px}
+  .color-hex{font-family:var(--fm);font-size:13px;color:var(--ink-soft)}
   .modal-acts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
   .modal-acts .btn-morado{flex:1;justify-content:center}
-  .modal-hint{margin-top:16px;padding:13px 15px;background:linear-gradient(120deg,#F5F1FE,#EEF3FE);border-radius:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.65;border:1px solid #EAE4F9}
-  .modal-hint code{font-family:var(--fm);font-size:11.5px;background:#fff;border:1px solid var(--line);padding:0 5px;border-radius:5px;color:var(--morado-deep)}
   .test-line{margin-top:14px;font-size:13px;min-height:20px;display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
   .test-line.ok{color:#65A30D;font-weight:600}.test-line.bad{color:var(--rojo);font-weight:600}
   .danger-link{margin-top:14px;font-size:12.5px;color:var(--rojo);text-decoration:underline;text-underline-offset:3px;padding:4px 0}
@@ -283,10 +278,10 @@
     </div>
     <div class="top-right">
       <div class="sync"><span class="dot wait" id="syncDot"></span><span id="syncText">conectando…</span></div>
-      <button class="icon-btn ripple" id="btnRefresh" title="Sincronizar con la hoja" aria-label="Sincronizar">
+      <button class="icon-btn ripple" id="btnRefresh" title="Actualizar" aria-label="Actualizar">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
       </button>
-      <button class="icon-btn ripple" id="btnSettings" title="Ajustes de conexión" aria-label="Ajustes">
+      <button class="icon-btn ripple" id="btnSettings" title="Ajustes" aria-label="Ajustes">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
     </div>
@@ -295,8 +290,8 @@
 
 <div class="demo-note" id="demoNote">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-  Estás viendo <b>datos de ejemplo</b>. Pega tu URL /exec en <b>APPS_SCRIPT_URL</b> (dentro del HTML) para conectar.
-  <button id="demoToSettings">Ajustes</button>
+  Estás viendo datos de ejemplo. Configura la conexión para ver tus módulos reales.
+  <button id="demoToSettings">Conectar</button>
 </div>
 
 <div class="wrap">
@@ -308,7 +303,7 @@
       <span class="glass-pill" id="heroClock">—</span>
     </div>
     <h1 class="hero-t">Todas tus herramientas,<br><em>un solo taller.</em></h1>
-    <p class="hero-sub">El índice vive aquí, los módulos en <code>pages/</code> y sus datos en Google Sheets: una hoja <code>INDEX</code> y una hoja propia por módulo. Cero configuración en cada dispositivo.</p>
+    <p class="hero-sub">Busca, filtra por categoría y abre cualquier módulo con un clic. Todo se mantiene siempre al día.</p>
     <div class="hero-cta">
       <button class="btn btn-lima ripple" id="btnAdd">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -316,13 +311,13 @@
       </button>
       <button class="btn btn-ghost ripple" id="btnSyncHero">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
-        Sincronizar
+        Actualizar
       </button>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="num" id="statTools">—</div><div class="lbl">módulos</div></div>
       <div class="hstat"><div class="num" id="statCats">—</div><div class="lbl">categorías</div></div>
-      <div class="hstat"><div class="num" id="statSheets">—</div><div class="lbl">hojas propias</div></div>
+      <div class="hstat"><div class="num" id="statSheets">—</div><div class="lbl">con datos</div></div>
     </div>
   </section>
 
@@ -337,7 +332,7 @@
     </div>
     <span class="view-note" id="viewNote"></span>
     <div class="seg" role="group" aria-label="Vista">
-      <button id="segList" class="active" title="Vista índice">
+      <button id="segList" class="active" title="Vista lista">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
       </button>
       <button id="segGrid" title="Vista tarjetas">
@@ -352,8 +347,8 @@
 
 <footer>
   <div class="foot-in">
-    <span><span class="foot-dots"><i style="background:var(--morado)"></i><i style="background:var(--azul)"></i><i style="background:var(--rojo)"></i><i style="background:var(--lima)"></i></span>TALLER · INDEX + hoja por módulo · rutas → /pages/</span>
-    <span>URL /exec fijada en el código · GitHub Pages</span>
+    <span><span class="foot-dots"><i style="background:var(--morado)"></i><i style="background:var(--azul)"></i><i style="background:var(--rojo)"></i><i style="background:var(--lima)"></i></span>TALLER · Índice de módulos</span>
+    <span>Siempre actualizado</span>
   </div>
 </footer>
 
@@ -361,26 +356,22 @@
 <div class="overlay" id="ovSettings" role="dialog" aria-modal="true" aria-label="Ajustes de conexión">
   <div class="modal">
     <div class="modal-head">
-      <h3>Conexión a Google Sheets</h3>
+      <h3>Conexión</h3>
       <button class="icon-btn ripple" id="settingsClose" aria-label="Cerrar">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
     <div class="modal-body">
       <div class="field">
-        <label for="urlInput">URL /exec de Apps Script</label>
-        <input type="url" id="urlInput" class="mono" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+        <label for="urlInput">URL de conexión</label>
+        <input type="url" id="urlInput" class="mono" placeholder="https://…/exec" spellcheck="false">
       </div>
       <div class="modal-acts">
         <button class="btn btn-morado ripple" id="btnTest">Probar y guardar</button>
-        <button class="btn btn-s ripple" id="btnRestore" hidden>Restaurar la del código</button>
+        <button class="btn btn-s ripple" id="btnRestore" hidden>Restaurar</button>
       </div>
       <div class="test-line" id="testLine"></div>
-      <div class="modal-hint">
-        La URL <b>canónica</b> vive en la constante <code>APPS_SCRIPT_URL</code> al inicio del script de este
-        <code>index.html</code>: edítala <b>una sola vez</b> y funcionará igual en todos tus dispositivos.
-        Lo que guardes aquí es solo un <b>override local</b> de este navegador.
-      </div>
+      <button class="danger-link" id="btnForget">Restablecer conexión</button>
     </div>
   </div>
 </div>
@@ -396,7 +387,12 @@
     </div>
     <div class="modal-body">
       <div class="field">
-        <label for="fTitulo">Título <b>*</b></label>
+        <label for="fClave">Clave de administración <b>*</b></label>
+        <input type="password" id="fClave" placeholder="••••••••" autocomplete="off">
+        <label class="chk-sm"><input type="checkbox" id="fClaveRec"> Recordar clave en este navegador</label>
+      </div>
+      <div class="field">
+        <label for="fTitulo">Nombre <b>*</b></label>
         <input type="text" id="fTitulo" placeholder="Ej: Acortador de enlaces" maxlength="80">
       </div>
       <div class="field">
@@ -404,36 +400,33 @@
         <input type="text" id="fDesc" placeholder="Qué hace, en una línea" maxlength="140">
       </div>
       <div class="field">
-        <label for="fFile">Archivo en pages/ <span>· o pega una URL http para algo externo</span></label>
+        <label for="fFile">Dirección <span>· página del módulo o enlace externo</span></label>
         <input type="text" id="fFile" class="mono" placeholder="acortador.html" spellcheck="false">
       </div>
-      <div class="url-preview" id="filePreview">—</div>
       <div class="field">
         <label for="fCat">Categoría</label>
-        <input type="text" id="fCat" list="catList" placeholder="Ej: Desarrollo" maxlength="40">
-        <datalist id="catList"></datalist>
+        <select id="fCat"></select>
       </div>
       <div class="field">
-        <label>Color del módulo</label>
-        <div class="swatches" id="fSwatches"></div>
+        <label for="fColor">Color</label>
+        <div class="color-row">
+          <input type="color" id="fColor" value="#7C3AED" aria-label="Color del módulo">
+          <span class="color-hex" id="fColorHex">#7C3AED</span>
+        </div>
       </div>
       <div class="modal-acts">
         <button class="btn btn-morado ripple" id="btnAddSave">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          Crear módulo y su hoja
+          Crear módulo
         </button>
-      </div>
-      <div class="modal-hint">
-        Se escribirá una fila en la hoja <b>INDEX</b> y se creará una hoja propia para los datos del módulo.
-        El archivo se resolverá dentro de <b>pages/</b> automáticamente: escribe solo el nombre, ej. <code>acortador.html</code>.
       </div>
     </div>
   </div>
 </div>
 
-<!-- ===== DRAWER: HOJA DEL MÓDULO ===== -->
+<!-- ===== DRAWER: DATOS DEL MÓDULO ===== -->
 <div class="drawer-ov" id="drawerOv"></div>
-<aside class="drawer" id="drawer" aria-label="Datos de la hoja">
+<aside class="drawer" id="drawer" aria-label="Datos del módulo">
   <div class="drawer-head" id="drawerHead">
     <div class="dr-top">
       <h3 id="drTitle">—</h3>
@@ -452,18 +445,18 @@
       </button>
       <button class="chip-btn ripple" id="drEnsure">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
-        Crear hoja si falta
+        Crear hoja
       </button>
       <button class="chip-btn ripple" id="drOpen" hidden>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
-        Abrir herramienta
+        Abrir
       </button>
     </div>
     <div id="drTable"></div>
     <div class="danger-zone">
       <h6>Zona de riesgo</h6>
-      <label class="chk"><input type="checkbox" id="drDelSheet"> Eliminar también su hoja de datos</label>
-      <button class="btn btn-s ripple" id="drDelete" style="border-color:#F3B9B5;color:var(--rojo)">Eliminar módulo del índice</button>
+      <label class="chk"><input type="checkbox" id="drDelSheet"> Eliminar también sus datos</label>
+      <button class="btn btn-s ripple" id="drDelete" style="border-color:#F3B9B5;color:var(--rojo)">Eliminar módulo</button>
     </div>
   </div>
 </aside>
@@ -473,21 +466,14 @@
 <script>
 /* ═══════════════════════════════════════════════════════════════
    ⚙️  CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
-   ═══════════════════════════════════════════════════════════════
-   1) APPS_SCRIPT_URL → pega tu URL /exec UNA SOLA VEZ aquí.
-      Sirve para todos los dispositivos, sin configurar nada más.
-   2) PAGES_DIR → carpeta donde viven tus módulos en el repo.
    ═══════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const APPS_SCRIPT_URL = ""; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
 const PAGES_DIR       = "pages/"; // ← carpeta de módulos en tu repo
 
-const LS_URL  = "taller.sheetsUrlOverride";
-const LS_VIEW = "taller.view";
+const LS_URL       = "taller.sheetsUrlOverride";
+const LS_VIEW      = "taller.view";
+const LS_KEY_ADMIN = "taller.adminKey";
 
-/* ---------- accesores BLINDADOS ----------
-   $ devuelve null si falta el elemento (sin explotar).
-   on() conecta eventos y avisa en consola si el ID no existe,
-   pero NUNCA detiene la ejecución del script.               */
 const $ = id => document.getElementById(id);
 function on(id, ev, fn){
   const el = $(id);
@@ -497,7 +483,18 @@ function on(id, ev, fn){
 const setTxt  = (id,v)=>{ const el=$(id); if(el) el.textContent=v; };
 const setHTML = (id,v)=>{ const el=$(id); if(el) el.innerHTML=v; };
 
-/* ---------- paleta de módulos ---------- */
+/* ---------- categorías predefinidas ---------- */
+const CATEGORIAS = [
+  {n:'Desarrollo',     c:'#2563EB'},
+  {n:'Diseño',         c:'#EC4899'},
+  {n:'Utilidades',     c:'#F97316'},
+  {n:'Productividad',  c:'#7C3AED'},
+  {n:'Finanzas',       c:'#65A30D'},
+  {n:'Datos',          c:'#0EA5E9'},
+  {n:'Medios',         c:'#14B8A6'}
+];
+
+/* ---------- paleta de respaldo (categorías fuera de la lista) ---------- */
 const POOL = ['#7C3AED','#2563EB','#EF4444','#F97316','#EC4899','#65A30D','#0EA5E9','#14B8A6'];
 const CAT_MAP = {desarrollo:'#2563EB', diseno:'#EC4899', utilidades:'#F97316', productividad:'#7C3AED', finanzas:'#65A30D', datos:'#0EA5E9', medios:'#14B8A6'};
 
@@ -513,7 +510,7 @@ const DEMO = [
 /* ---------- estado ---------- */
 let tools = [], source = '—', lastSync = null;
 let activeCat = 'todas', query = '', view = localStorage.getItem(LS_VIEW) || 'list';
-let addColor = POOL[0], drawerTool = null, delArmed = false, fileDirty = false;
+let drawerTool = null, delArmed = false, fileDirty = false, colorDirty = false;
 
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -524,7 +521,6 @@ const hostOf = u => { try{ return new URL(u).hostname.replace(/^www\./,''); }cat
 const slug = s => norm(s).replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').replace(/-+/g,'-');
 const isExternal = u => /^https?:\/\//i.test(u);
 
-/* Resuelve la ruta: nombre de archivo → pages/, http → tal cual */
 function resolveUrl(u){
   u = String(u||'').trim();
   if(!u) return '';
@@ -542,11 +538,27 @@ function hexToRgb(hex){ const m=hex.replace('#',''); return {r:parseInt(m.slice(
 function rgba(hex,a){ const {r,g,b}=hexToRgb(hex); return `rgba(${r},${g},${b},${a})`; }
 function darken(hex,f){ const {r,g,b}=hexToRgb(hex); const d=v=>Math.round(v*f); return `rgb(${d(r)},${d(g)},${d(b)})`; }
 function onColor(hex){ const {r,g,b}=hexToRgb(hex); return (r*299+g*587+b*114)/1000 > 165 ? '#1E1B2E' : '#FFFFFF'; }
+function catColorOf(name){
+  const c = CATEGORIAS.find(x=>norm(x.n)===norm(name));
+  if(c) return c.c;
+  return CAT_MAP[norm(name)] || null;
+}
 function colorDe(t){
   if(t.color && /^#([0-9a-f]{6})$/i.test(t.color)) return t.color;
-  const n = norm(t.cat); return CAT_MAP[n] || POOL[hashIdx(n||'x', POOL.length)];
+  return catColorOf(t.cat) || POOL[hashIdx(norm(t.cat)||'x', POOL.length)];
 }
 function setVars(el,c){ el.style.setProperty('--c',c); el.style.setProperty('--cd',darken(c,.72)); el.style.setProperty('--cs',rgba(c,.08)); el.style.setProperty('--csh',rgba(c,.28)); el.style.setProperty('--cb',rgba(c,.5)); }
+
+/* ---------- clave de administración ---------- */
+function getAdminKey(){
+  let k = localStorage.getItem(LS_KEY_ADMIN) || '';
+  if(!k){
+    k = prompt('Clave de administración:') || '';
+    if(k) localStorage.setItem(LS_KEY_ADMIN, k);
+  }
+  return k;
+}
+function forgetAdminKey(){ localStorage.removeItem(LS_KEY_ADMIN); }
 
 /* ---------- ripple / toasts ---------- */
 document.addEventListener('pointerdown', e=>{
@@ -583,10 +595,10 @@ setInterval(()=>{
   if(!lastSync) return;
   const dot=$('syncDot'); if(!dot || !dot.classList.contains('on')) return;
   const s = Math.floor((Date.now()-lastSync)/1000);
-  setTxt('syncText', `sincronizado · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`);
+  setTxt('syncText', `al día · ${s<60?`hace ${s}s`:`hace ${Math.floor(s/60)}m`}`);
 },1000);
 
-/* ---------- normalización de filas de INDEX ---------- */
+/* ---------- normalización de filas ---------- */
 function normalize(rows){
   return rows.map(r=>({
     id:     String(pick(r,['id'])||''),
@@ -606,19 +618,18 @@ async function apiGetIndex(){
   const res = await fetch(getUrl(), {method:'GET', redirect:'follow'});
   if(!res.ok) throw new Error(`HTTP ${res.status}`);
   let j; try{ j = JSON.parse(await res.text()); }
-  catch{ throw new Error('La respuesta no es JSON válido. Revisa tu doGet().'); }
+  catch{ throw new Error('La conexión no respondió correctamente.'); }
   const rows = Array.isArray(j) ? j : (j.data || j.tools || j.items || []);
-  if(!Array.isArray(rows)) throw new Error('Formato no reconocido: se esperaba un array.');
+  if(!Array.isArray(rows)) throw new Error('Formato no reconocido.');
   return rows;
 }
 async function apiGetSheet(name){
   const res = await fetch(`${getUrl()}?action=sheet&name=${encodeURIComponent(name)}`, {redirect:'follow'});
   const j = JSON.parse(await res.text());
-  if(!j.ok) throw new Error(j.error||'Error al leer la hoja');
+  if(!j.ok) throw new Error(j.error||'Error al leer los datos');
   return j;
 }
 async function apiPost(payload){
-  // text/plain evita el preflight CORS que Apps Script no atiende
   const res = await fetch(getUrl(), {
     method:'POST',
     headers:{'Content-Type':'text/plain;charset=utf-8'},
@@ -639,9 +650,9 @@ async function load(force=false){
     const rows = await apiGetIndex();
     tools = normalize(rows);
     lastSync = new Date(); source = 'sheets';
-    if(!tools.length){ renderEmptyIndex(); setSync('off','índice vacío'); return; }
+    if(!tools.length){ renderEmptyIndex(); setSync('off','sin módulos'); return; }
     setSync('on'); renderAll();
-    if(force) toast('Índice sincronizado','ok');
+    if(force) toast('Todo actualizado','ok');
   }catch(err){
     renderError(err.message); setSync('off','sin conexión');
   }
@@ -652,7 +663,7 @@ function setSync(state, text){
   if(text) setTxt('syncText', text);
   else if(state==='on' && lastSync){
     const s = Math.floor((Date.now()-lastSync)/1000);
-    setTxt('syncText', `sincronizado · hace ${s}s`);
+    setTxt('syncText', `al día · hace ${s}s`);
   }
 }
 
@@ -677,7 +688,6 @@ function renderAll(){
   setTxt('statTools', tools.length);
   setTxt('statCats', new Set(tools.map(t=>norm(t.cat))).size);
   setTxt('statSheets', tools.filter(t=>t.hoja).length);
-  const cl=$('catList'); if(cl) cl.innerHTML = [...new Set(tools.map(t=>t.cat))].map(c=>`<option value="${esc(c)}">`).join('');
   const dn=$('demoNote'); if(dn) dn.classList.toggle('show', source==='demo');
 }
 function renderChips(){
@@ -704,14 +714,14 @@ function itemHTML(t,i,q){
     ? `href="${esc(dest)}"${ext?' target="_blank" rel="noopener"':''}`
     : `data-pend="${i}" role="button" tabindex="0"`;
   const badge = `<span class="badge" style="background:${c};color:${onColor(c)}">${esc(t.cat)}</span>`;
-  const hojaTag = t.hoja ? `<span class="host">▦ ${esc(t.hoja)}</span>` : `<span class="host">— sin hoja —</span>`;
+  const hojaTag = t.hoja ? `<span class="host">▦ datos</span>` : `<span class="host">— sin datos —</span>`;
   const monogram = `<span class="mono-badge" style="background:linear-gradient(135deg,${c},${darken(c,.72)})">${esc(t.titulo.charAt(0).toUpperCase())}</span>`;
   const body = `<span class="row-body">
       <div class="row-title">${highlight(t.titulo,q)}</div>
       ${t.desc?`<div class="row-desc">${highlight(t.desc,q)}</div>`:''}
     </span>`;
   const acts = `<span class="row-acts">
-      <button class="mini hoja" data-hoja="${i}" title="Ver su hoja de datos">
+      <button class="mini hoja" data-hoja="${i}" title="Ver datos">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
       </button>
       <span class="go-arrow"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
@@ -725,11 +735,11 @@ function itemHTML(t,i,q){
       <span class="card-band"></span>
       <div style="display:flex;justify-content:space-between;align-items:flex-start">${monogram}${badge}</div>
       <h3>${highlight(t.titulo,q)}</h3>
-      <p>${highlight(t.desc||'Sin descripción aún.',q)}</p>
+      <p>${highlight(t.desc||'',q)}</p>
       <div class="card-foot">
-        <span class="host">${t.url?esc(destLabel(t)):'sin destino · solo hoja'}</span>
+        <span class="host">${t.url?esc(destLabel(t)):'solo datos'}</span>
         <span class="card-acts">
-          <button class="mini hoja" data-hoja="${i}" title="Ver su hoja">
+          <button class="mini hoja" data-hoja="${i}" title="Ver datos">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
           </button>
           <span class="go-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
@@ -740,13 +750,13 @@ function itemHTML(t,i,q){
 function renderList(){
   const box=$('content'); if(!box) return;
   const list = filtered(), q = norm(query);
-  setTxt('viewNote', list.length===tools.length ? `${tools.length} registros` : `${list.length} de ${tools.length}`);
+  setTxt('viewNote', list.length===tools.length ? `${tools.length} módulos` : `${list.length} de ${tools.length}`);
   if(!list.length){
     box.innerHTML = `<div class="index"><div class="state-panel" style="border:none;box-shadow:none">
       <div class="glyph" style="background:${rgba('#7C3AED',.1)};color:var(--morado)">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
       <h3>Nada con «${esc(query)}»</h3><p>Prueba otras palabras o limpia los filtros.</p>
-      <div class="acts"><button class="btn btn-morado ripple" id="resetBtn">Limpiar búsqueda y filtros</button></div>
+      <div class="acts"><button class="btn btn-morado ripple" id="resetBtn">Limpiar filtros</button></div>
     </div></div>`;
     on('resetBtn','click',resetFilters); return;
   }
@@ -775,7 +785,7 @@ function renderError(msg){
   box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:${rgba('#EF4444',.1)};color:var(--rojo)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
-    <h3>No pude leer la hoja INDEX</h3><p>${esc(msg)}</p>
+    <h3>No pude conectarme</h3><p>${esc(msg)}</p>
     <div class="acts">
       <button class="btn btn-morado ripple" id="errRetry">Reintentar</button>
       <button class="btn btn-s ripple" id="errSettings">Revisar conexión</button>
@@ -790,10 +800,10 @@ function renderEmptyIndex(){
   box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
-    <h3>Tu índice está vacío</h3>
-    <p>La hoja <b>INDEX</b> está conectada pero sin módulos. Crea el primero y su hoja de datos nacerá automáticamente.</p>
+    <h3>Aún no hay módulos</h3>
+    <p>Crea el primero para comenzar tu colección.</p>
     <div class="acts">
-      <button class="btn btn-lima ripple" id="emptyAdd">＋ Crear primer módulo</button>
+      <button class="btn btn-lima ripple" id="emptyAdd">＋ Nuevo módulo</button>
       <button class="btn btn-s ripple" id="emptySettings">Revisar conexión</button>
     </div></div>`;
   on('emptyAdd','click',openAdd);
@@ -808,35 +818,26 @@ function renderSetup(){
   box.innerHTML = `<div class="state-panel">
     <div class="glyph" style="background:linear-gradient(135deg,${rgba('#7C3AED',.12)},${rgba('#2563EB',.12)});color:var(--morado)">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-    <h3>Falta un paso: tu URL /exec</h3>
-    <p>La forma correcta es fijarla en el código, <b>una sola vez</b> para todos los dispositivos.</p>
-    <div class="steps">
-      <div class="step"><span class="sn">1</span><div><h5>Pega el Code.gs</h5>
-        <p>Dentro de tu hoja: <code>Extensiones → Apps Script</code>, pega el archivo <code>Code.gs</code> y ejecuta una vez <code>instalar</code> (crea la hoja INDEX).</p></div></div>
-      <div class="step"><span class="sn">2</span><div><h5>Despliega la app web</h5>
-        <p><code>Implementar → App web</code> · ejecutar como <b>yo</b> · acceso <b>cualquier persona</b>. Copia la URL que termina en <code>/exec</code>.</p></div></div>
-      <div class="step"><span class="sn">3</span><div><h5>Pégala en el HTML (una vez)</h5>
-        <p>Abre <code>index.html</code> y escribe la URL en la constante <code>APPS_SCRIPT_URL</code>, al inicio del script. Listo: sirve en todos tus dispositivos.</p></div></div>
-    </div>
-    <div class="setup-form-label">…o solo para este navegador (override temporal)</div>
+    <h3>Conexión no configurada</h3>
+    <p>Este índice se alimenta de una hoja de cálculo. Pega la URL de conexión para comenzar.</p>
     <div class="setup-form">
-      <input type="url" id="setupUrl" placeholder="https://script.google.com/macros/s/…/exec" spellcheck="false">
+      <input type="url" id="setupUrl" placeholder="https://…/exec" spellcheck="false">
       <button class="btn btn-morado ripple" id="setupConnect">Conectar</button>
     </div>
     <div class="acts" style="margin-top:18px">
-      <button class="btn btn-lima ripple" id="setupDemo">Explorar con datos de ejemplo</button>
+      <button class="btn btn-lima ripple" id="setupDemo">Ver datos de ejemplo</button>
     </div></div>`;
   on('setupConnect','click',()=>{
     const inp=$('setupUrl'); const u = inp ? inp.value.trim() : '';
     if(!validUrl(u)) return;
-    localStorage.setItem(LS_URL,u); toast('URL guardada localmente. Conectando…','ok'); load();
+    localStorage.setItem(LS_URL,u); toast('Conectando…','ok'); load();
   });
   on('setupDemo','click',useDemo);
 }
 function validUrl(u){
-  if(!u){ toast('Pega primero la URL /exec','bad'); return false; }
+  if(!u){ toast('Pega primero la URL de conexión','bad'); return false; }
   if(!/^https:\/\/script\.google\.com\/macros\//.test(u) || !u.includes('/exec')){
-    toast('Debe ser una URL de Apps Script terminada en /exec','bad'); return false;
+    toast('Esa no parece una URL de conexión válida','bad'); return false;
   }
   return true;
 }
@@ -850,12 +851,12 @@ function useDemo(){
   toast('Datos de ejemplo cargados','info');
 }
 
-/* ---------- drawer: hoja del módulo ---------- */
+/* ---------- drawer ---------- */
 function openDrawer(t){
-  if(!$('drawer')){ console.warn('[TALLER] el drawer fue eliminado del HTML; no puedo mostrar la hoja.'); return; }
+  if(!$('drawer')){ console.warn('[TALLER] el drawer fue eliminado del HTML.'); return; }
   drawerTool = t; delArmed = false;
   const delBtn = $('drDelete');
-  if(delBtn){ delBtn.textContent='Eliminar módulo del índice'; delBtn.style.background=''; delBtn.style.color=''; delBtn.style.borderColor=''; }
+  if(delBtn){ delBtn.textContent='Eliminar módulo'; delBtn.style.background=''; delBtn.style.color=''; delBtn.style.borderColor=''; }
   const chk=$('drDelSheet'); if(chk) chk.checked=false;
   const c = colorDe(t);
   const head = $('drawerHead');
@@ -866,11 +867,11 @@ function openDrawer(t){
   setTxt('drTitle', t.titulo);
   setHTML('drMeta', `
     <span class="dr-tag">${esc(t.cat)}</span>
-    ${t.url?`<span class="dr-tag">${esc(destLabel(t))}</span>`:`<span class="dr-tag">sin destino · solo hoja</span>`}
+    ${t.url?`<span class="dr-tag">${esc(destLabel(t))}</span>`:`<span class="dr-tag">sin página</span>`}
     ${t.creado?`<span class="dr-tag">creado ${esc(t.creado)}</span>`:''}`);
-  setTxt('drSub', t.hoja ? `Hoja de datos: "${t.hoja}" en tu spreadsheet` : 'Este módulo aún no tiene hoja asignada');
+  setTxt('drSub', t.desc || '');
   const op=$('drOpen'); if(op) op.hidden = !t.url;
-  setHTML('drTable', `<div class="dr-empty">Cargando hoja…</div>`);
+  setHTML('drTable', `<div class="dr-empty">Cargando…</div>`);
   $('drawer').classList.add('open');
   const ov=$('drawerOv'); if(ov) ov.classList.add('open');
   loadDrawerSheet();
@@ -878,20 +879,20 @@ function openDrawer(t){
 async function loadDrawerSheet(){
   const t = drawerTool; if(!t) return;
   const box = $('drTable'); if(!box) return;
-  if(source==='demo'){ box.innerHTML = `<div class="dr-empty">Modo ejemplo: conecta tu hoja para ver los datos reales.</div>`; return; }
-  if(!t.hoja){ box.innerHTML = `<div class="dr-empty">Sin hoja asignada. Usa «Crear hoja si falta».</div>`; return; }
+  if(source==='demo'){ box.innerHTML = `<div class="dr-empty">Modo ejemplo: conecta la hoja para ver datos reales.</div>`; return; }
+  if(!t.hoja){ box.innerHTML = `<div class="dr-empty">Este módulo aún no tiene datos. Usa «Crear hoja».</div>`; return; }
   box.innerHTML = `<div class="dr-empty">Cargando…</div>`;
   try{
     const j = await apiGetSheet(t.hoja);
-    if(!j.existe){ box.innerHTML = `<div class="dr-empty">La hoja «${esc(t.hoja)}» no existe todavía.</div>`; return; }
+    if(!j.existe){ box.innerHTML = `<div class="dr-empty">Aún no hay datos para este módulo.</div>`; return; }
     const rows = j.data;
-    if(!rows.length){ box.innerHTML = `<div class="dr-empty">La hoja existe pero aún no tiene datos.</div>`; return; }
+    if(!rows.length){ box.innerHTML = `<div class="dr-empty">Este módulo aún no tiene datos registrados.</div>`; return; }
     const headers = Object.keys(rows[0]);
     const MAX = 40;
     box.innerHTML = `<div class="tbl-wrap"><table class="sheet-table">
       <thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
       <tbody>${rows.slice(0,MAX).map(r=>`<tr>${headers.map(h=>`<td>${esc(r[h])}</td>`).join('')}</tr>`).join('')}</tbody>
-    </table></div>${rows.length>MAX?`<div class="tbl-note">Mostrando ${MAX} de ${rows.length} filas.</div>`:''}`;
+    </table></div>${rows.length>MAX?`<div class="tbl-note">Mostrando ${MAX} de ${rows.length} registros.</div>`:''}`;
   }catch(err){
     box.innerHTML = `<div class="dr-empty">Error: ${esc(err.message)}</div>`;
   }
@@ -905,11 +906,11 @@ on('drawerClose','click',closeDrawer);
 on('drawerOv','click',closeDrawer);
 on('drRefresh','click',loadDrawerSheet);
 on('drEnsure','click',async ()=>{
-  if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
+  if(!getUrl()){ toast('Conecta la hoja primero','bad'); return; }
   if(!drawerTool) return;
   try{
     await apiPost({action:'ensureSheet', name: drawerTool.hoja || drawerTool.titulo});
-    toast('Hoja lista','ok'); loadDrawerSheet();
+    toast('Datos listos','ok'); loadDrawerSheet();
   }catch(err){ toast(err.message,'bad'); }
 });
 on('drOpen','click',()=>{
@@ -920,76 +921,96 @@ on('drOpen','click',()=>{
 });
 on('drDelete','click',async ()=>{
   if(!drawerTool) return;
-  if(!getUrl()){ toast('Conecta tu hoja primero','bad'); return; }
+  if(!getUrl()){ toast('Conecta la hoja primero','bad'); return; }
   const btn = $('drDelete'); if(!btn) return;
   if(!delArmed){
     delArmed = true;
-    btn.textContent = '¿Seguro? Clic de nuevo para confirmar';
+    btn.textContent = '¿Seguro? Toca de nuevo para confirmar';
     btn.style.background = 'var(--rojo)'; btn.style.color = '#fff'; btn.style.borderColor='var(--rojo)';
-    setTimeout(()=>{ delArmed=false; btn.textContent='Eliminar módulo del índice'; btn.style.background=''; btn.style.color=''; btn.style.borderColor=''; }, 4000);
+    setTimeout(()=>{ delArmed=false; btn.textContent='Eliminar módulo'; btn.style.background=''; btn.style.color=''; btn.style.borderColor=''; }, 4000);
     return;
   }
+  const clave = getAdminKey();
+  if(!clave){ toast('Se necesita la clave de administración','bad'); return; }
   try{
-    await apiPost({action:'deleteTool', id:drawerTool.id, titulo:drawerTool.titulo, borrarHoja:$('drDelSheet')?.checked});
+    await apiPost({action:'deleteTool', clave, id:drawerTool.id, titulo:drawerTool.titulo, borrarHoja:$('drDelSheet')?.checked});
     toast(`Módulo «${drawerTool.titulo}» eliminado`,'ok');
     closeDrawer(); load();
-  }catch(err){ toast(err.message,'bad'); }
+  }catch(err){
+    if(/clave/i.test(err.message)) forgetAdminKey();
+    toast(err.message,'bad');
+  }
 });
 
 /* ---------- nuevo módulo ---------- */
 function openAdd(){
   if(source==='demo' || !getUrl()){
-    toast('Pega tu URL /exec en APPS_SCRIPT_URL (en el HTML) o en Ajustes','info');
+    toast('Configura la conexión para crear módulos','info');
     openSettings(); return;
   }
   const set=(id,v)=>{ const el=$(id); if(el) el.value=v; };
-  set('fTitulo',''); set('fDesc',''); set('fFile',''); set('fCat','');
-  addColor = POOL[0]; fileDirty = false;
-  renderSwatches(); updateFilePreview();
+  const rec = localStorage.getItem(LS_KEY_ADMIN) || '';
+  set('fClave', rec);
+  const recChk=$('fClaveRec'); if(recChk) recChk.checked = !!rec;
+  set('fTitulo',''); set('fDesc',''); set('fFile','');
+  fileDirty=false; colorDirty=false;
+  /* select de categorías: predefinidas + las que ya existan en la hoja */
+  const extra = [...new Set(tools.map(t=>t.cat))].filter(c=>!catColorOf(c));
+  const sel=$('fCat');
+  if(sel){
+    sel.innerHTML = CATEGORIAS.map(c=>`<option value="${esc(c.n)}">${esc(c.n)}</option>`).join('')
+      + extra.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  }
+  updateColorFromCat();
   const ov=$('ovAdd'); if(ov) ov.classList.add('open');
-  const f=$('fTitulo'); if(f) setTimeout(()=>f.focus(),80);
+  setTimeout(()=>{ const el = rec ? $('fTitulo') : $('fClave'); el && el.focus(); },80);
 }
-function renderSwatches(){
-  const box=$('fSwatches'); if(!box) return;
-  box.innerHTML = POOL.map(c=>
-    `<button type="button" class="sw-opt ${c===addColor?'active':''}" data-c="${c}" style="--c:${c}" aria-label="${c}"></button>`).join('');
-  box.querySelectorAll('.sw-opt').forEach(b=>b.addEventListener('click',()=>{
-    addColor = b.dataset.c; renderSwatches();
-  }));
+function updateColorFromCat(){
+  const sel=$('fCat'), col=$('fColor'), hex=$('fColorHex');
+  if(!sel||!col) return;
+  const c = catColorOf(sel.value);
+  if(c && !colorDirty){ col.value = c; }
+  if(hex) hex.textContent = col.value.toUpperCase();
 }
-function updateFilePreview(){
-  const inp=$('fFile'); const el=$('filePreview'); if(!inp||!el) return;
-  const v = inp.value.trim();
-  if(!v){ el.textContent = 'Vacío → módulo sin destino: vivirá solo como hoja de datos.'; return; }
-  el.textContent = '→ ' + new URL(resolveUrl(v), location.href).href;
-}
-on('fTitulo','input',()=>{
-  if(!fileDirty){ const f=$('fFile'); if(f) f.value = slug($('fTitulo').value) + '.html'; }
-  updateFilePreview();
+on('fCat','change',updateColorFromCat);
+on('fColor','input',()=>{
+  colorDirty = true;
+  const hex=$('fColorHex'); if(hex) hex.textContent = $('fColor').value.toUpperCase();
 });
-on('fFile','input',()=>{ fileDirty=true; updateFilePreview(); });
+on('fTitulo','input',()=>{
+  if(!fileDirty){ const f=$('fFile'); if(f && !$('fTitulo').value.trim()===false && f) f.value = slug($('fTitulo').value) + '.html'; }
+});
+on('fFile','input',()=>{ fileDirty=true; });
 on('btnAdd','click',openAdd);
 on('addClose','click',()=>{ const ov=$('ovAdd'); if(ov) ov.classList.remove('open'); });
  $('ovAdd')?.addEventListener('click',e=>{ if(e.target===$('ovAdd')) $('ovAdd').classList.remove('open'); });
 on('btnAddSave','click',async ()=>{
+  const clave = $('fClave') ? $('fClave').value : '';
+  if(!clave){ toast('Escribe la clave de administración','bad'); $('fClave')?.focus(); return; }
   const inp=$('fTitulo');
   const titulo = inp ? inp.value.trim() : '';
-  if(!titulo){ toast('El título es obligatorio','bad'); inp?.focus(); return; }
+  if(!titulo){ toast('Escribe el nombre del módulo','bad'); inp?.focus(); return; }
   const btn = $('btnAddSave'); if(btn) btn.disabled=true;
   try{
     const g=id=>{ const el=$(id); return el?el.value.trim():''; };
     const out = await apiPost({
       action:'addTool',
+      clave,
       titulo,
       descripcion: g('fDesc'),
-      url: g('fFile'),          // se guarda tal cual; resolveUrl() lo manda a pages/
+      url: g('fFile'),
       categoria: g('fCat') || 'General',
-      color: addColor
+      color: g('fColor') || ''
     });
+    if($('fClaveRec')?.checked) localStorage.setItem(LS_KEY_ADMIN, clave);
+    else forgetAdminKey();
     const ov=$('ovAdd'); if(ov) ov.classList.remove('open');
-    toast(`Módulo creado · hoja "${out.hoja}" ${out.hojaCreada?'creada':'reutilizada'}`,'ok');
+    toast(`«${titulo}» creado`,'ok');
     load();
-  }catch(err){ toast(err.message,'bad'); }
+  }catch(err){
+    if(/clave/i.test(err.message)){ $('fClave')?.focus(); }
+    toast(err.message,'bad');
+  }
   finally{ if(btn) btn.disabled=false; }
 });
 
@@ -1012,7 +1033,7 @@ on('btnTest','click',async ()=>{
   const inp=$('urlInput'); const u = inp ? inp.value.trim() : '';
   if(!validUrl(u)) return;
   const line = $('testLine');
-  if(line){ line.className='test-line'; line.textContent='Probando conexión…'; }
+  if(line){ line.className='test-line'; line.textContent='Probando…'; }
   try{
     const res = await fetch(u,{redirect:'follow'});
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1022,11 +1043,10 @@ on('btnTest','click',async ()=>{
     const n = normalize(rows).length;
     if(line){
       line.className='test-line ok';
-      line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s) en INDEX.`;
+      line.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Conexión correcta — ${n} módulo(s).`;
     }
     localStorage.setItem(LS_URL,u);
     const br=$('btnRestore'); if(br) br.hidden = (u === APPS_SCRIPT_URL);
-    toast(u===APPS_SCRIPT_URL ? 'Conexión verificada' : 'Override local guardado','ok');
     setTimeout(()=>{ closeSettings(); load(); },700);
   }catch(err){
     if(line){
@@ -1039,8 +1059,13 @@ on('btnRestore','click',()=>{
   localStorage.removeItem(LS_URL);
   const inp=$('urlInput'); if(inp) inp.value = APPS_SCRIPT_URL;
   const br=$('btnRestore'); if(br) br.hidden = true;
-  toast('Restaurada la URL del código','info');
+  toast('Conexión restaurada','info');
   load();
+});
+on('btnForget','click',()=>{
+  localStorage.removeItem(LS_URL);
+  toast('Conexión restablecida','info');
+  closeSettings(); renderSetup();
 });
 
 /* ---------- búsqueda / vista / atajos / sync ---------- */
