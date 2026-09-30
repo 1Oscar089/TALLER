@@ -23,7 +23,7 @@
   body{background:var(--bg);color:var(--ink);font-family:var(--fu);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  input,select{font-family:inherit}
+  input{font-family:inherit}
   ::selection{background:var(--lima);color:var(--lima-ink)}
   :focus-visible{outline:2px solid var(--morado);outline-offset:2px;border-radius:4px}
   svg{display:block}
@@ -196,8 +196,6 @@
   .field input{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg)}
   .field input:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
   .field input.mono{font-family:var(--fm);font-size:13px}
-  .field select{width:100%;padding:12px 15px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:var(--bg);cursor:pointer}
-  .field select:focus{border-color:var(--morado);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.14)}
   .chk-sm{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;margin-top:8px;user-select:none}
   .chk-sm input{accent-color:var(--morado);width:15px;height:15px;cursor:pointer}
   .color-row{display:flex;align-items:center;gap:12px}
@@ -404,8 +402,9 @@
         <input type="text" id="fFile" class="mono" placeholder="acortador.html" spellcheck="false">
       </div>
       <div class="field">
-        <label for="fCat">Categoría</label>
-        <select id="fCat"></select>
+        <label for="fCat">Categoría <span>· elige una o escribe la tuya</span></label>
+        <input type="text" id="fCat" list="catList" placeholder="Ej: Desarrollo" maxlength="40" autocomplete="off">
+        <datalist id="catList"></datalist>
       </div>
       <div class="field">
         <label for="fColor">Color</label>
@@ -465,9 +464,9 @@
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   ⚙️  CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
+   ⚙️  CONFIGURACIÓN — EDITA SOLO ESTA LÍNEA SI CAMBIAS DE HOJA
    ═══════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec";
 const PAGES_DIR       = "pages/"; // ← carpeta de módulos en tu repo
 
 const LS_URL       = "taller.sheetsUrlOverride";
@@ -483,7 +482,7 @@ function on(id, ev, fn){
 const setTxt  = (id,v)=>{ const el=$(id); if(el) el.textContent=v; };
 const setHTML = (id,v)=>{ const el=$(id); if(el) el.innerHTML=v; };
 
-/* ---------- categorías predefinidas ---------- */
+/* ---------- categorías predefinidas (con color sugerido) ---------- */
 const CATEGORIAS = [
   {n:'Desarrollo',     c:'#2563EB'},
   {n:'Diseño',         c:'#EC4899'},
@@ -494,9 +493,8 @@ const CATEGORIAS = [
   {n:'Medios',         c:'#14B8A6'}
 ];
 
-/* ---------- paleta de respaldo (categorías fuera de la lista) ---------- */
+/* ---------- paleta de respaldo (categorías sin color conocido) ---------- */
 const POOL = ['#7C3AED','#2563EB','#EF4444','#F97316','#EC4899','#65A30D','#0EA5E9','#14B8A6'];
-const CAT_MAP = {desarrollo:'#2563EB', diseno:'#EC4899', utilidades:'#F97316', productividad:'#7C3AED', finanzas:'#65A30D', datos:'#0EA5E9', medios:'#14B8A6'};
 
 /* ---------- demo (solo para previsualizar sin hoja) ---------- */
 const DEMO = [
@@ -540,8 +538,7 @@ function darken(hex,f){ const {r,g,b}=hexToRgb(hex); const d=v=>Math.round(v*f);
 function onColor(hex){ const {r,g,b}=hexToRgb(hex); return (r*299+g*587+b*114)/1000 > 165 ? '#1E1B2E' : '#FFFFFF'; }
 function catColorOf(name){
   const c = CATEGORIAS.find(x=>norm(x.n)===norm(name));
-  if(c) return c.c;
-  return CAT_MAP[norm(name)] || null;
+  return c ? c.c : null;
 }
 function colorDe(t){
   if(t.color && /^#([0-9a-f]{6})$/i.test(t.color)) return t.color;
@@ -583,7 +580,7 @@ function toast(msg, type='ok'){
   setTimeout(()=>{ t.classList.add('out'); t.addEventListener('animationend',()=>t.remove()); }, 3600);
 }
 
-/* ---------- reloj / "hace Xs" ---------- */
+/* ---------- reloj / "al día" ---------- */
 function tickClock(){
   const d = new Date();
   setTxt('heroClock',
@@ -693,7 +690,11 @@ function renderAll(){
 function renderChips(){
   const box=$('chips'); if(!box) return;
   const cats = {}; tools.forEach(t=>cats[t.cat]=(cats[t.cat]||0)+1);
-  const names = Object.keys(cats).sort((a,b)=>a.localeCompare(b,'es'));
+  /* predefinidas primero, en su orden; luego las de la hoja, alfabético */
+  const names = [
+    ...CATEGORIAS.map(c=>c.n).filter(n=>cats[n]),
+    ...Object.keys(cats).filter(n=>!catColorOf(n)).sort((a,b)=>a.localeCompare(b,'es'))
+  ];
   const chip = (name,label,n)=>{
     if(name==='todas')
       return `<button class="chip ripple ${activeCat==='todas'?'active':''}" data-cat="todas">Todas <span class="n">${n}</span></button>`;
@@ -943,6 +944,14 @@ on('drDelete','click',async ()=>{
 });
 
 /* ---------- nuevo módulo ---------- */
+/* opciones del combobox de categoría:
+   predefinidas + las que ya existan guardadas en la hoja */
+function catOptions(){
+  const extras = [...new Set(tools.map(t=>t.cat))]
+    .filter(c=>c && !CATEGORIAS.some(x=>norm(x.n)===norm(c)))
+    .sort((a,b)=>a.localeCompare(b,'es'));
+  return [...CATEGORIAS.map(c=>c.n), ...extras];
+}
 function openAdd(){
   if(source==='demo' || !getUrl()){
     toast('Configura la conexión para crear módulos','info');
@@ -952,33 +961,41 @@ function openAdd(){
   const rec = localStorage.getItem(LS_KEY_ADMIN) || '';
   set('fClave', rec);
   const recChk=$('fClaveRec'); if(recChk) recChk.checked = !!rec;
-  set('fTitulo',''); set('fDesc',''); set('fFile','');
+  set('fTitulo',''); set('fDesc',''); set('fFile',''); set('fCat','');
   fileDirty=false; colorDirty=false;
-  /* select de categorías: predefinidas + las que ya existan en la hoja */
-  const extra = [...new Set(tools.map(t=>t.cat))].filter(c=>!catColorOf(c));
-  const sel=$('fCat');
-  if(sel){
-    sel.innerHTML = CATEGORIAS.map(c=>`<option value="${esc(c.n)}">${esc(c.n)}</option>`).join('')
-      + extra.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
-  }
-  updateColorFromCat();
+  const dl=$('catList');
+  if(dl) dl.innerHTML = catOptions().map(c=>`<option value="${esc(c)}">`).join('');
+  updateColorHex();
   const ov=$('ovAdd'); if(ov) ov.classList.add('open');
   setTimeout(()=>{ const el = rec ? $('fTitulo') : $('fClave'); el && el.focus(); },80);
 }
+/* si la categoría escrita coincide con una conocida (o ya guardada
+   con color), sugiere su color — salvo que el usuario haya elegido
+   uno manualmente en esta sesión del modal */
 function updateColorFromCat(){
-  const sel=$('fCat'), col=$('fColor'), hex=$('fColorHex');
-  if(!sel||!col) return;
-  const c = catColorOf(sel.value);
-  if(c && !colorDirty){ col.value = c; }
-  if(hex) hex.textContent = col.value.toUpperCase();
+  const sel=$('fCat'); if(!sel) return;
+  const v = sel.value.trim();
+  const known = catColorOf(v) || colorDe({cat:v,color:''});
+  if(known && !colorDirty){
+    const col=$('fColor'); if(col) col.value = known;
+  }
+  updateColorHex();
 }
-on('fCat','change',updateColorFromCat);
+function updateColorHex(){
+  const col=$('fColor'), hex=$('fColorHex');
+  if(col && hex) hex.textContent = col.value.toUpperCase();
+}
+on('fCat','input', debounce(updateColorFromCat, 120));
+on('fCat','change', updateColorFromCat);
 on('fColor','input',()=>{
   colorDirty = true;
-  const hex=$('fColorHex'); if(hex) hex.textContent = $('fColor').value.toUpperCase();
+  updateColorHex();
 });
 on('fTitulo','input',()=>{
-  if(!fileDirty){ const f=$('fFile'); if(f && !$('fTitulo').value.trim()===false && f) f.value = slug($('fTitulo').value) + '.html'; }
+  if(!fileDirty){
+    const f=$('fFile'), t=$('fTitulo');
+    if(f && t) f.value = t.value.trim() ? slug(t.value) + '.html' : '';
+  }
 });
 on('fFile','input',()=>{ fileDirty=true; });
 on('btnAdd','click',openAdd);
