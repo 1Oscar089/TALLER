@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tabla Periódica · TALLER</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237C3AED'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='34' font-weight='bold' text-anchor='middle' fill='%23D4F542'%3EHe%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -32,16 +33,9 @@
   .band{height:4px;background:linear-gradient(90deg,var(--morado),var(--azul) 35%,var(--rojo) 70%,var(--lima))}
   header.top{position:sticky;top:0;z-index:60;background:rgba(245,245,250,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .top-in{max-width:1280px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:14px}
-  .back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13.5px;background:linear-gradient(135deg,var(--morado),var(--azul));color:#fff;text-decoration:none;box-shadow:0 4px 10px rgba(124,58,237,.3);transition:.18s}
-  .back:hover{transform:translateX(-2px);box-shadow:0 6px 16px rgba(124,58,237,.4)}
-  .brand-t{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:.02em}
-  .brand-t small{font-family:var(--fm);font-size:10px;color:var(--ink-soft);letter-spacing:.14em;font-weight:400;margin-left:8px}
-  .top-right{margin-left:auto;display:flex;align-items:center;gap:9px}
-  .sync{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11.5px;color:var(--ink-soft)}
-  .dot{width:9px;height:9px;border-radius:50%;flex:none}
-  .dot.on{background:#65A30D;box-shadow:0 0 0 3px #EAF5D3}
-  .dot.off{background:var(--rojo);box-shadow:0 0 0 3px #FDE8E8}
-  .dot.wait{background:#C6C3D4;box-shadow:0 0 0 3px #ECEAF4}
+  .brand-t{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .brand-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--morado),var(--azul));color:var(--lima);display:grid;place-items:center;font-family:var(--fm);font-size:12px;font-weight:500;box-shadow:0 4px 10px rgba(124,58,237,.35)}
+  .brand-t small{font-family:var(--fm);font-size:10px;color:var(--ink-soft);letter-spacing:.14em;font-weight:400}
 
   .wrap{max-width:1280px;margin:0 auto;padding:22px 20px 80px}
 
@@ -54,15 +48,13 @@
     box-shadow:var(--sh-lg)}
   .hero::before{content:"";position:absolute;inset:0;
     background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
-    background-size:34px 34px;
-    -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
+    background-size:34px 34px;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
   .hero>*{position:relative}
   .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
   .kicker::before{content:"";width:22px;height:3px;background:var(--lima);border-radius:2px}
   .hero h1{font-family:var(--fd);font-weight:700;font-size:clamp(26px,3.6vw,40px);line-height:1.1;margin-top:10px}
   .hero h1 em{font-style:normal;color:var(--lima)}
   .hero-sub{margin-top:8px;font-size:14px;color:rgba(255,255,255,.82);max-width:640px}
-  .hero-sub code{font-family:var(--fm);font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:0 6px;border-radius:6px;color:var(--lima)}
   .hero-stats{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
   .hstat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(6px);border-radius:13px;padding:10px 18px;min-width:104px}
   .hstat .num{font-family:var(--fd);font-weight:700;font-size:24px;line-height:1;font-variant-numeric:tabular-nums}
@@ -77,8 +69,7 @@
   .search input::placeholder{color:#A9A6BB}
   .search .clear{display:none;color:var(--ink-soft)}
   .search.has .clear{display:block}
-  .chip-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;transition:.15s;box-shadow:var(--sh)}
-  .chip-btn:hover{border-color:var(--morado);color:var(--morado)}
+  .search .clear:hover{color:var(--rojo)}
   .match-note{font-family:var(--fm);font-size:12px;color:var(--ink-soft)}
 
   /* LEYENDA */
@@ -101,12 +92,12 @@
   .el .tn{font-size:7.5px;color:var(--et);opacity:.8;max-width:94%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .el.dim{opacity:.15;filter:grayscale(1)}
   .el.hit{outline:2.5px solid var(--morado);outline-offset:1px}
-  .ph{aspect-ratio:1/1.08;border-radius:10px;border:1.5px dashed var(--ec);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+  .ph{aspect-ratio:1/1.08;border-radius:10px;border:1.5px dashed var(--ec);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s;padding:0}
   .ph:hover{background:var(--eb)}
   .ph b{font-family:var(--fm);font-size:11px;color:var(--et)}
   .ph span{font-size:8px;color:var(--et);opacity:.75}
 
-  /* MODAL FICHA */
+  /* FICHA */
   .overlay{position:fixed;inset:0;background:rgba(30,27,46,.55);backdrop-filter:blur(5px);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
   .overlay.open{display:flex;animation:fadeIn .18s ease}
   @keyframes fadeIn{from{opacity:0}}
@@ -132,7 +123,7 @@
   .lewis{position:relative;width:96px;height:96px}
   .lewis .sym{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:30px;color:var(--ink)}
   .lewis i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ec,#7C3AED)}
-  .lewis-na{font-family:var(--fm);font-size:11px;color:var(--ink-soft);padding:18px 0}
+  .lewis-na{font-family:var(--fm);font-size:11px;color:var(--ink-soft);padding:18px 0;text-align:center;line-height:1.6}
   .lewis-cap{font-size:11px;color:var(--ink-soft);text-align:center}
 
   .data-list{display:flex;flex-direction:column;gap:13px;min-width:0}
@@ -156,12 +147,9 @@
   .val-src{font-family:var(--fm);font-size:12.5px;color:var(--ink-soft)}
   .val-src sup{font-size:9px}
 
-  footer{border-top:1px solid var(--line);padding:20px 0 40px}
+  footer{border-top:1px solid var(--line);padding:20px 0 36px}
   .foot-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--fm);font-size:11px;color:var(--ink-soft)}
-  .foot-in a{color:var(--morado);font-weight:600;text-decoration:none}
-  .foot-in a:hover{text-decoration:underline}
 
-  /* TOASTS */
   .toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
   .toast{display:flex;align-items:center;gap:9px;padding:11px 17px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:var(--sh-lg);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);max-width:90vw}
   .toast.ok{background:var(--lima);color:var(--lima-ink)}
@@ -173,7 +161,6 @@
 
   @media(max-width:680px){
     .ficha-body{grid-template-columns:1fr}
-    .sync span{display:none}
     .brand-t small{display:none}
     .hero{padding:24px 22px}
   }
@@ -185,14 +172,7 @@
 
 <header class="top">
   <div class="top-in">
-    <a class="back ripple" href="../index.html">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      TALLER
-    </a>
-    <span class="brand-t">Tabla Periódica<small>· MÓDULO</small></span>
-    <div class="top-right">
-      <div class="sync"><span class="dot wait" id="syncDot"></span><span id="syncText">conectando…</span></div>
-    </div>
+    <span class="brand-t"><span class="brand-mark">T</span>Tabla Periódica<small>· TALLER</small></span>
   </div>
 </header>
 
@@ -201,11 +181,11 @@
   <section class="hero">
     <span class="kicker">Química · 118 elementos</span>
     <h1>La <em>Tabla Periódica</em>, a un toque.</h1>
-    <p class="hero-sub">Toca cualquier elemento para ver su ficha completa: configuración electrónica, Lewis, estados de oxidación y más. Cada consulta queda registrada en la hoja <code>Tabla Periodica</code> de tu Google Sheet.</p>
+    <p class="hero-sub">Toca cualquier elemento para ver su ficha completa: configuración electrónica, estructura de Lewis, estados de oxidación, protones, electrones y neutrones.</p>
     <div class="hero-stats">
       <div class="hstat"><div class="num">118</div><div class="lbl">elementos</div></div>
       <div class="hstat"><div class="num" id="statCats">10</div><div class="lbl">familias</div></div>
-      <div class="hstat"><div class="num" id="statLogs">—</div><div class="lbl">consultas en hoja</div></div>
+      <div class="hstat"><div class="num" id="statVisits">0</div><div class="lbl">consultas aquí</div></div>
     </div>
   </section>
 
@@ -218,10 +198,6 @@
       </button>
     </div>
     <span class="match-note" id="matchNote"></span>
-    <button class="chip-btn ripple" id="btnSheet" title="Crear la hoja Tabla Periodica si no existe">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
-      Crear hoja si falta
-    </button>
   </div>
 
   <div class="legend" id="legend"></div>
@@ -231,8 +207,8 @@
 
 <footer>
   <div class="foot-in">
-    <span>TALLER · módulo de química · hoja "Tabla Periodica"</span>
-    <a href="../index.html">← volver al índice</a>
+    <span>TALLER · módulo de química · funciona sin conexión</span>
+    <span>datos incluidos en la página</span>
   </div>
 </footer>
 
@@ -286,17 +262,14 @@
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   ⚙️ CONFIGURACIÓN — EDITA SOLO ESTAS DOS LÍNEAS
-   ═══════════════════════════════════════════════════════════════
-   APPS_SCRIPT_URL → la MISMA URL /exec que pusiste en index.html.
-   También funciona con ?api=<url> en la barra de direcciones.
-   Sin URL el módulo funciona igual (modo local), solo que no
-   registra consultas en la hoja.
+   TABLA PERIÓDICA — 100% autónoma. Todo incluido en este HTML:
+   datos, configuraciones electrónicas, Lewis y fichas. Sin
+   conexión externa, sin base de datos, sin servidores.
    ═══════════════════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4caZ2W6r6u8T4ZT6hVV_zdqwF7kCTCBsTsmKM3zFo1g2N0HgG5LYIFib_VCp3L2F/exec"; // ← ej: "https://script.google.com/macros/s/AKfycb…/exec"
-const SHEET_NAME      = "Tabla Periodica"; // ← nombre EXACTO de la hoja en tu spreadsheet
 
 const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 
 /* ═══════ DATOS: 118 ELEMENTOS ═══════
    [Z, símbolo, nombre, masa, familia, "estados oxidación", grupo, periodo]
@@ -363,7 +336,7 @@ const E=[
 [117,"Ts","Teneso",294,6,"—",17,7],[118,"Og","Oganesón",294,7,"0,+2",18,7]
 ];
 
-/* Familias: nombre + colores (paleta TALLER) */
+/* Familias: nombre + colores */
 const CATS=[
  {n:"Metal alcalino",       c:"#DC2626", b:"#FDE8EC"},
  {n:"Alcalinotérreo",       c:"#EA580C", b:"#FEF0E6"},
@@ -429,48 +402,7 @@ const supHTML=list=>list.map(s=>`${s[0]}${s[1]}<sup>${s[2]}</sup>`).join(' ');
 const plain=list=>list.map(s=>`${s[0]}${s[1]}${s[2]}`).join(' ');
 
 /* ═══════ ESTADO ═══════ */
-let filterCat=-1, query='';
-const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-
-/* ═══════ CONEXIÓN A LA HOJA ═══════ */
-function getApi(){
-  const q=new URLSearchParams(location.search);
-  return (q.get('api')||APPS_SCRIPT_URL||localStorage.getItem('taller.sheetsUrlOverride')||'').trim();
-}
-async function apiPost(payload){
-  const res=await fetch(getApi(),{method:'POST',
-    headers:{'Content-Type':'text/plain;charset=utf-8'},
-    body:JSON.stringify(payload),redirect:'follow'});
-  const j=JSON.parse(await res.text());
-  if(!j.ok) throw new Error(j.error||'Error del servidor');
-  return j.data;
-}
-async function sheetStatus(){
-  if(!getApi()){ setDot('wait','modo local · sin hoja'); $('statLogs').textContent='—'; return; }
-  setDot('wait','verificando hoja…');
-  try{
-    const res=await fetch(`${getApi()}?action=sheet&name=${encodeURIComponent(SHEET_NAME)}`,{redirect:'follow'});
-    const j=JSON.parse(await res.text());
-    if(!j.ok) throw new Error(j.error||'error');
-    $('statLogs').textContent = j.existe ? j.data.length : '0';
-    setDot('on',`hoja "${SHEET_NAME}" · ${j.existe?j.data.length:0} filas`);
-  }catch(err){ setDot('off','hoja no accesible'); }
-}
-async function logConsulta(e){
-  if(!getApi()) return;
-  try{
-    await apiPost({action:'saveRow', hoja:SHEET_NAME,
-      values:[new Date().toISOString(), e.z, e.name, e.sym]});
-    const n=$('statLogs').textContent;
-    if(/^\d+$/.test(n)) $('statLogs').textContent=+n+1;
-  }catch(_){/* silencioso: no molesta la exploración */}
-}
-function setDot(st,txt){ $('syncDot').className='dot '+st; if(txt)$('syncText').textContent=txt; }
- $('btnSheet').addEventListener('click',async ()=>{
-  if(!getApi()){ toast('Pega tu URL /exec en APPS_SCRIPT_URL (inicio del script)','bad'); return; }
-  try{ await apiPost({action:'ensureSheet',name:SHEET_NAME}); toast(`Hoja "${SHEET_NAME}" lista`,'ok'); sheetStatus(); }
-  catch(err){ toast(err.message,'bad'); }
-});
+let filterCat=-1, query='', visits=0;
 
 /* ═══════ POSICIÓN EN LA TABLA ═══════ */
 function tilePos(e){
@@ -490,7 +422,6 @@ function buildTable(){
       style="grid-row:${r};grid-column:${c};--ec:${C.c};--eb:${C.b};--et:${C.c};--ecsh:${C.c}44;animation-delay:${Math.min(i*6,300)}ms">
       <span class="tz">${e.z}</span><span class="ts">${e.sym}</span><span class="tn">${e.name}</span></button>`;
   });
-  /* marcadores de bloque f */
   html+=`<button class="ph" data-ph="8" style="grid-row:6;grid-column:3;--ec:#A855F7;--eb:#F4EBFE;--et:#A855F7"><b>57–71</b><span>La–Lu</span></button>
          <button class="ph" data-ph="9" style="grid-row:7;grid-column:3;--ec:#4F46E5;--eb:#EAEBFD;--et:#4F46E5"><b>89–103</b><span>Ac–Lr</span></button>`;
   g.innerHTML=html;
@@ -546,8 +477,8 @@ function lewisHTML(z,v,C,sym){
   let pos=[0,0,0,0]; // top, right, bottom, left
   if(z===2){ pos=[2,0,0,0]; }
   else for(let i=0;i<v;i++){ if(i<4)pos[i]=1; else pos[i-4]=2; }
-  const S=[[44,2],[86,44],[44,86],[2,44]];      // singles (x,y) en caja 96px
-  const P=[[[37,2],[51,2]],[[86,37],[86,51]],[[37,86],[51,86]],[[2,37],[2,51]]]; // pares
+  const S=[[44,2],[86,44],[44,86],[2,44]];
+  const P=[[[37,2],[51,2]],[[86,37],[86,51]],[[37,86],[51,86]],[[2,37],[2,51]]];
   let dots='';
   pos.forEach((n,i)=>{
     if(n===1) dots+=`<i style="left:${S[i][0]}px;top:${S[i][1]}px;background:${C.c}"></i>`;
@@ -581,20 +512,20 @@ function openFicha(d){
   const oxBox=$('fOx');
   if(e.ox==='—'){ oxBox.innerHTML=`<span class="ox" style="color:#67647A;border-color:var(--line)">— desconocidos —</span>`; }
   else oxBox.innerHTML=e.ox.split(',').map(o=>{
-    const neg=o.startsWith('-'), zero=o==='0'||o==='0?';
+    const neg=o.startsWith('-'), zero=o==='0';
     const col=zero?'#67647A':(neg?'#EF4444':'#2563EB');
     return `<span class="ox" style="color:${col};border-color:${col}44;background:${col}14">${o}</span>`;
   }).join('');
 
-    const rep=[0,1,3,4,5,6,7].includes(e.cat);
+  const rep=[0,1,3,4,5,6,7].includes(e.cat);
   const lw=$('fLewis');
   if(lw){ lw.style.setProperty('--ec',C.c); }
   if(lw) lw.innerHTML = rep
     ? lewisHTML(e.z,cfg.val.v,C,e.sym)
-    : `<div class="lewis-na">— no representativo —</div>`;
+    : `<div class="lewis-na">— no representativo —<br>el diagrama de puntos clásico<br>solo aplica a representativos</div>`;
   $('fLewisCap').textContent = rep
     ? `${cfg.val.v} electrón${cfg.val.v===1?'':'es'} de valencia`
-    : `Diagrama de puntos clásico solo para representativos · valencia: ${cfg.val.src.map(s=>s[0]+s[1]+s[2]).join(' + ')}`;
+    : `valencia: ${cfg.val.src.map(s=>s[0]+s[1]+s[2]).join(' + ')}`;
 
   const cf=$('fConfFull');
   cf.innerHTML=supHTML(cfg.full)+`<button class="copy ripple" data-copy="${plain(cfg.full)}">copiar</button>`;
@@ -608,7 +539,8 @@ function openFicha(d){
   }));
 
   $('overlay').classList.add('open');
-  logConsulta(e);
+  visits++;
+  $('statVisits').textContent=visits;
 }
 function closeFicha(){ $('overlay').classList.remove('open'); }
  $('fClose').addEventListener('click',closeFicha);
@@ -633,7 +565,6 @@ document.addEventListener('pointerdown',e=>{
 buildTable();
 buildLegend();
 applyFilter();
-sheetStatus();
 </script>
 </body>
 </html>
